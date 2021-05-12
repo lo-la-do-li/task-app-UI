@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 import AccessError from '../../ui/AccessError';
 import '../Login/Login.css';
 
 const SignUp = () => {
-	const [user, setUser] = useState(null);
+	const [state, dispatch] = useContext(AppContext);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -28,14 +29,22 @@ const SignUp = () => {
 		setEmail('');
 		setPassword('');
 	};
+
+	const setUserState = (user) => {
+		console.log('called');
+		const action = { type: 'SET_USER', authUser: user };
+		dispatch(action);
+	};
+
 	const registerNewUser = async (e) => {
 		e.preventDefault();
+
 		const userDetails = {
 			name,
 			email,
 			password,
 		};
-		console.log('userDetails:', userDetails);
+
 		await userAPI.createNewUser(userDetails).then((response) => {
 			let message;
 			// Account for user input errors
@@ -59,7 +68,7 @@ const SignUp = () => {
 				// document.cookie = `auth_token=${response.token}`;
 				setErrorMessage('');
 				clearInputs();
-				return setUser(newUser);
+				return setUserState(newUser);
 			}
 		});
 	};
