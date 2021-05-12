@@ -8,18 +8,34 @@ const SignUp = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
-	useEffect(() => {
-		// login();
-	}, []);
+	// useEffect(() => {
+	// 	// login();
+	// }, []);
 
-	const handleChange = (event) => {
-		event.target.name === 'email'
-			? setEmail(event.target.value)
-			: setPassword(event.target.value);
+	const AccessError = ({ message }) => {
+		return <p className='error-message'>{message}</p>;
 	};
 
-	const submitCredentials = (e) => {
+	const handleInput = (e) => {
+		if (e.target.name === 'name') {
+			setName(e.target.value);
+		}
+		if (e.target.name === 'email') {
+			setEmail(e.target.value);
+		}
+		if (e.target.name === 'password') {
+			setPassword(e.target.value);
+		}
+	};
+
+	const clearInputs = () => {
+		setName('');
+		setEmail('');
+		setPassword('');
+	};
+	const registerNewUser = async (e) => {
 		e.preventDefault();
 		const userDetails = {
 			name,
@@ -27,21 +43,30 @@ const SignUp = () => {
 			password,
 		};
 		console.log('userDetails:', userDetails);
-		return userAPI.createNewUser(userDetails).then((response) => {
+		await userAPI.createNewUser(userDetails).then((response) => {
 			console.log('API response', response);
-			if (response.user) {
-				const user = response.user;
+			let message;
+			// Account for user input errors
+			if (response.errors) {
+				if (response.errors.password) {
+					message = response.errors.password.message;
+				} else if (response.errors.email) {
+					message = response.errors.email.message;
+				}
+				return setErrorMessage(message);
+				// If no errors, then create new user
+			} else if (response.code === 11000) {
+				console.log(response);
+				message = `There is already a user registered under ${email}`;
+				return setErrorMessage(message);
+			} else {
+				const newUser = response.user;
 				const token = response.token;
 				const userId = response.user._id;
-
 				localStorage.setItem('token', token);
-				// localStorage.setItem('userInfo', JSON.stringify(user));
 				localStorage.setItem('userId', userId);
-
-				return setUser(user);
-			} else {
-				document.querySelector('.error-message').style.display = 'flex';
-				document.querySelector('.error-message').innerHTML = `${response}`;
+				// document.cookie = `auth_token=${response.token}`;
+				return setUser(newUser);
 			}
 		});
 	};
@@ -50,29 +75,35 @@ const SignUp = () => {
 			<div className='form-section'>
 				<form className='form'>
 					<input
+						className='signup-name'
+						type='text'
+						name='name'
+						placeholder='Username'
+						onChange={(event) => handleInput(event)}
+						required
+					/>
+					<input
 						className='add-email'
 						type='text'
 						name='email'
 						placeholder='Email'
-						onChange={(event) => handleChange(event)}
+						onChange={(event) => handleInput(event)}
 						required
-					></input>
+					/>
 					<input
 						className='add-password'
 						type='password'
 						name='password'
 						placeholder='Password'
-						onChange={(event) => handleChange(event)}
+						onChange={(event) => handleInput(event)}
 						required
-					></input>
-					<button
-						className='form-btn'
-						type='submit'
-						onClick={submitCredentials}
-					>
+					/>
+					<button className='form-btn' type='submit' onClick={registerNewUser}>
 						Sign Up
 					</button>
-					<p className='error-message'></p>
+					{errorMessage !== '' && <AccessError message={errorMessage} />}
+					<AccessError />
+					{/* <p className='error-message'>{message}</p> */}
 				</form>
 				<div className='login'>
 					<p className='helper-text'>Already have an account?</p>

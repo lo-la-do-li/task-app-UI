@@ -6,7 +6,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	createNewUser: (newUserData) => {
-		return fetch('https://tonemash-api.herokuapp.com/users', {
+		return fetch('http://localhost:3000/users', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	loginUser: (credentials) => {
-		return fetch('http://localhost:3001/users/login', {
+		return fetch('http://localhost:3000/users/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

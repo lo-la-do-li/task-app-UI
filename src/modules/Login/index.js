@@ -9,23 +9,26 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 
 	useEffect(() => {
-		// login();
+		testConnection();
 	}, []);
 
+	const testConnection = async () => {
+		await userAPI.testAPIConnection().then((response) => console.log(response));
+	};
 	const handleChange = (event) => {
 		event.target.name === 'email'
 			? setEmail(event.target.value)
 			: setPassword(event.target.value);
 	};
 
-	const submitCredentials = (e) => {
+	const submitCredentials = async (e) => {
 		e.preventDefault();
 		const credentials = {
 			email,
 			password,
 		};
 		console.log('credentials:', credentials);
-		return userAPI.loginUser(credentials).then((response) => {
+		await userAPI.loginUser(credentials).then((response) => {
 			console.log(response);
 			if (response.user) {
 				const user = response.user;
@@ -54,7 +57,7 @@ const Login = () => {
 						placeholder='Email'
 						onChange={(event) => handleChange(event)}
 						required
-					></input>
+					/>
 					<input
 						className='add-password'
 						type='password'
@@ -62,7 +65,7 @@ const Login = () => {
 						placeholder='Password'
 						onChange={(event) => handleChange(event)}
 						required
-					></input>
+					/>
 					<button
 						className='form-btn'
 						type='submit'
