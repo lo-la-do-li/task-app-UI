@@ -4,17 +4,26 @@ import './Login.css';
 
 const Login = () => {
 	const [user, setUser] = useState(null);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
 	useEffect(() => {
 		// login();
 	}, []);
 
-	const login = (e) => {
+	const handleChange = (event) => {
+		event.target.name === 'email'
+			? setEmail(event.target.value)
+			: setPassword(event.target.value);
+	};
+
+	const submitCredentials = (e) => {
 		e.preventDefault();
 		const credentials = {
-			email: 'newuser@gmail.com',
-			password: 'newusersecret',
+			email,
+			password,
 		};
+		console.log('credentials:', credentials);
 		return userAPI.loginUser(credentials).then((response) => {
 			console.log(response);
 			if (typeof response === 'object') {
@@ -23,7 +32,7 @@ const Login = () => {
 				const userId = response.user._id;
 
 				localStorage.setItem('token', token);
-				localStorage.setItem('userInfo', JSON.stringify(user));
+				// localStorage.setItem('userInfo', JSON.stringify(user));
 				localStorage.setItem('userId', userId);
 
 				return setUser(user);
@@ -42,14 +51,20 @@ const Login = () => {
 						type='text'
 						name='email'
 						placeholder='Email'
+						onChange={(event) => handleChange(event)}
 					></input>
 					<input
 						className='add-password'
 						type='password'
 						name='password'
 						placeholder='Password'
+						onChange={(event) => handleChange(event)}
 					></input>
-					<button className='form-btn' type='submit' onClick={login}>
+					<button
+						className='form-btn'
+						type='submit'
+						onClick={submitCredentials}
+					>
 						Login
 					</button>
 					<p className='error-message'></p>
