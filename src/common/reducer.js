@@ -1,11 +1,13 @@
 export const initialState = {
-	user: null,
+	authUser: null,
 	tasks: [],
 };
 
 export const reducer = (state, action) => {
 	switch (action.type) {
-		case 'LOGIN':
-			return { ...state, user: action.user };
+		case 'SET_USER':
+			return { ...state, authUser: action.authUser };
+		default:
+			return state;
 	}
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import userAPI from '../../api/user';
+import AccessError from '../../ui/AccessError';
 import '../Login/Login.css';
 
 const SignUp = () => {
@@ -9,14 +10,6 @@ const SignUp = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-
-	// useEffect(() => {
-	// 	// login();
-	// }, []);
-
-	const AccessError = ({ message }) => {
-		return <p className='error-message'>{message}</p>;
-	};
 
 	const handleInput = (e) => {
 		if (e.target.name === 'name') {
@@ -44,7 +37,6 @@ const SignUp = () => {
 		};
 		console.log('userDetails:', userDetails);
 		await userAPI.createNewUser(userDetails).then((response) => {
-			console.log('API response', response);
 			let message;
 			// Account for user input errors
 			if (response.errors) {
@@ -56,7 +48,6 @@ const SignUp = () => {
 				return setErrorMessage(message);
 				// If no errors, then create new user
 			} else if (response.code === 11000) {
-				console.log(response);
 				message = `There is already a user registered under ${email}`;
 				return setErrorMessage(message);
 			} else {
@@ -66,6 +57,8 @@ const SignUp = () => {
 				localStorage.setItem('token', token);
 				localStorage.setItem('userId', userId);
 				// document.cookie = `auth_token=${response.token}`;
+				setErrorMessage('');
+				clearInputs();
 				return setUser(newUser);
 			}
 		});
@@ -75,26 +68,26 @@ const SignUp = () => {
 			<div className='form-section'>
 				<form className='form'>
 					<input
-						className='signup-name'
 						type='text'
-						name='name'
 						placeholder='Username'
+						name='name'
+						value={name}
 						onChange={(event) => handleInput(event)}
 						required
 					/>
 					<input
-						className='add-email'
 						type='text'
-						name='email'
 						placeholder='Email'
+						name='email'
+						value={email}
 						onChange={(event) => handleInput(event)}
 						required
 					/>
 					<input
-						className='add-password'
 						type='password'
-						name='password'
 						placeholder='Password'
+						name='password'
+						value={password}
 						onChange={(event) => handleInput(event)}
 						required
 					/>
@@ -102,8 +95,6 @@ const SignUp = () => {
 						Sign Up
 					</button>
 					{errorMessage !== '' && <AccessError message={errorMessage} />}
-					<AccessError />
-					{/* <p className='error-message'>{message}</p> */}
 				</form>
 				<div className='login'>
 					<p className='helper-text'>Already have an account?</p>
