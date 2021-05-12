@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import userAPI from '../../api/user';
 import './Login.css';
 
@@ -26,7 +27,7 @@ const Login = () => {
 		console.log('credentials:', credentials);
 		return userAPI.loginUser(credentials).then((response) => {
 			console.log(response);
-			if (typeof response === 'object') {
+			if (response.user) {
 				const user = response.user;
 				const token = response.token;
 				const userId = response.user._id;
@@ -52,6 +53,7 @@ const Login = () => {
 						name='email'
 						placeholder='Email'
 						onChange={(event) => handleChange(event)}
+						required
 					></input>
 					<input
 						className='add-password'
@@ -59,6 +61,7 @@ const Login = () => {
 						name='password'
 						placeholder='Password'
 						onChange={(event) => handleChange(event)}
+						required
 					></input>
 					<button
 						className='form-btn'
@@ -69,13 +72,13 @@ const Login = () => {
 					</button>
 					<p className='error-message'></p>
 				</form>
-				<div class='signup'>
-					<form>
-						<p class='helper-text'>New to Task App?</p>
-						<button class='signup-btn' type='submit'>
-							SignUp
-						</button>
-					</form>
+				<div className='signup'>
+					{/* <form> */}
+					<p className='helper-text'>New to Task App?</p>
+					<Link to='/register' className='signup-btn'>
+						SignUp
+					</Link>
+					{/* </form> */}
 				</div>
 			</div>
 		</div>

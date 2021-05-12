@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import AppContext from '../../common/context';
 import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
+import SignUp from '../SignUp';
 import './App.css';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
 		<AppContext.Provider value={[state, dispatch]}>
 			<Switch>
 				<Route exact path='/' component={Login} />
+				<Route path='/register' component={SignUp} />
 			</Switch>
 		</AppContext.Provider>
 	);

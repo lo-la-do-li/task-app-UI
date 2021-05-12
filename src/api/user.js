@@ -5,6 +5,18 @@ const userAPI = {
 			.then((data) => console.log(data))
 			.catch((e) => console.log(e));
 	},
+	createNewUser: (newUserData) => {
+		return fetch('https://tonemash-api.herokuapp.com/users', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(newUserData),
+		})
+			.then((res) => res.json())
+			.then((data) => data)
+			.catch((e) => console.log(e));
+	},
 	loginUser: (credentials) => {
 		return fetch('http://localhost:3001/users/login', {
 			method: 'POST',
