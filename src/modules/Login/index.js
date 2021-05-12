@@ -69,6 +69,14 @@ const Login = () => {
 					</button>
 					<p className='error-message'></p>
 				</form>
+				<div class='signup'>
+					<form>
+						<p class='helper-text'>New to Task App?</p>
+						<button class='signup-btn' type='submit'>
+							SignUp
+						</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	);

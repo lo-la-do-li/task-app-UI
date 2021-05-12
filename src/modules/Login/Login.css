@@ -10,6 +10,7 @@
 
 .form-section {
   box-shadow: 0px 0px 15px 0px #D874D0;
+  box-shadow: 0px 0px 20px 0px #82e5ef;
   align-items: center;
   padding: 25px;
   width: 250px;
@@ -42,7 +43,7 @@
 .form input:focus {
   box-shadow: 0px 0px 5px 0px #2b2733;
   /* background-color: rgb(232, 240, 254); */
-  background-color: white;
+  background-color: rgb(232, 240, 254);
 }
 
 .form input::placeholder {
@@ -95,7 +96,7 @@
 
 .signup-btn,
 .login-btn {
-  text-decoration: none;
+  text-decoration: underline;
   background: none;
   border: none;
   outline: none;
