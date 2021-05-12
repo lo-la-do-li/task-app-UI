@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import userAPI from '../../api/user';
 import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
@@ -11,6 +11,7 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const history = useHistory();
 
 	const testConnection = async () => {
 		await userAPI.testAPIConnection().then((response) => console.log(response));
@@ -31,6 +32,7 @@ const Login = () => {
 		const action = { type: 'SET_USER', authUser: user };
 		dispatch(action);
 		setAuthState();
+		history.push('/home');
 	};
 
 	const setAuthState = () => {

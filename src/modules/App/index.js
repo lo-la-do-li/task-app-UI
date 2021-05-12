@@ -4,6 +4,7 @@ import AppContext from '../../common/context';
 import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
 import SignUp from '../SignUp';
+import Home from '../Home';
 import './App.css';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
 			<Switch>
 				<Route exact path='/' component={Login} />
 				<Route path='/register' component={SignUp} />
+				<Route path='/home' component={Home} />
 			</Switch>
 		</AppContext.Provider>
 	);
