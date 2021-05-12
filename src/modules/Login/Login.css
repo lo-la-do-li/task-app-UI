@@ -9,7 +9,7 @@
 }
 
 .form-section {
-  box-shadow: 0px 0px 15px 0px #D874D0;
+  /* box-shadow: 0px 0px 15px 0px #D874D0; */
   box-shadow: 0px 0px 20px 0px #82e5ef;
   align-items: center;
   padding: 25px;
@@ -42,8 +42,8 @@
 
 .form input:focus {
   box-shadow: 0px 0px 5px 0px #2b2733;
+  background-color: white;
   /* background-color: rgb(232, 240, 254); */
-  background-color: rgb(232, 240, 254);
 }
 
 .form input::placeholder {
@@ -58,6 +58,7 @@
   border: none;
   border-radius: 4px;
   color: white;
+  font-weight: 600;
   outline: none;
   cursor: pointer;
 }
@@ -76,16 +77,11 @@
 
 .signup,
 .login {
-  margin-top: 12px;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup form,
-.login form {
   display: flex;
+  justify-content: center;
   justify-content: space-between;
   align-items: center;
+  margin-top: 12px;
 }
 
 .helper-text {
@@ -102,10 +98,12 @@
   outline: none;
 }
 
+.signup-btn a, .login-btn a {
+  color: #2b2733;
+}
+
 .signup-btn:hover,
 .login-btn:hover {
   cursor: pointer;
   transform: scale(1.2);
-  text-decoration: underline;
-  /* color: #D874D0; */
 }

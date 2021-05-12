@@ -68,17 +68,15 @@ const Login = () => {
 						type='submit'
 						onClick={submitCredentials}
 					>
-						Login
+						Log In
 					</button>
 					<p className='error-message'></p>
 				</form>
 				<div className='signup'>
-					{/* <form> */}
 					<p className='helper-text'>New to Task App?</p>
-					<Link to='/register' className='signup-btn'>
-						SignUp
-					</Link>
-					{/* </form> */}
+					<button className='signup-btn'>
+						<Link to='/register'>Sign Up</Link>
+					</button>
 				</div>
 			</div>
 		</div>

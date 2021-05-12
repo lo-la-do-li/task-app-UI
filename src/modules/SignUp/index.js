@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import userAPI from '../../api/user';
+import '../Login/Login.css';
 
 const SignUp = () => {
 	const [user, setUser] = useState(null);
@@ -27,7 +28,7 @@ const SignUp = () => {
 		};
 		console.log('userDetails:', userDetails);
 		return userAPI.createNewUser(userDetails).then((response) => {
-			console.log(response);
+			console.log('API response', response);
 			if (response.user) {
 				const user = response.user;
 				const token = response.token;
@@ -73,13 +74,11 @@ const SignUp = () => {
 					</button>
 					<p className='error-message'></p>
 				</form>
-				<div className='signup'>
-					{/* <form> */}
+				<div className='login'>
 					<p className='helper-text'>Already have an account?</p>
-					<Link to='/' className='signup-btn'>
-						Login
-					</Link>
-					{/* </form> */}
+					<button className='login-btn'>
+						<Link to='/'>Login</Link>
+					</button>
 				</div>
 			</div>
 		</div>
