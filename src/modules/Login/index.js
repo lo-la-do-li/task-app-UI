@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import userAPI from '../../api/user';
-// import { setUserState } from '../../utils/setUserState';
 import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
 import './Login.css';
@@ -12,10 +11,6 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-
-	// useEffect(() => {
-	// 	testConnection();
-	// }, []);
 
 	const testConnection = async () => {
 		await userAPI.testAPIConnection().then((response) => console.log(response));
@@ -35,14 +30,21 @@ const Login = () => {
 	const setUserState = (user) => {
 		const action = { type: 'SET_USER', authUser: user };
 		dispatch(action);
+		setAuthState();
+	};
+
+	const setAuthState = () => {
+		const action = { type: 'SET_AUTHORIZED', isAuthorized: true };
+		dispatch(action);
 	};
 	const submitCredentials = async (e) => {
 		e.preventDefault();
+
 		const credentials = {
 			email,
 			password,
 		};
-		console.log('credentials:', credentials);
+
 		await userAPI.loginUser(credentials).then((response) => {
 			console.log(response);
 			if (response.user) {
@@ -52,10 +54,9 @@ const Login = () => {
 
 				localStorage.setItem('token', token);
 				localStorage.setItem('userId', userId);
+
 				setErrorMessage('');
 				clearInputs();
-				// return setUser(user);
-				console.log(userToState);
 				return setUserState(userToState);
 			} else {
 				setErrorMessage(response);
