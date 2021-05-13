@@ -10,6 +10,8 @@ export const reducer = (state, action) => {
 			return { ...state, authUser: action.authUser };
 		case 'SET_AUTHORIZED':
 			return { ...state, isAuthorized: action.isAuthorized };
+		case 'SET_TASKS':
+			return { ...state, tasks: action.tasks };
 		default:
 			return state;
 	}

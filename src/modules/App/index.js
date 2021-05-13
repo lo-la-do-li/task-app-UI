@@ -5,16 +5,33 @@ import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
 import SignUp from '../SignUp';
 import Home from '../Home';
+import { getAccessToken } from '../../utils';
 import './App.css';
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	useEffect(() => {
+		checkToken();
+	}, [state.isAuthorized]);
+
+	const checkToken = () => {
+		let token = getAccessToken();
+
+		if (token === null) {
+			console.log('no token');
+			return false;
+		} else if (token !== null) {
+			console.log('User in state');
+			return true;
+		}
+	};
 	return (
 		<AppContext.Provider value={[state, dispatch]}>
 			<Switch>
-				<Route exact path='/' component={Login} />
+				{!state.isAuthorized && <Route exact path='/login' component={Login} />}
 				<Route path='/register' component={SignUp} />
-				<Route path='/home' component={Home} />
+				<Route exact path='/' component={Home} />
 			</Switch>
 		</AppContext.Provider>
 	);

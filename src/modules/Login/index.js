@@ -32,13 +32,14 @@ const Login = () => {
 		const action = { type: 'SET_USER', authUser: user };
 		dispatch(action);
 		setAuthState();
-		history.push('/home');
+		history.push('/');
 	};
 
 	const setAuthState = () => {
 		const action = { type: 'SET_AUTHORIZED', isAuthorized: true };
 		dispatch(action);
 	};
+
 	const submitCredentials = async (e) => {
 		e.preventDefault();
 

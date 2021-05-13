@@ -1,0 +1,28 @@
+.task-container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.card {
+  box-sizing: border-box;
+  border: 2px solid rgb(67, 58, 58);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.card-completed {
+  font-size: 22px;
+}
+
+.card-description {
+  font-size: 18px;
+}
+
+.complete-btn {
+  background-color: rgb(233, 203, 196);
+  width: 60px;
+  border-radius: 3px;
+  box-shadow: none;
+}
