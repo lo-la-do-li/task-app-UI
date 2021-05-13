@@ -1,3 +1,5 @@
+import './Task.css';
+
 const TaskCard = ({ id, completed, description, createdAt }) => {
 	return (
 		<div className='card'>

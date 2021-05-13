@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import userAPI from '../../api/user';
 import taskAPI from '../../api/task';
 import { getAccessToken } from '../../utils';
+import TaskGrid from '../TaskGrid';
 
 import AppContext from '../../common/context';
 
@@ -27,7 +28,12 @@ const Home = () => {
 		dispatch(action);
 	};
 
-	return <div>This is the Home Page</div>;
+	return (
+		<>
+			<div>This is the Home Page</div>
+			<TaskGrid tasks={state.tasks} />
+		</>
+	);
 };
 
 export default Home;

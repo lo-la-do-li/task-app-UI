@@ -57,7 +57,7 @@ const Login = () => {
 
 				localStorage.setItem('token', token);
 				localStorage.setItem('userId', userId);
-
+				localStorage.setItem('user', userToState);
 				setErrorMessage('');
 				clearInputs();
 				return setUserState(userToState);

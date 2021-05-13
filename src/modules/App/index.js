@@ -27,13 +27,17 @@ const App = () => {
 		}
 	};
 	return (
-		<AppContext.Provider value={[state, dispatch]}>
-			<Switch>
-				{!state.isAuthorized && <Route exact path='/login' component={Login} />}
-				<Route path='/register' component={SignUp} />
-				<Route exact path='/' component={Home} />
-			</Switch>
-		</AppContext.Provider>
+		<div class='.App'>
+			<AppContext.Provider value={[state, dispatch]}>
+				<Switch>
+					{!state.isAuthorized && (
+						<Route exact path='/login' component={Login} />
+					)}
+					<Route path='/register' component={SignUp} />
+					<Route exact path='/' component={Home} />
+				</Switch>
+			</AppContext.Provider>
+		</div>
 	);
 };
 

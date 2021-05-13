@@ -1,6 +1,9 @@
+import React, { useState, useContext, useEffect } from 'react';
+import AppContext from '../../common/context';
 import TaskCard from './TaskCard';
-import './TaskGrid.css';
+import './Task.css';
 const TaskGrid = ({ tasks }) => {
+	const [state, dispatch] = useContext(AppContext);
 	const taskCards = tasks.map((task) => {
 		return (
 			<TaskCard
