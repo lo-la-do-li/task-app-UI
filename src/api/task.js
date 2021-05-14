@@ -25,6 +25,23 @@ const taskAPI = {
 			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
+	createTask: async (accessToken, description, completed) => {
+		await fetch('http://localhost:3000/tasks', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': ` Bearer ${accessToken}`,
+			},
+			body: {
+				description,
+				completed,
+				createdAt: new Date().getTime(),
+			},
+		})
+			.then((res) => res.json())
+			.catch((e) => console.log(e));
+	},
 };
 
 export default taskAPI;

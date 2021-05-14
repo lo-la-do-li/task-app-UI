@@ -55,7 +55,7 @@ const GreenCheckbox = withStyles({
 export default function TaskGrid({ tasks }) {
 	const classes = useStyles();
 	const [state, setState] = React.useState({
-		checkedG: true,
+		checked: true,
 	});
 	const handleChange = (event) => {
 		setState({ ...state, [event.target.name]: event.target.checked });
@@ -78,9 +78,9 @@ export default function TaskGrid({ tasks }) {
 									<FormControlLabel
 										control={
 											<GreenCheckbox
-												checked={state.checkedG}
+												checked={state.checked}
 												onChange={handleChange}
-												name='checkedG'
+												name='checked'
 											/>
 										}
 										label='Did it!'
