@@ -10,34 +10,32 @@ import './App.css';
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [auth, setAuth] = useState(false);
 
 	useEffect(() => {
 		checkToken();
-	}, [state.isAuthorized]);
+	}, [auth]);
 
 	const checkToken = () => {
 		let token = getAccessToken();
 
 		if (token === null) {
 			console.log('no token');
-			return false;
+			setAuth(false);
 		} else if (token !== null) {
 			console.log('User in state');
-			return true;
+			setAuth(true);
 		}
 	};
 	return (
-		<div class='.App'>
-			<AppContext.Provider value={[state, dispatch]}>
-				<Switch>
-					{!state.isAuthorized && (
-						<Route exact path='/login' component={Login} />
-					)}
-					<Route path='/register' component={SignUp} />
-					<Route exact path='/' component={Home} />
-				</Switch>
-			</AppContext.Provider>
-		</div>
+		<AppContext.Provider value={[state, dispatch]}>
+			<Switch>
+				{/* {!auth && <Route path='/login' component={Login} />} */}
+				<Route exact path='/login' component={Login} />
+				<Route path='/register' component={SignUp} />
+				<Route exact path='/' component={Home} />
+			</Switch>
+		</AppContext.Provider>
 	);
 };
 

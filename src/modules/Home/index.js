@@ -32,6 +32,7 @@ const Home = () => {
 		<>
 			<div>This is the Home Page</div>
 			<TaskGrid tasks={state.tasks} />
+			{!state.tasks && <div>You haven't added any tasks yet</div>}
 		</>
 	);
 };
