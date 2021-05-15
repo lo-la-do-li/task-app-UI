@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import userAPI from '../../api/user';
+// import { Link } from 'react-router-dom';
+// import userAPI from '../../api/user';
 import taskAPI from '../../api/task';
-import { getAccessToken } from '../../utils';
+// import { getAccessToken } from '../../utils';
 import TaskGrid from '../TaskGrid';
-
+// import Nav from '../Nav';
 import AppContext from '../../common/context';
 
-const Home = () => {
+const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
 
 	useEffect(() => {
@@ -15,12 +15,8 @@ const Home = () => {
 	}, []);
 
 	const getTasks = async () => {
-		const token = getAccessToken();
-
-		await taskAPI
-			.getTasks(token)
-			.then((data) => setTasksInState(data))
-			.then(console.log(state.tasks));
+		console.log('', token);
+		await taskAPI.getTasks(token).then((data) => setTasksInState(data));
 	};
 
 	const setTasksInState = (tasks) => {
@@ -31,8 +27,11 @@ const Home = () => {
 	return (
 		<>
 			<div>This is the Home Page</div>
-			<TaskGrid tasks={state.tasks} />
-			{!state.tasks && <div>You haven't added any tasks yet</div>}
+			{!state.tasks ? (
+				<div>You haven't added any tasks yet</div>
+			) : (
+				<TaskGrid tasks={state.tasks} />
+			)}
 		</>
 	);
 };

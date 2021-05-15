@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import userAPI from '../../api/user';
 import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
 import './Login.css';
 import User from '../../utils/userClass';
 
-const Login = () => {
-	const [state, dispatch] = useContext(AppContext);
-	const [user, setUser] = useState(null);
+const Login = ({ setToken }) => {
+	// const [state, dispatch] = useContext(AppContext);
+	// const [user, setUser] = useState(null);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
@@ -29,22 +29,22 @@ const Login = () => {
 		setPassword('');
 	};
 
-	const setUserState = (user) => {
-		const action = { type: 'SET_USER', authUser: user };
-		dispatch(action);
-		setAuthState();
-		history.push('/');
-	};
+	// const setUserState = (user) => {
+	// 	const action = { type: 'SET_USER', authUser: user };
+	// 	dispatch(action);
+	// 	setAuthState();
+	// 	return history.push('/');
+	// };
 
-	const setAuthState = () => {
-		const action = { type: 'SET_AUTHORIZED', isAuthorized: true };
-		dispatch(action);
-	};
+	// const setAuthState = () => {
+	// 	const action = { type: 'SET_AUTHORIZED', isAuthorized: true };
+	// 	dispatch(action);
+	// };
 
 	const submitCredentials = async (e) => {
 		e.preventDefault();
 
-		const credentials = {
+		let credentials = {
 			email,
 			password,
 		};
@@ -52,18 +52,20 @@ const Login = () => {
 		await userAPI.loginUser(credentials).then((response) => {
 			// console.log(response);
 			if (response.user) {
-				const userToState = new User(response.user);
-				const token = response.token;
-				const userId = response.user._id;
+				let userToState = new User(response.user);
+				let token = response.token;
+				let userId = response.user._id;
 				console.log(userToState);
-				localStorage.setItem('token', token);
+				// localStorage.setItem('token', token);
 				localStorage.setItem('userId', userId);
 				localStorage.setItem('user', JSON.stringify(userToState));
 				setErrorMessage('');
 				clearInputs();
-				return setUserState(userToState);
+				// return setUserState(userToState);
+				setToken(token);
+				history.push('/');
 			} else {
-				setErrorMessage(response);
+				return setErrorMessage(response);
 			}
 		});
 	};

@@ -35,7 +35,7 @@ const userAPI = {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
-				'Authorization': ` Bearer ${window.localStorage.getItem('token')}`,
+				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
 			},
 		})
 			.then((res) => res.json())
