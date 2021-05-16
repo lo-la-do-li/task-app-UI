@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import userAPI from '../../api/user';
-import { getAccessToken } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -22,23 +21,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Nav({ token }) {
+export default function Nav({ token, setToken }) {
 	const classes = useStyles();
 	const history = useHistory();
 	const logout = async () => {
-		// const token = getAccessToken();
-		// const token = localStorage.getItem('token');
-		console.log('token in logout/nav:', token);
 		await userAPI.logoutSession(token).then((response) => {
 			if (response) {
 				console.log(response);
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				localStorage.removeItem('userId');
-				// setToken();
-				return history.push('/');
+				// history.push('/');
+				let token = localStorage.getItem('token');
+				setToken(token);
 			}
-			// window.alert('You have successfully logged out');
 		});
 	};
 	return (

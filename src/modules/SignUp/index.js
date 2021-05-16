@@ -1,16 +1,18 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 import AccessError from '../../ui/AccessError';
+import User from '../../utils/userClass';
 import '../Login/Login.css';
 
-const SignUp = () => {
+const SignUp = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const history = useHistory();
 
 	const handleInput = (e) => {
 		if (e.target.name === 'name') {
@@ -60,15 +62,18 @@ const SignUp = () => {
 				message = `There is already a user registered under ${email}`;
 				return setErrorMessage(message);
 			} else {
-				const newUser = response.user;
-				const token = response.token;
-				const userId = response.user._id;
-				localStorage.setItem('token', token);
+				let userToState = new User(response.user);
+				let token = response.token;
+				let userId = response.user._id;
+
 				localStorage.setItem('userId', userId);
+				localStorage.setItem('user', JSON.stringify(userToState));
+
+				setToken(token);
 				// document.cookie = `auth_token=${response.token}`;
 				setErrorMessage('');
 				clearInputs();
-				return setUserState(newUser);
+				history.push('/');
 			}
 		});
 	};

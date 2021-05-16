@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import { green, grey } from '@material-ui/core/colors';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -23,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
 	dateCreated: {
 		borderRight: '1.5px solid #2b2733',
 		marginRight: '5px',
-		// margin: '-8px 0px -8px -8px',
-		// padding: '8px',
 	},
 }));
 
@@ -51,12 +48,11 @@ export default function TaskGrid({ tasks }) {
 	return (
 		<>
 			{tasks.map((task) => (
-				<div className={classes.root}>
+				<div key={task._id} className={classes.root}>
 					<Paper className={classes.paper}>
 						<Grid container wrap='nowrap' spacing={2}>
 							<>
 								<Grid item className={classes.dateCreated}>
-									{/* {convertDate(task.createdAt)} */}
 									{taskDate(task.createdAt)}
 								</Grid>
 								<Grid item xs zeroMinWidth>
@@ -66,6 +62,7 @@ export default function TaskGrid({ tasks }) {
 									<FormControlLabel
 										control={
 											<GreenCheckbox
+												id={task._id}
 												checked={state.checked}
 												onChange={handleChange}
 												name={task._id}

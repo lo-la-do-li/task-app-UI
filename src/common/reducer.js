@@ -2,6 +2,7 @@ export const initialState = {
 	authUser: null,
 	isAuthorized: false,
 	tasks: [],
+	token: null,
 };
 
 export const reducer = (state, action) => {
