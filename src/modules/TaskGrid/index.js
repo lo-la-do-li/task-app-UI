@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { green, grey } from '@material-ui/core/colors';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { taskDate } from '../../utils';
+import taskAPI from '../../api/task';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -35,47 +36,71 @@ const GreenCheckbox = withStyles({
 	checked: {},
 })((props) => <Checkbox color='default' {...props} />);
 
-export default function TaskGrid({ tasks }) {
+export default function TaskGrid({ tasks, getTasks, token }) {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
+	const [checked, setChecked] = useState(false);
+	const [completed, setCompleted] = useState({
 		checked: false,
 	});
 
-	const handleChange = (event) => {
-		setState({ ...state, [event.target.name]: event.target.checked });
-	};
+	// const handleChange = (event) => {
+	// 	console.log(event.target.name);
+	// 	setCompleted({ ...completed, [event.target.name]: event.target.checked });
+	// };
 
+	const handleChange = async (event) => {
+		let taskId = event.target.name;
+		let checked = event.target.checked;
+
+		let updates = {
+			completed: checked,
+		};
+
+		await taskAPI.updateTask(token, taskId, updates).then((res) => {
+			console.log(res);
+			if (res.completed) {
+				event.target.checked = true;
+			} else if (!res.completed) {
+				event.target.checked = false;
+			}
+			return getTasks();
+		});
+	};
 	return (
 		<>
-			{tasks.map((task) => (
-				<div key={task._id} className={classes.root}>
-					<Paper className={classes.paper}>
-						<Grid container wrap='nowrap' spacing={2}>
-							<>
-								<Grid item className={classes.dateCreated}>
-									{taskDate(task.createdAt)}
-								</Grid>
-								<Grid item xs zeroMinWidth>
-									<Typography noWrap>{task.description}</Typography>
-								</Grid>
-								<Grid item>
-									<FormControlLabel
-										control={
-											<GreenCheckbox
-												id={task._id}
-												checked={state.checked}
-												onChange={handleChange}
-												name={task._id}
-											/>
-										}
-										label='Did it!'
-									/>
-								</Grid>
-							</>
-						</Grid>
-					</Paper>
-				</div>
-			))}
+			{!tasks.length ? (
+				<div>You haven't added any tasks yet</div>
+			) : (
+				tasks.map((task) => (
+					<div key={task._id} className={classes.root}>
+						<Paper className={classes.paper}>
+							<Grid container wrap='nowrap' spacing={2}>
+								<>
+									<Grid item className={classes.dateCreated}>
+										{taskDate(task.createdAt)}
+									</Grid>
+									<Grid item xs zeroMinWidth>
+										<Typography noWrap>{task.description}</Typography>
+									</Grid>
+									<Grid item>
+										<FormControlLabel
+											control={
+												<GreenCheckbox
+													id={task._id}
+													checked={task.completed}
+													onChange={handleChange}
+													name={task._id}
+												/>
+											}
+											label='Did it!'
+										/>
+									</Grid>
+								</>
+							</Grid>
+						</Paper>
+					</div>
+				))
+			)}
 		</>
 	);
 }

@@ -31,7 +31,7 @@ const taskAPI = {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
-				'Authorization': ` Bearer ${accessToken}`,
+				'Authorization': `Bearer ${accessToken}`,
 			},
 			body: {
 				description,
@@ -41,6 +41,20 @@ const taskAPI = {
 		})
 			.then((res) => res.json())
 			.then((data) => console.log(data))
+			.catch((e) => console.log(e));
+	},
+	updateTask: (accessToken, taskId, updates) => {
+		return fetch(`http://localhost:3000/tasks/${taskId}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify(updates),
+		})
+			.then((res) => res.json())
+			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
 };

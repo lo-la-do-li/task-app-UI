@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+// import { Link, Redirect, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,7 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import userAPI from '../../api/user';
+import Drawer from '../Drawer';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -23,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Nav({ token, setToken }) {
 	const classes = useStyles();
-	const history = useHistory();
 	const logout = async () => {
 		await userAPI.logoutSession(token).then((response) => {
 			if (response) {
@@ -31,7 +32,6 @@ export default function Nav({ token, setToken }) {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				localStorage.removeItem('userId');
-				// history.push('/');
 				let token = localStorage.getItem('token');
 				setToken(token);
 			}
@@ -40,12 +40,14 @@ export default function Nav({ token, setToken }) {
 	return (
 		<div className={classes.root}>
 			<AppBar position='static'>
+				<Drawer />
 				<Toolbar>
 					<IconButton
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='menu'
+						onClick={() => console.log('clicked!')}
 					>
 						<MenuIcon />
 					</IconButton>

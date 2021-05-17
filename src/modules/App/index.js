@@ -6,6 +6,7 @@ import Login from '../Login';
 import SignUp from '../SignUp';
 import Home from '../Home';
 import Nav from '../Nav';
+import Drawer from '../Drawer';
 // import { getAccessToken } from '../../utils';
 import useToken from '../../common/useToken';
 import './App.css';
@@ -25,8 +26,9 @@ const App = () => {
 					{!token && <Redirect to='/login' />}
 					{token && (
 						<>
-							<Nav token={token} setToken={setToken} />
-							<Home token={token} />
+							<Drawer token={token} setToken={setToken}>
+								<Home token={token} />
+							</Drawer>
 						</>
 					)}
 				</Route>

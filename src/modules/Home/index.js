@@ -13,6 +13,8 @@ const Home = ({ token }) => {
 	const getTasks = async () => {
 		if (token) {
 			await taskAPI.getTasks(token).then((data) => setTasksInState(data));
+		} else {
+			return setTasksInState([]);
 		}
 	};
 
@@ -23,12 +25,7 @@ const Home = ({ token }) => {
 
 	return (
 		<>
-			<div>This is the Home Page</div>
-			{!state.tasks ? (
-				<div>You haven't added any tasks yet</div>
-			) : (
-				<TaskGrid tasks={state.tasks} />
-			)}
+			<TaskGrid tasks={state.tasks} getTasks={getTasks} token={token} />
 		</>
 	);
 };
