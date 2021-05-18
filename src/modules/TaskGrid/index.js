@@ -18,16 +18,40 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		overflow: 'hidden',
 		padding: theme.spacing(0, 3),
+    [theme.breakpoints.down("900")]: {
+      padding: '0',
+      // maxWidth: 'max-content'
+    },
 	},
 	paper: {
 		maxWidth: 400,
 		margin: `${theme.spacing(1)}px auto`,
 		padding: theme.spacing(2),
+    // [theme.breakpoints.down("900")]: {
+    //   maxWidth: 600,
+    // },
 	},
+  title: {
+    textAlign: 'center',
+    fontFamily: 'Lato',
+    textDecoration: 'underline'
+  },
+  message: {
+    color: '#2b2733',
+    textAlign: 'center'
+  },
 	dateCreated: {
 		borderRight: '1.5px solid #2b2733',
 		marginRight: '5px',
 	},
+  description: {
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+
+    lineClamp: 3,
+    overflow: 'hidden'
+
+  }
 }));
 
 const GreenCheckbox = withStyles({
@@ -40,7 +64,7 @@ const GreenCheckbox = withStyles({
 	checked: {},
 })((props) => <Checkbox color='default' {...props} />);
 
-export default function TaskGrid({ tasks, updateTaskGrids }) {
+export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -71,10 +95,8 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
     let updates = {
       description: update
     }
-    // let taskId = event.target.id
-    console.log(updates, taskId)
     await taskAPI.updateTask(taskId, updates).then(res => {
-      console.log(res)
+      // console.log(res)
       return updateTaskGrids()
     })
     setOpen(false)
@@ -83,8 +105,9 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
 
 	return (
 		<Container maxWidth='sm'>
+      <h2 className={classes.title}>{title}</h2>
 			{!tasks.length ? (
-				<div>You haven't added any tasks yet</div>
+				<h3 className={classes.message}>{emptyMessage}</h3>
 			) : (
 				tasks.map((task) => (
 					<div key={task._id} className={classes.root}>
@@ -95,7 +118,7 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
 										{taskDate(task.createdAt)}
 									</Grid>
 									<Grid item xs zeroMinWidth>
-										<Typography noWrap>{task.description}</Typography>
+										<Typography className={classes.description}>{task.description}</Typography>
 									</Grid>
                   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                   <Grid item id={task._id}>

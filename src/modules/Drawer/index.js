@@ -25,6 +25,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
+    // backgroundColor: '#2b2733'
 	},
 	appBar: {
 		transition: theme.transitions.create(['margin', 'width'], {
@@ -80,7 +81,8 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		// backgroundColor: '#51b5a8',
+		backgroundColor: '#dfe5e7',
+    color: '#2b2733'
 	},
 }));
 
@@ -129,7 +131,7 @@ export default function PersistentDrawerLeft({ token, setToken, children }) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant='h6' noWrap>
+					<Typography style={{fontFamily: 'Lato', fontSize:'24px', fontWeight: '600'}} noWrap>
 						Task App
 					</Typography>
 					<Button onClick={logout} color='inherit'>
