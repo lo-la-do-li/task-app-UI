@@ -5,28 +5,40 @@ import AppContext from '../../common/context';
 
 const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
+	const [completed, setCompleted] = useState([]);
 
 	useEffect(() => {
-		getTasks();
+  // Sets all tasks in state:
+	  // getTasks(undefined, 'tasks');
+  // Sets toDo versus completed:
+    updateTaskGrids()
 	}, []);
 
-	const getTasks = async () => {
+	const updateTaskGrids = () => {
+		getTasks('?completed=true', 'completed');
+		getTasks('?completed=false', 'toDo');
+	};
+
+	const getTasks = async (query, type) => {
 		if (token) {
-			await taskAPI.getTasks(token).then((data) => setTasksInState(data));
+			await taskAPI
+				.getTasks(query, token)
+				.then((data) => setTasksInState(type, data));
 		} else {
 			return setTasksInState([]);
 		}
 	};
 
-	const setTasksInState = (tasks) => {
-		const action = { type: 'SET_TASKS', tasks: tasks };
+	const setTasksInState = (type, tasks) => {
+		const action = { type: `SET_${type.toUpperCase()}`, [type]: tasks };
 		dispatch(action);
 	};
 
 	return (
-		<>
-			<TaskGrid tasks={state.tasks} getTasks={getTasks} token={token} />
-		</>
+		<div style={{ display: 'flex' }}>
+			<TaskGrid tasks={state.toDo} updateTaskGrids={updateTaskGrids} />
+			<TaskGrid tasks={state.completed} updateTaskGrids={updateTaskGrids} />
+		</div>
 	);
 };
 

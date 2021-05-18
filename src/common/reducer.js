@@ -2,6 +2,8 @@ export const initialState = {
 	authUser: null,
 	// isAuthorized: false,
 	tasks: [],
+	completed: [],
+	toDo: [],
 };
 
 export const reducer = (state, action) => {
@@ -12,6 +14,10 @@ export const reducer = (state, action) => {
 		// 	return { ...state, isAuthorized: action.isAuthorized };
 		case 'SET_TASKS':
 			return { ...state, tasks: action.tasks };
+		case 'SET_COMPLETED':
+			return { ...state, completed: action.completed };
+		case 'SET_TODO':
+			return { ...state, toDo: action.toDo };
 		default:
 			return state;
 	}

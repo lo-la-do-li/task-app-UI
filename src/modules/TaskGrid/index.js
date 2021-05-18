@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import { green, grey } from '@material-ui/core/colors';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import { taskDate } from '../../utils';
 import taskAPI from '../../api/task';
 
@@ -36,17 +39,8 @@ const GreenCheckbox = withStyles({
 	checked: {},
 })((props) => <Checkbox color='default' {...props} />);
 
-export default function TaskGrid({ tasks, getTasks, token }) {
+export default function TaskGrid({ tasks, updateTaskGrids }) {
 	const classes = useStyles();
-	const [checked, setChecked] = useState(false);
-	const [completed, setCompleted] = useState({
-		checked: false,
-	});
-
-	// const handleChange = (event) => {
-	// 	console.log(event.target.name);
-	// 	setCompleted({ ...completed, [event.target.name]: event.target.checked });
-	// };
 
 	const handleChange = async (event) => {
 		let taskId = event.target.name;
@@ -56,18 +50,13 @@ export default function TaskGrid({ tasks, getTasks, token }) {
 			completed: checked,
 		};
 
-		await taskAPI.updateTask(token, taskId, updates).then((res) => {
-			console.log(res);
-			if (res.completed) {
-				event.target.checked = true;
-			} else if (!res.completed) {
-				event.target.checked = false;
-			}
-			return getTasks();
+		await taskAPI.updateTask(taskId, updates).then((res) => {
+		console.log(res)
+      return updateTaskGrids()
 		});
 	};
 	return (
-		<>
+		<Container maxWidth='sm'>
 			{!tasks.length ? (
 				<div>You haven't added any tasks yet</div>
 			) : (
@@ -82,7 +71,15 @@ export default function TaskGrid({ tasks, getTasks, token }) {
 									<Grid item xs zeroMinWidth>
 										<Typography noWrap>{task.description}</Typography>
 									</Grid>
+                  <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                  <Grid item>
+                    <IconButton>
+                      <EditIcon />
+                    </IconButton>
+                  </Grid>
+              
 									<Grid item>
+                   
 										<FormControlLabel
 											control={
 												<GreenCheckbox
@@ -92,15 +89,16 @@ export default function TaskGrid({ tasks, getTasks, token }) {
 													name={task._id}
 												/>
 											}
-											label='Did it!'
+											label='Done'
 										/>
 									</Grid>
+                  </div>
 								</>
 							</Grid>
 						</Paper>
 					</div>
 				))
 			)}
-		</>
+		</Container>
 	);
 }
