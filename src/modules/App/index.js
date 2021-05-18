@@ -5,7 +5,6 @@ import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
 import SignUp from '../SignUp';
 import Home from '../Home';
-import Nav from '../Nav';
 import Drawer from '../Drawer';
 // import { getAccessToken } from '../../utils';
 import useToken from '../../common/useToken';

@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import ModalForm from '../../ui/ModalForm'
 import { taskDate } from '../../utils';
 import taskAPI from '../../api/task';
 
@@ -41,6 +42,16 @@ const GreenCheckbox = withStyles({
 
 export default function TaskGrid({ tasks, updateTaskGrids }) {
 	const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (id) => {
+    console.log(id)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 	const handleChange = async (event) => {
 		let taskId = event.target.name;
@@ -55,6 +66,21 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
       return updateTaskGrids()
 		});
 	};
+  const submitUpdate = async (e, update, taskId) => {
+    e.preventDefault()
+    let updates = {
+      description: update
+    }
+    // let taskId = event.target.id
+    console.log(updates, taskId)
+    await taskAPI.updateTask(taskId, updates).then(res => {
+      console.log(res)
+      return updateTaskGrids()
+    })
+    setOpen(false)
+  }
+
+
 	return (
 		<Container maxWidth='sm'>
 			{!tasks.length ? (
@@ -72,10 +98,21 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
 										<Typography noWrap>{task.description}</Typography>
 									</Grid>
                   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                  <Grid item>
-                    <IconButton>
-                      <EditIcon />
-                    </IconButton>
+                  <Grid item id={task._id}>
+                    <ModalForm 
+                      open={open}
+                      handleClose={handleClose}
+                      submitAction={submitUpdate}
+                      task={task}
+                      button={(
+                        <IconButton  
+                          id={task._id} 
+                          onClick={() => handleClickOpen(task._id)}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                    )}
+                    />
                   </Grid>
               
 									<Grid item>
@@ -95,6 +132,7 @@ export default function TaskGrid({ tasks, updateTaskGrids }) {
                   </div>
 								</>
 							</Grid>
+
 						</Paper>
 					</div>
 				))
