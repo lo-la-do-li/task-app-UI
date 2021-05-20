@@ -31,7 +31,7 @@ const taskAPI = {
 			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
-	createTask: async (description, completed) => {
+	createTask: async (taskBody) => {
 		await fetch('http://localhost:3000/tasks', {
 			method: 'POST',
 			headers: {
@@ -39,11 +39,7 @@ const taskAPI = {
 				'Accept': 'application/json',
 				'Authorization': `Bearer ${localStorage.getItem('token')}`,
 			},
-			body: {
-				description,
-				completed,
-				createdAt: new Date().getTime(),
-			},
+			body: JSON.stringify(taskBody),
 		})
 			.then((res) => res.json())
 			.then((data) => console.log(data))

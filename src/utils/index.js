@@ -38,14 +38,16 @@ export const taskDate = (taskDate) => {
 			style={{
 				display: 'flex',
 				flexDirection: 'column',
-				alignItems: 'center',
+        marginLeft: '-8px',
+        textAlign: 'center',
+        // padding: '4px 0 0 0'
 				// justifyContent: 'space-between',
 			}}
 		>
-			<span style={{ fontSize: 16, paddingBottom: '4px' }}>
+			<span style={{ fontSize: 18}}>
 				{month.toUpperCase()}
 			</span>
-			<span style={{ fontSize: 16, paddingTop: '4px' }}>{date}</span>
+			<span style={{ fontSize: 30}}>{date}</span>
 		</div>
 	);
 };

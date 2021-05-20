@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function PersistentDrawerLeft({ token, setToken, children }) {
+export default function Nav({ token, setToken, children }) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
