@@ -81,9 +81,12 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		backgroundColor: '#dfe5e7',
-    color: '#2b2733'
+		backgroundColor: '#2b2733',
+    color: '#ffffff'
 	},
+  profilePic: {
+    width: "240px"
+  }
 }));
 
 export default function Nav({ token, setToken, children }) {
@@ -159,14 +162,9 @@ export default function Nav({ token, setToken, children }) {
 				</div>
 				<Divider />
 				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
+				<div>
+          <img className={classes.profilePic} src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues=" alt="profile-pic"/>
+        </div>
 				</List>
 				<Divider />
 				<List>

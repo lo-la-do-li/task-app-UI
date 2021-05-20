@@ -16,7 +16,21 @@ const App = () => {
 
 	useEffect(() => {
 		// checkToken();
+    determineUser()
 	}, [token]);
+
+  const determineUser = () => {
+    if(localStorage.getItem('user')) {
+      return setUserState(JSON.parse(localStorage.getItem('user')))
+    } else {
+      return setUserState(null)
+    }
+  }
+
+  const setUserState = (user) => {
+		const action = { type: 'SET_USER', authUser: user };
+		dispatch(action);
+	};
 
 	return (
 		<AppContext.Provider value={[state, dispatch]}>

@@ -7,7 +7,7 @@ import './Login.css';
 import User from '../../utils/userClass';
 
 const Login = ({ setToken }) => {
-	// const [state, dispatch] = useContext(AppContext);
+	const [state, dispatch] = useContext(AppContext);
 	// const [user, setUser] = useState(null);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -32,13 +32,7 @@ const Login = ({ setToken }) => {
 	// const setUserState = (user) => {
 	// 	const action = { type: 'SET_USER', authUser: user };
 	// 	dispatch(action);
-	// 	setAuthState();
 	// 	return history.push('/');
-	// };
-
-	// const setAuthState = () => {
-	// 	const action = { type: 'SET_AUTHORIZED', isAuthorized: true };
-	// 	dispatch(action);
 	// };
 
 	const submitCredentials = async (e) => {
@@ -61,6 +55,7 @@ const Login = ({ setToken }) => {
 				setErrorMessage('');
 				clearInputs();
 				// return setUserState(userToState);
+        // setUserState(userToState);
 				setToken(token);
 				history.push('/');
 			} else {
