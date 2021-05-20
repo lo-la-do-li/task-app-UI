@@ -17,6 +17,8 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
+    backgroundColor: '#8372ae0f',
+    borderRadius: '8px'
   },
   container: {
     display: 'flex',
@@ -35,6 +37,7 @@ const useStyles = makeStyles(theme => ({
     width: '50%',
 		margin: `${theme.spacing(1)}px auto`,
 		padding: theme.spacing(2),
+    borderRadius: '200px',
     display: 'flex',
     flexDirection: 'column'
     },
@@ -96,8 +99,18 @@ const Home = ({ token }) => {
     setOpen(false)
   }
 
+  const getTodayDate = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return today
+  }
 	return (
     <div className={classes.root}>
+      <div>{getTodayDate()}</div>
       <Paper className={classes.paper}>
     
         <ModalForm

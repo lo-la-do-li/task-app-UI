@@ -54,8 +54,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
+    backgroundImage: 'linear-gradient(to right, #eacdcd , #d7d6f0)',
 	},
 	drawerHeader: {
+		display: 'flex',
+		alignItems: 'center',
+		padding: theme.spacing(0, 1),
+		// necessary for content to be below app bar
+		...theme.mixins.toolbar,
+		justifyContent: 'flex-end',
+	},
+  contentSpacer: {
 		display: 'flex',
 		alignItems: 'center',
 		padding: theme.spacing(0, 1),
@@ -82,11 +91,14 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		backgroundColor: '#2b2733',
-    color: '#ffffff'
+     backgroundImage: 'linear-gradient(to right, #d7d6f0, #eacdcd)',
+		// backgroundColor: '#2b2733',
+    // color: '#ffffff'
+    color: '#2b2733'
 	},
   profilePic: {
-    width: "240px"
+    width: "220px",
+    borderRadius: "50%"
   }
 }));
 
@@ -110,9 +122,6 @@ export default function NavDrawer({ user, token, setToken, children }) {
 	};
 
   const checkAvatar = async () => {
-    console.log(user)
-    // if (profile !== null) {
-      // console.log(profile.id)
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(data => 
         setAvatar(data))
   }
@@ -177,7 +186,7 @@ export default function NavDrawer({ user, token, setToken, children }) {
 				</div>
 				<Divider />
 				<List>
-				<div>
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
           <img className={classes.profilePic} src={avatar} alt="profile-pic"/>
         </div>
 				</List>
@@ -198,7 +207,7 @@ export default function NavDrawer({ user, token, setToken, children }) {
 					[classes.contentShift]: open,
 				})}
 			>
-				<div className={classes.drawerHeader} />
+				<div className={classes.contentSpacer} />
 				{children}
 			</main>
 		</div>

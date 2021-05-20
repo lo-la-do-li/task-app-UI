@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: 400,
 		margin: `${theme.spacing(1)}px auto`,
 		padding: theme.spacing(2),
+    borderRadius: '20px'
     
     // [theme.breakpoints.down("900")]: {
     //   maxWidth: 600,
@@ -119,7 +120,20 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
 							<Grid container wrap='nowrap' spacing={2}>
 						
 									<Grid item className={classes.dateCreated}>
-										{taskDate(task.createdAt)}
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginLeft: '-8px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <span style={{ fontSize: 18}}>
+                        {taskDate(task.createdAt)[0].toUpperCase()}
+                      </span>
+                      <span style={{ fontSize: 30}}>{taskDate(task.createdAt)[1]}</span>
+                    </div>
+									
 									</Grid>
 									<Grid item xs zeroMinWidth>
 										<Typography className={classes.description}>{task.description}</Typography>
