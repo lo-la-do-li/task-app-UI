@@ -29,9 +29,15 @@ export default function ModalForm({task, button, handleClose, open, create, subm
         : (<DialogTitle id="edit-task-form">Create A Task</DialogTitle>)
         }
         <DialogContent>
-          <DialogContentText>
-            Update your description for this task below
-          </DialogContentText>
+          {!create ? 
+            (<DialogContentText>
+              Update your description for this task below
+            </DialogContentText>)
+          :
+            (<DialogContentText>
+              Provide a description for your new task
+            </DialogContentText>)
+          }
           <TextField
             autoFocus
             margin="dense"

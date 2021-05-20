@@ -71,14 +71,9 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
 	const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [taskEdit, setTaskEdit] = useState(null)
-
-  // useEffect(() => {
-  //   console.log(taskEdit)
-  // }, [taskEdit])
   
   const handleClickOpen = (task) => {
     setTaskEdit(task)
-    console.log(taskEdit)
     setOpen(true);
   };
 

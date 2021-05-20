@@ -100,7 +100,7 @@ const Home = ({ token }) => {
     <div className={classes.root}>
       <Paper className={classes.paper}>
     
-          <ModalForm
+        <ModalForm
           open={open}
           handleClose={handleClose}
           create={true}
@@ -110,11 +110,10 @@ const Home = ({ token }) => {
           <IconButton  
             onClick={handleClickOpen}
           >
-            
             <AddCircleOutlineIcon style={{ fontSize: 60 }}/>
           </IconButton>
           }
-          />
+        />
        
      
       </Paper>
