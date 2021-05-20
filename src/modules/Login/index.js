@@ -8,7 +8,6 @@ import User from '../../utils/userClass';
 
 const Login = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);
-	// const [user, setUser] = useState(null);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
@@ -29,12 +28,6 @@ const Login = ({ setToken }) => {
 		setPassword('');
 	};
 
-	// const setUserState = (user) => {
-	// 	const action = { type: 'SET_USER', authUser: user };
-	// 	dispatch(action);
-	// 	return history.push('/');
-	// };
-
 	const submitCredentials = async (e) => {
 		e.preventDefault();
 
@@ -52,11 +45,9 @@ const Login = ({ setToken }) => {
 				// localStorage.setItem('token', token);
 				localStorage.setItem('userId', userId);
 				localStorage.setItem('user', JSON.stringify(userToState));
+				setToken(token);
 				setErrorMessage('');
 				clearInputs();
-				// return setUserState(userToState);
-        // setUserState(userToState);
-				setToken(token);
 				history.push('/');
 			} else {
 				return setErrorMessage(response);

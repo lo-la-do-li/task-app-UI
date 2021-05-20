@@ -97,13 +97,25 @@ const userAPI = {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 				'Accept': 'application/json',
-				'Authorization': ` Bearer ${window.localStorage.getItem('token')}`,
+				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
 			},
 			body: formData,
 		})
 			.then((res) => res.json)
 			.catch((e) => console.log(e));
 	},
+  getUserAvatar: (id) => {
+    	return fetch(`http://localhost:3000/users/${id}/avatar`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+			},
+		})
+			.then((res) => res.json())
+			.catch((e) => console.log(e));
+  }
 };
 
 export default userAPI;

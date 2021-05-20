@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
+import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 
 const drawerWidth = 240;
@@ -92,7 +93,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Nav({ token, setToken, children }) {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
+  const [state, dispatch] = useContext(AppContext);
+	const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState(state.authUser)
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
