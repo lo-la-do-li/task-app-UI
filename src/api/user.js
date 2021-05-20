@@ -95,25 +95,24 @@ const userAPI = {
 		return fetch('http://localhost:3000/users/me/avatar', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'multipart/form-data',
-				'Accept': 'application/json',
-				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+				'Content-Type': 'application/json',
 			},
 			body: formData,
 		})
 			.then((res) => res.json)
 			.catch((e) => console.log(e));
 	},
-  getUserAvatar: (id) => {
+  getUserAvatar:  (id) => {
+    
     	return fetch(`http://localhost:3000/users/${id}/avatar`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				'Accept': 'application/json',
-				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
 			},
 		})
-			.then((res) => res.json())
+			.then((res) => res.url)
 			.catch((e) => console.log(e));
   }
 };

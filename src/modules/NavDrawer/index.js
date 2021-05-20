@@ -90,13 +90,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Nav({ token, setToken, children }) {
+export default function NavDrawer({ user, token, setToken, children }) {
 	const classes = useStyles();
 	const theme = useTheme();
   const [state, dispatch] = useContext(AppContext);
 	const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(state.authUser)
+  const [avatar, setAvatar] = useState("https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues=")
 
+  useEffect(() => {
+    checkAvatar()
+  }, [])
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -104,6 +108,14 @@ export default function Nav({ token, setToken, children }) {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
+  const checkAvatar = async () => {
+    console.log(user)
+    // if (profile !== null) {
+      // console.log(profile.id)
+      await userAPI.getUserAvatar(localStorage.getItem('userId')).then(data => 
+        setAvatar(data))
+  }
 
 	const logout = async () => {
 		await userAPI.logoutSession(token).then((response) => {
@@ -166,7 +178,7 @@ export default function Nav({ token, setToken, children }) {
 				<Divider />
 				<List>
 				<div>
-          <img className={classes.profilePic} src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues=" alt="profile-pic"/>
+          <img className={classes.profilePic} src={avatar} alt="profile-pic"/>
         </div>
 				</List>
 				<Divider />

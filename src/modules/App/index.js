@@ -5,9 +5,10 @@ import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
 import SignUp from '../SignUp';
 import Home from '../Home';
-import Drawer from '../Drawer';
+import NavDrawer from '../NavDrawer';
 // import { getAccessToken } from '../../utils';
 import useToken from '../../common/useToken';
+import userAPI from '../../api/user';
 import './App.css';
 
 const App = () => {
@@ -17,14 +18,20 @@ const App = () => {
 	useEffect(() => {
 		// checkToken();
     determineUser()
-	}, [token]);
+	}, []);
 
   const determineUser = () => {
     if(localStorage.getItem('user')) {
+      // checkAvatar()
       return setUserState(JSON.parse(localStorage.getItem('user')))
-    } else {
-      return setUserState(null)
     }
+    // } else {
+    //   return setUserState(null)
+    // }
+  }
+
+  const checkAvatar = async () => {
+     await userAPI.getUserAvatar(localStorage.getItem('userId')).then(data => data)
   }
 
   const setUserState = (user) => {
@@ -39,9 +46,9 @@ const App = () => {
 					{!token && <Redirect to='/login' />}
 					{token && (
 						<>
-							<Drawer token={token} setToken={setToken}>
+							<NavDrawer user={state.authUser} token={token} setToken={setToken}>
 								<Home token={token} />
-							</Drawer>
+							</NavDrawer>
 						</>
 					)}
 				</Route>
