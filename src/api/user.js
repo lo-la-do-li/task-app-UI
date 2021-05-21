@@ -112,7 +112,7 @@ const userAPI = {
         'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
 			},
 		})
-			.then((res) => res.url)
+			.then((res) => res)
 			.catch((e) => console.log(e));
   }
 };

@@ -1,5 +1,5 @@
 export const initialState = {
-	authUser: null,
+	authUser: JSON.parse(localStorage.getItem('user')),
 	tasks: [],
 	completed: [],
 	toDo: [],

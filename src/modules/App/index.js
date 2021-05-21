@@ -15,24 +15,15 @@ const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { token, setToken } = useToken();
 
-	useEffect(() => {
+	// useEffect(() => {
 		// checkToken();
-    determineUser()
-	}, []);
+    // determineUser()
+	// }, []);
 
-  const determineUser = () => {
-    if(localStorage.getItem('user')) {
-      // checkAvatar()
-      return setUserState(JSON.parse(localStorage.getItem('user')))
-    }
-    // } else {
-    //   return setUserState(null)
-    // }
-  }
-
-  const checkAvatar = async () => {
-     await userAPI.getUserAvatar(localStorage.getItem('userId')).then(data => data)
-  }
+  // const determineUser = () => {
+  //   let user = localStorage.getItem('user')
+  //   return setUserState(JSON.parse(user))
+  // }
 
   const setUserState = (user) => {
 		const action = { type: 'SET_USER', authUser: user };
@@ -46,7 +37,7 @@ const App = () => {
 					{!token && <Redirect to='/login' />}
 					{token && (
 						<>
-							<NavDrawer user={state.authUser} token={token} setToken={setToken}>
+							<NavDrawer token={token} setToken={setToken}>
 								<Home token={token} />
 							</NavDrawer>
 						</>

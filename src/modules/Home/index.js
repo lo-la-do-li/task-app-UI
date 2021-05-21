@@ -3,14 +3,13 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from "@material-ui/core";
 import taskAPI from '../../api/task';
 import { taskDate } from '../../utils';
 import TaskGrid from '../TaskGrid';
 import AppContext from '../../common/context';
-import ModalForm from '../../ui/ModalForm';
+import TaskForm from '../../ui/modal/TaskForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,7 +124,7 @@ const Home = ({ token }) => {
           <div>{getTodayDate()[2]}</div>
         </Box>
         <Paper style={{borderRadius: '20px', padding: '8px'}}className={classes.paper}>
-          <ModalForm
+          <TaskForm
             open={open}
             handleClose={handleClose}
             create={true}
@@ -133,7 +132,7 @@ const Home = ({ token }) => {
             submitAction={submitNewTask}
             button={
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px'}}>
-            <span style={{fontSize: '16px', color: 'rgba(0, 0, 0, 0.54)', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
+            <span style={{fontSize: '16px', color: '#2b2733', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
             <IconButton  
               onClick={handleClickOpen}
               style={{padding: '8px 0 4px 0'}}

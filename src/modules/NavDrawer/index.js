@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -15,8 +16,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
@@ -60,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		padding: theme.spacing(0, 1),
-		// necessary for content to be below app bar
 		...theme.mixins.toolbar,
 		justifyContent: 'flex-end',
 	},
@@ -96,23 +96,30 @@ const useStyles = makeStyles((theme) => ({
     // color: '#ffffff'
     color: '#2b2733'
 	},
+  profile: {
+    display: 'flex',
+    flexDirection: 'column', 
+    alignItems: 'center',
+    padding: '20px 2px 20px 2px'
+  },
   profilePic: {
-    width: "220px",
+    width: "200px",
     borderRadius: "50%"
   }
 }));
 
-export default function NavDrawer({ user, token, setToken, children }) {
+export default function NavDrawer({ token, setToken, children }) {
 	const classes = useStyles();
 	const theme = useTheme();
   const [state, dispatch] = useContext(AppContext);
 	const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(state.authUser)
-  const [avatar, setAvatar] = useState("https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues=")
+  const [avatar, setAvatar] = useState('')
 
   useEffect(() => {
     checkAvatar()
   }, [])
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -122,8 +129,14 @@ export default function NavDrawer({ user, token, setToken, children }) {
 	};
 
   const checkAvatar = async () => {
-      await userAPI.getUserAvatar(localStorage.getItem('userId')).then(data => 
-        setAvatar(data))
+    let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
+      await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
+        if (res.url) {
+        return setAvatar(res.url)
+      } else {
+        return setAvatar(placeholderImg)
+      }
+    })
   }
 
 	const logout = async () => {
@@ -158,7 +171,7 @@ export default function NavDrawer({ user, token, setToken, children }) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography style={{fontFamily: 'Lato', fontSize:'24px', fontWeight: '600'}} noWrap>
+					<Typography style={{fontFamily: 'Lato', fontSize:'24px', fontWeight: '600'}} component='h1' noWrap>
 						Task App
 					</Typography>
 					<Button onClick={logout} color='inherit'>
@@ -166,7 +179,8 @@ export default function NavDrawer({ user, token, setToken, children }) {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<Drawer
+			
+      <Drawer
 				className={classes.drawer}
 				variant='persistent'
 				anchor='left'
@@ -184,25 +198,39 @@ export default function NavDrawer({ user, token, setToken, children }) {
 						)}
 					</IconButton>
 				</div>
+
 				<Divider />
-				<List>
-				<div style={{ display: 'flex', justifyContent: 'center' }}>
-          <img className={classes.profilePic} src={avatar} alt="profile-pic"/>
-        </div>
-				</List>
+
+        <Container className={classes.profile} fixed>
+          <div style={{paddingBottom: '20px'}}>
+            <img className={classes.profilePic} src={avatar} alt="profile-pic"/>
+          </div>
+          <Typography variant='subtitle1'>
+            {profile.name.toUpperCase()} 
+          </Typography>
+          <Typography variant='subtitle2' gutterBottom>
+            {profile.email} 
+          </Typography>
+        </Container>
 				<Divider />
+
 				<List>
-					{['All mail', 'Trash', 'Spam'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
+					<ListItem button>
+						<ListItemIcon>
+							<EditIcon style={{fill: '#021448a6'}}/>
+						</ListItemIcon>
+						<ListItemText primary={'Edit User Info'} />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<DeleteForeverIcon style={{fill: '#021448a6'}}/>
+						</ListItemIcon>
+						<ListItemText primary={'Delete Account'} />
+					</ListItem>
 				</List>
 			</Drawer>
-			<main
+			
+      <main
 				className={clsx(classes.content, {
 					[classes.contentShift]: open,
 				})}

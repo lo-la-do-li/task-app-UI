@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import ModalForm from '../../ui/ModalForm';
+import TaskForm from '../../ui/modal/TaskForm';
 import { taskDate } from '../../utils';
 import taskAPI from '../../api/task';
 
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 		overflow: 'hidden',
     [theme.breakpoints.down("900")]: {
       padding: '0',
-      // maxWidth: 'max-content'
     },
 	},
 	paper: {
@@ -30,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     height: '40px',
     textAlign: 'center',
-    color: '#021448a6',
+    // color: '#021448a6',
+    color: '#2b2733',
     fontFamily: 'Lato',
     border: '1px solid white',
     boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
@@ -62,9 +62,9 @@ const useStyles = makeStyles((theme) => ({
 
 const GreenCheckbox = withStyles({
 	root: {
-		color: green[400],
+		color: '#021448a6',
 		'&$checked': {
-			color: green[600],
+			color: '#021448a6',
 		},
 	},
 	checked: {},
@@ -142,7 +142,7 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
 									</Grid>
                   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                   <Grid item id={task._id}>
-                    <ModalForm 
+                    <TaskForm 
                       open={open}
                       handleClose={handleClose}
                       create={false}
