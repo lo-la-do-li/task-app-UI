@@ -12,15 +12,29 @@ import TaskGrid from '../TaskGrid';
 import AppContext from '../../common/context';
 import ModalForm from '../../ui/ModalForm';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
-    paddingTop: '2%',
+    height: '100vh',
+    // paddingTop: '2vh',
     overflow: 'hidden',
-    backgroundColor: '#8372ae0f',
-    borderRadius: '8px'
+    // backgroundColor: '#8372ae0f',
+    borderRadius: '20px',
+    [theme.breakpoints.down("900")]: {
+      paddingTop: '4vh',
+    },
+  },
+  header: {
+    display: 'flex', 
+    alignItems: 'center',
+    padding: '20px 40px',
+    justifyContent: 'space-between',
+    width: '100%',
+     [theme.breakpoints.down("900")]: {
+      padding: '10px 20px 20px 20px',
+    },
   },
   container: {
     display: 'flex',
@@ -36,10 +50,7 @@ const useStyles = makeStyles(theme => ({
       // width: 'inherit'
     },
   paper: {
-    width: '80%',
 		margin: `${theme.spacing(2)}px auto`,
-		padding: theme.spacing(2),
-    borderRadius: '200px',
     display: 'flex',
     flexDirection: 'column'
     },
@@ -108,31 +119,33 @@ const Home = ({ token }) => {
   }
 	return (
     <div className={classes.root}>
-      <Box style={{padding: '0px 40px'}}>
-        <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
-        <div>{getTodayDate()[2]}</div>
-      </Box>
-      <Paper style={{borderRadius: '10px', width:'200px'}}className={classes.paper}>
-        <ModalForm
-          open={open}
-          handleClose={handleClose}
-          create={true}
-          task={null}
-          submitAction={submitNewTask}
-          button={
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '16px'}}>
-          <span style={{fontSize: '20px', color: 'rgba(0, 0, 0, 0.54)', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
-          <IconButton  
-            onClick={handleClickOpen}
-          >
-            <AddCircleOutlineIcon style={{ fontSize: 60 }}/>
-          </IconButton>
-          </div>
-          }
-        />
-       
-     
-      </Paper>
+      <div className={classes.header}>
+        <Box >
+          <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
+          <div>{getTodayDate()[2]}</div>
+        </Box>
+        <Paper style={{borderRadius: '20px', padding: '8px'}}className={classes.paper}>
+          <ModalForm
+            open={open}
+            handleClose={handleClose}
+            create={true}
+            task={null}
+            submitAction={submitNewTask}
+            button={
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px'}}>
+            <span style={{fontSize: '16px', color: 'rgba(0, 0, 0, 0.54)', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
+            <IconButton  
+              onClick={handleClickOpen}
+              style={{padding: '8px 0 4px 0'}}
+            >
+              <AddCircleOutlineIcon style={{ fontSize: 40 }}/>
+            </IconButton>
+            </div>
+            }
+          />
+      
+        </Paper>
+      </div>
 
       <Container className={classes.container}>
         <TaskGrid title={'TO DO'} emptyMessage={'You\'ve completed all your tasks!'} tasks={state.toDo} updateTaskGrids={updateTaskGrids} />

@@ -9,13 +9,12 @@ export const getUser = () => {
 export const taskDate = (taskDate) => {
 	let month = new Date(taskDate).getUTCMonth();
 	let date = new Date(taskDate).getUTCDate();
-      //Create an array containing each day, starting with Sunday.
     let weekdays = new Array(
         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     );
-    //Use the getDay() method to get the day.
+
     let day = new Date(taskDate).getDay();
-    //Return the element that corresponds to that index.
+ 
     
 	month =
 		month === 0

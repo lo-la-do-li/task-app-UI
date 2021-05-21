@@ -22,19 +22,20 @@ const useStyles = makeStyles((theme) => ({
     },
 	},
 	paper: {
-		maxWidth: 400,
+		maxWidth: 460,
 		margin: `${theme.spacing(1)}px auto`,
 		padding: theme.spacing(2),
     borderRadius: '20px'
-    
-    // [theme.breakpoints.down("900")]: {
-    //   maxWidth: 600,
-    // },
 	},
   title: {
+    height: '40px',
     textAlign: 'center',
+    color: '#021448a6',
     fontFamily: 'Lato',
-    textDecoration: 'underline'
+    border: '1px solid white',
+    boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
+    background: 'white',
+    borderRadius: '20px'
   },
   message: {
     color: '#2b2733',
@@ -43,9 +44,10 @@ const useStyles = makeStyles((theme) => ({
 	dateCreated: {
     fontFamily: 'Lato',
     fontWeight: 600,
-    color: green[400],
+    color: '#0214488a',
     width: '60px',
-		borderRight: '1.5px solid #2b2733',
+		borderRight: '1.5px solid #d9d5ed',
+    // borderRight: '1.5px solid #e6cfd5',
 		marginRight: '5px',
 	},
   description: {
@@ -151,7 +153,7 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
                           id={task._id} 
                           onClick={() => handleClickOpen(task)}
                         >
-                          <EditIcon />
+                          <EditIcon style={{fill: '#021448a6'}}/>
                         </IconButton>
                     )}
                     />
