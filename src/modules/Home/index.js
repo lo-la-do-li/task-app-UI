@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from "@material-ui/core";
 import taskAPI from '../../api/task';
+import { taskDate } from '../../utils';
 import TaskGrid from '../TaskGrid';
 import AppContext from '../../common/context';
 import ModalForm from '../../ui/ModalForm';
@@ -15,7 +16,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    paddingTop: '2%',
     overflow: 'hidden',
     backgroundColor: '#8372ae0f',
     borderRadius: '8px'
@@ -33,9 +35,9 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center', 
       // width: 'inherit'
     },
-    paper: {
-    width: '50%',
-		margin: `${theme.spacing(1)}px auto`,
+  paper: {
+    width: '80%',
+		margin: `${theme.spacing(2)}px auto`,
 		padding: theme.spacing(2),
     borderRadius: '200px',
     display: 'flex',
@@ -55,6 +57,7 @@ const Home = ({ token }) => {
 
 	useEffect(() => {
   // Sets all tasks in state => getTasks(undefined, 'tasks');
+    getTodayDate()
     updateTaskGrids()
 	}, []);
 
@@ -101,18 +104,15 @@ const Home = ({ token }) => {
 
   const getTodayDate = () => {
     let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
-
-    today = mm + '/' + dd + '/' + yyyy;
-    return today
+    return taskDate(today)
   }
 	return (
     <div className={classes.root}>
-      <div>{getTodayDate()}</div>
-      <Paper className={classes.paper}>
-    
+      <Box style={{padding: '0px 40px'}}>
+        <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
+        <div>{getTodayDate()[2]}</div>
+      </Box>
+      <Paper style={{borderRadius: '10px', width:'200px'}}className={classes.paper}>
         <ModalForm
           open={open}
           handleClose={handleClose}
@@ -120,11 +120,14 @@ const Home = ({ token }) => {
           task={null}
           submitAction={submitNewTask}
           button={
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '16px'}}>
+          <span style={{fontSize: '20px', color: 'rgba(0, 0, 0, 0.54)', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
           <IconButton  
             onClick={handleClickOpen}
           >
             <AddCircleOutlineIcon style={{ fontSize: 60 }}/>
           </IconButton>
+          </div>
           }
         />
        
