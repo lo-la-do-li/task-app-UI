@@ -103,8 +103,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
   getUserAvatar:  (id) => {
-    
-    	return fetch(`http://localhost:3000/users/${id}/avatar`, {
+    return fetch(`http://localhost:3000/users/${id}/avatar`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

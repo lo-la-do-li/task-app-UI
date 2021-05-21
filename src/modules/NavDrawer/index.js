@@ -19,8 +19,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
+
+// App imports 
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
+import User from '../../utils/userClass';
+import UserForm from '../../ui/modal/UserForm'
+import { setCacheNameDetails } from 'workbox-core';
 
 const drawerWidth = 240;
 
@@ -91,9 +96,7 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-     backgroundImage: 'linear-gradient(to right, #d7d6f0, #eacdcd)',
-		// backgroundColor: '#2b2733',
-    // color: '#ffffff'
+    backgroundImage: 'linear-gradient(to right, #d7d6f0, #eacdcd)',
     color: '#2b2733'
 	},
   profile: {
@@ -113,8 +116,10 @@ export default function NavDrawer({ token, setToken, children }) {
 	const theme = useTheme();
   const [state, dispatch] = useContext(AppContext);
 	const [open, setOpen] = useState(false);
-  const [profile, setProfile] = useState(state.authUser)
-  const [avatar, setAvatar] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
+  const [profile, setProfile] = useState(state.authUser);
+  const [avatar, setAvatar] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     checkAvatar()
@@ -128,6 +133,14 @@ export default function NavDrawer({ token, setToken, children }) {
 		setOpen(false);
 	};
 
+  const handleModalOpen = () => {
+			setModalOpen(true);
+		};
+
+	const handleModalClose = () => {
+			setModalOpen(false);
+		};
+
   const checkAvatar = async () => {
     let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
@@ -138,6 +151,49 @@ export default function NavDrawer({ token, setToken, children }) {
       }
     })
   }
+
+  const setUserState = (user) => {
+			const action = { type: 'SET_USER', authUser: user };
+			dispatch(action);
+	};
+
+	const submitUserUpdates = async (e, name, email, password) => {
+			e.preventDefault();
+      let updates;
+      if (password === "") {
+        updates = {
+          name,
+          email
+        }
+      } else {
+        updates = {
+          name,
+          email,
+          password
+        };
+      }
+
+      console.log(updates)
+			await userAPI.updateUserInfo(updates).then((res) => {
+        console.log(res)
+        if (res.errors) {
+          let message;
+          if (res.errors.password) {
+            message = res.errors.password.message; 
+          } 
+          else if (res.errors.email) {
+            message = res.errors.email.message;
+          }
+          return setErrorMessage(message)
+        } else {
+          let userToState = new User(res);
+          localStorage.setItem('user', JSON.stringify(userToState));
+          return setUserState(userToState)
+        }
+			});
+			// setTaskEdit(null);
+			setModalOpen(false);
+	};
 
 	const logout = async () => {
 		await userAPI.logoutSession(token).then((response) => {
@@ -171,7 +227,11 @@ export default function NavDrawer({ token, setToken, children }) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography style={{fontFamily: 'Lato', fontSize:'24px', fontWeight: '600'}} component='h1' noWrap>
+					<Typography
+						style={{ fontFamily: 'Lato', fontSize: '24px', fontWeight: '600' }}
+						component='h1'
+						noWrap
+					>
 						Task App
 					</Typography>
 					<Button onClick={logout} color='inherit'>
@@ -179,8 +239,8 @@ export default function NavDrawer({ token, setToken, children }) {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			
-      <Drawer
+
+			<Drawer
 				className={classes.drawer}
 				variant='persistent'
 				anchor='left'
@@ -201,36 +261,53 @@ export default function NavDrawer({ token, setToken, children }) {
 
 				<Divider />
 
-        <Container className={classes.profile} fixed>
-          <div style={{paddingBottom: '20px'}}>
-            <img className={classes.profilePic} src={avatar} alt="profile-pic"/>
-          </div>
-          <Typography variant='subtitle1'>
-            {profile.name.toUpperCase()} 
-          </Typography>
-          <Typography variant='subtitle2' gutterBottom>
-            {profile.email} 
-          </Typography>
-        </Container>
+				<Container className={classes.profile} fixed>
+					<div style={{ paddingBottom: '20px' }}>
+						<img
+							className={classes.profilePic}
+							src={avatar}
+							alt='profile-pic'
+						/>
+					</div>
+					<Typography variant='subtitle1'>
+						{profile.name.toUpperCase()}
+					</Typography>
+					<Typography variant='subtitle2' gutterBottom>
+						{profile.email}
+					</Typography>
+				</Container>
+
 				<Divider />
 
 				<List>
+					{/* <ListItem button> */}
+					<UserForm
+						open={modalOpen}
+						handleClose={handleModalClose}
+						profile={profile}
+						submitAction={submitUserUpdates}
+						button={
+							<ListItem button
+                onClick={handleModalOpen}
+              >
+								<ListItemIcon>
+									<EditIcon style={{ fill: '#021448a6' }} />
+								</ListItemIcon>
+								<ListItemText primary={'Edit User Info'} />
+							</ListItem>
+						}
+					/>
+			
 					<ListItem button>
 						<ListItemIcon>
-							<EditIcon style={{fill: '#021448a6'}}/>
-						</ListItemIcon>
-						<ListItemText primary={'Edit User Info'} />
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<DeleteForeverIcon style={{fill: '#021448a6'}}/>
+							<DeleteForeverIcon style={{ fill: '#021448a6' }} />
 						</ListItemIcon>
 						<ListItemText primary={'Delete Account'} />
 					</ListItem>
 				</List>
 			</Drawer>
-			
-      <main
+
+			<main
 				className={clsx(classes.content, {
 					[classes.contentShift]: open,
 				})}

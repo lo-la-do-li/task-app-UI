@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function TaskForm({task, button, handleClose, open, create, submitAction}) {
   
-  const [newDescription, setNewDescription] = useState("");
+  const [newDescription, setNewDescription] = useState('');
   
   useEffect(() => {
     if (task) {

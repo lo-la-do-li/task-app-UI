@@ -160,7 +160,6 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
                   </Grid>
               
 									<Grid item style={{alignSelf: 'center'}}>
-                 
 												<GreenCheckbox
 													id={task._id}
 													checked={task.completed}
