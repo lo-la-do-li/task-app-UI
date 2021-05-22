@@ -6,17 +6,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
-export default function UserForm({profile, button, handleClose, open, submitAction}) {
+export default function UserForm({profile, button, handleClose, open, submitAction, errorMessage}) {
   
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
   const [password, setPassword] = useState('');
   
   useEffect(() => {
-    console.log(profile)
-  }, [])
+    resetInputs()
+  }, [handleClose])
   
+  const resetInputs = () => {
+    setName(profile.name)
+    setEmail(profile.email)
+    setPassword('');
+  }
   const handleChange = (e) => {
     if (e.target.name === 'name') {
       setName(e.target.value)
@@ -37,17 +43,21 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 				onClose={handleClose}
 				aria-labelledby='form-dialog-title'
 			>
-				<DialogTitle id='edit-profile-form'>Update User Information</DialogTitle>
+				<DialogTitle id='edit-profile-form'>
+					Update User Information
+				</DialogTitle>
 
 				<DialogContent>
-					<DialogContentText>Edit any or all values below and select "Update"</DialogContentText>
+					<DialogContentText>
+						Edit any or all values below and select "Update"
+					</DialogContentText>
 
 					<TextField
 						autoFocus
 						margin='dense'
 						label='Name'
 						type='text'
-            name='name'
+						name='name'
 						value={name}
 						onChange={handleChange}
 						fullWidth
@@ -57,7 +67,7 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						margin='dense'
 						label='Email'
 						type='text'
-            name='email'
+						name='email'
 						value={email}
 						onChange={handleChange}
 						fullWidth
@@ -66,12 +76,14 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						autoFocus
 						margin='dense'
 						label='Password: Leave blank to keep current password'
-						type='text'
-            name='password'
+						type='password'
+						name='password'
 						value={password}
 						onChange={handleChange}
 						fullWidth
 					/>
+				
+        <DialogContentText style={{color: 'red'}}>{errorMessage}</DialogContentText>
 				</DialogContent>
 
 				<DialogActions>

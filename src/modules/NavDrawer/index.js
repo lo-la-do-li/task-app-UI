@@ -125,6 +125,10 @@ export default function NavDrawer({ token, setToken, children }) {
     checkAvatar()
   }, [])
 
+    useEffect(() => {
+      setProfile(state.authUser)
+		}, [state.authUser]);
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -140,7 +144,8 @@ export default function NavDrawer({ token, setToken, children }) {
 	const handleModalClose = () => {
 			setModalOpen(false);
 		};
-
+  
+  
   const checkAvatar = async () => {
     let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
@@ -173,7 +178,6 @@ export default function NavDrawer({ token, setToken, children }) {
         };
       }
 
-      console.log(updates)
 			await userAPI.updateUserInfo(updates).then((res) => {
         console.log(res)
         if (res.errors) {
@@ -188,11 +192,13 @@ export default function NavDrawer({ token, setToken, children }) {
         } else {
           let userToState = new User(res);
           localStorage.setItem('user', JSON.stringify(userToState));
+          setModalOpen(false);
+          setErrorMessage('')
           return setUserState(userToState)
         }
 			});
 			// setTaskEdit(null);
-			setModalOpen(false);
+			
 	};
 
 	const logout = async () => {
@@ -286,6 +292,7 @@ export default function NavDrawer({ token, setToken, children }) {
 						handleClose={handleModalClose}
 						profile={profile}
 						submitAction={submitUserUpdates}
+            errorMessage={errorMessage}
 						button={
 							<ListItem button
                 onClick={handleModalOpen}
