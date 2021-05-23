@@ -6,9 +6,8 @@ import Login from '../Login';
 import SignUp from '../SignUp';
 import Home from '../Home';
 import NavDrawer from '../NavDrawer';
-// import { getAccessToken } from '../../utils';
 import useToken from '../../common/useToken';
-import userAPI from '../../api/user';
+// import userAPI from '../../api/user';
 import './App.css';
 
 const App = () => {
@@ -19,11 +18,6 @@ const App = () => {
 		// checkToken();
     // determineUser()
 	// }, []);
-
-  // const determineUser = () => {
-  //   let user = localStorage.getItem('user')
-  //   return setUserState(JSON.parse(user))
-  // }
 
   const setUserState = (user) => {
 		const action = { type: 'SET_USER', authUser: user };

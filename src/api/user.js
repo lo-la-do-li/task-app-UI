@@ -85,30 +85,33 @@ const userAPI = {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
-				'Authorization': ` Bearer ${window.localStorage.getItem('token')}`,
+				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
 			},
 		})
 			.then((res) => res.json())
 			.catch((e) => console.log(e));
 	},
-	uploadAvatar: (formData) => {
+	uploadAvatar: (file) => {
+    
+    let data = new FormData();
+		data.append('avatar', file);
 		return fetch('http://localhost:3000/users/me/avatar', {
 			method: 'POST',
+			body: data,
 			headers: {
-				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
 			},
-			body: formData,
 		})
-			.then((res) => res.json)
-			.catch((e) => console.log(e));
+			.then((res) => res)
+			.catch((e) => e);
 	},
-  getUserAvatar:  (id) => {
+  getUserAvatar: (id) => {
     return fetch(`http://localhost:3000/users/${id}/avatar`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
 			},
 		})
 			.then((res) => res)

@@ -19,13 +19,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
+import ImageUpload from './ImageUpload';
 
 // App imports 
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 import User from '../../utils/userClass';
-import UserForm from '../../ui/modal/UserForm'
-import { setCacheNameDetails } from 'workbox-core';
+import UserForm from '../../ui/modal/UserForm';
+import ModalWrap from '../../ui/modal/ModalWrap';
 
 const drawerWidth = 240;
 
@@ -274,6 +275,9 @@ export default function NavDrawer({ token, setToken, children }) {
 							src={avatar}
 							alt='profile-pic'
 						/>
+						<ModalWrap button={<EditIcon style={{ fill: '#021448a6' }} />}>
+							<ImageUpload />
+						</ModalWrap>
 					</div>
 					<Typography variant='subtitle1'>
 						{profile.name.toUpperCase()}
@@ -286,17 +290,14 @@ export default function NavDrawer({ token, setToken, children }) {
 				<Divider />
 
 				<List>
-					{/* <ListItem button> */}
 					<UserForm
 						open={modalOpen}
 						handleClose={handleModalClose}
 						profile={profile}
 						submitAction={submitUserUpdates}
-            errorMessage={errorMessage}
+						errorMessage={errorMessage}
 						button={
-							<ListItem button
-                onClick={handleModalOpen}
-              >
+							<ListItem button onClick={handleModalOpen}>
 								<ListItemIcon>
 									<EditIcon style={{ fill: '#021448a6' }} />
 								</ListItemIcon>
@@ -304,7 +305,7 @@ export default function NavDrawer({ token, setToken, children }) {
 							</ListItem>
 						}
 					/>
-			
+
 					<ListItem button>
 						<ListItemIcon>
 							<DeleteForeverIcon style={{ fill: '#021448a6' }} />
