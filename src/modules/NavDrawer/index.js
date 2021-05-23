@@ -17,6 +17,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
 import ImageUpload from './ImageUpload';
@@ -125,6 +127,10 @@ export default function NavDrawer({ token, setToken, children }) {
   useEffect(() => {
     checkAvatar()
   }, [])
+    
+  useEffect(() => {
+		console.log('reloaded')
+	}, []);
 
     useEffect(() => {
       setProfile(state.authUser)
@@ -148,6 +154,8 @@ export default function NavDrawer({ token, setToken, children }) {
   
   
   const checkAvatar = async () => {
+    console.log("checkAvatar called")
+    setAvatar('')
     let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
         if (res.url) {
@@ -275,8 +283,14 @@ export default function NavDrawer({ token, setToken, children }) {
 							src={avatar}
 							alt='profile-pic'
 						/>
-						<ModalWrap button={<EditIcon style={{ fill: '#021448a6' }} />}>
-							<ImageUpload />
+						<ModalWrap
+							buttonOpen={<AddAPhotoIcon style={{ fill: '#021448a6' }} />}
+						>
+							<ImageUpload
+              setAvatar={(url) => setAvatar(url)}
+								checkAvatar={checkAvatar}
+								handleDrawerClose={handleDrawerClose}
+							/>
 						</ModalWrap>
 					</div>
 					<Typography variant='subtitle1'>

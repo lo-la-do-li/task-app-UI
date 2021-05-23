@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
 
 
 export default function ModalWrap(props) {
-	const { button, children } =
+	const { buttonOpen, children } =
 		props;
 	const classes = useStyles(props);
   const [open, setOpen] = useState(false)
@@ -51,17 +51,19 @@ export default function ModalWrap(props) {
 			setOpen(true);
 		};
 
-		const handleClose = () => {
+	const handleClose = () => {
 			setOpen(false);
 		};
+
+  const childrenWithProps = React.cloneElement(children, {handleClose: () => handleClose()})
 	return (
 		<div>
 			<button
 				className={classes.button}
-				style={{ border: 'none', background: 'transparent', color: '#ffd602' }}
+				style={{ border: 'none', background: 'transparent' }}
 				onClick={handleClickOpen}
 			>
-				{button}
+				{buttonOpen}
 			</button>
 			<Dialog
 				open={open}
@@ -71,7 +73,7 @@ export default function ModalWrap(props) {
 				onClose={handleClose}
 				aria-label='modal-wrapper'
 			>
-				<section >{children}</section>
+				<section>{childrenWithProps}</section>
 			</Dialog>
 		</div>
 	);

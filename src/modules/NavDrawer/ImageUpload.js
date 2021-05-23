@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+
 import userAPI from '../../api/user';
 
 
@@ -23,7 +24,6 @@ const useStyles = makeStyles(() => ({
 		borderRadius: '10px',
 		backgroundColor: 'rgb(40,44,52, .5)',
 		outline: 'none',
-		color: 'blanchedalmond',
 	},
 	imgBox: {
 		marginRight: '2em',
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
 	img: {
 		height: 'inherit',
 		maxWidth: 'inherit',
-		paddingBottom: '30px',
+		paddingBottom: '10px',
 	},
 	input: {
 		// display: 'none',
@@ -54,15 +54,11 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const ImageUpload = () => {
+const ImageUpload = ({ checkAvatar, handleClose, handleDrawerClose, setAvatar }) => {
 	const classes = useStyles();
 	const [source, setSource] = useState('');
 	const [sourceFile, setSourceFile] = useState(null);
-	const [open, setOpen] = useState(true);
-
-	const handleClose = () => {
-		setOpen(!open);
-	};
+	const [error, setError] = useState('');
 
 	const handleCapture = (target) => {
 		if (target.files) {
@@ -80,19 +76,44 @@ const ImageUpload = () => {
 	// 	updates.image = sourceFile;
 	// 	source ? console.log('source file', updates) : console.log('no source', updates);
 	// }, [source]);
-  
+  const resetPhotoUpload = () => {
+    setSourceFile(null);
+		setSource('');
+		setError('');
+		handleDrawerClose();
+    return handleClose();
+  }
   const submitNewAvatar = async () => {
-    await userAPI.uploadAvatar(sourceFile).then(res => console.log(res))
+    await userAPI.uploadAvatar(sourceFile).then(res => {
+      if(res.status === 200) {
+      
+        console.log('image uploaded')
+      resetPhotoUpload()
+      } else {
+        setError(res)
+        return console.log(res)
+      }
+      return checkAvatar();
+    })
+
+      // return userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
+      //   console.log(res.url) 
+      //   return setAvatar(res.url)
+      // })
   }
 
 	return (
 		<div className={classes.root}>
-      <h4>Take a new photo or upload one with your device</h4>
+			<h4>Take a new photo or upload one with your device</h4>
 			{source && (
 				<div className={classes.icon}>
 					<img src={source} alt={'snap'} className={classes.img} />
 				</div>
 			)}
+
+			<Typography variant='subtitle2' style={{ color: 'red', marginBottom: '1em' }} gutterBottom>
+				{error}
+			</Typography>
 			<input
 				accept='image/*'
 				className={classes.input}
@@ -102,12 +123,11 @@ const ImageUpload = () => {
 				onChange={(e) => handleCapture(e.target)}
 			/>
 
-
 			<label htmlFor='icon-button-file'>
-				<IconButton
-					onClick={submitNewAvatar}
-				>
-					<EditIcon/>
+				<IconButton onClick={submitNewAvatar}>
+					<span aria-label='upload user image'>
+						<AddPhotoAlternateIcon />
+					</span>
 				</IconButton>
 			</label>
 		</div>

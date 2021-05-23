@@ -102,8 +102,14 @@ const userAPI = {
 				'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
 			},
 		})
-			.then((res) => res)
-			.catch((e) => e);
+			.then((res) => {
+        if (res.ok) {
+          return res
+        } else {
+          return res.json()
+        }
+      })
+			.catch((e) => console.log(e));
 	},
   getUserAvatar: (id) => {
     return fetch(`http://localhost:3000/users/${id}/avatar`, {
