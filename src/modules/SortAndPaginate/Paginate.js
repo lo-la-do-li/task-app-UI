@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		color: '#2b2733',
 		fontFamily: 'Lato',
+    flexGrow: 1
 	},
 }));
 
@@ -33,15 +34,21 @@ export default function Paginate({ title, tasks }){
 const classes = useStyles()
 // const [tasks, setTasks] = useState(tasks)
 
+
+
 return (
 	<Container className={classes.taskNav}>
-		<IconButton onClick={() => console.log('Previous Page')}>
-			<NavigateBeforeIcon style={{ fill: '#021448a6' }} />
-		</IconButton>
+		{tasks.length > 2 && (
+			<IconButton onClick={() => console.log('Previous Page')}>
+				<NavigateBeforeIcon style={{ fill: '#021448a6' }} />
+			</IconButton>
+		)}
 		<h2 className={classes.title}>{title}</h2>
-		<IconButton onClick={() => console.log('Next Page')}>
-			<NavigateNextIcon style={{ fill: '#021448a6' }} />
-		</IconButton>
+		{tasks.length > 2 && (
+			<IconButton onClick={() => console.log('Next Page')}>
+				<NavigateNextIcon style={{ fill: '#021448a6' }} />
+			</IconButton>
+		)}
 	</Container>
 );
 }

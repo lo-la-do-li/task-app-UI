@@ -12,52 +12,60 @@ import AppContext from '../../common/context';
 import TaskForm from '../../ui/modal/TaskForm';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    height: '100vh',
-    // paddingTop: '2vh',
-    overflow: 'hidden',
-    // backgroundColor: '#8372ae0f',
-    borderRadius: '20px',
-    [theme.breakpoints.down("900")]: {
-      paddingTop: '4vh',
-    },
-  },
-  header: {
-    display: 'flex', 
-    alignItems: 'center',
-    padding: '20px 40px',
-    justifyContent: 'space-between',
-    width: '100%',
-     [theme.breakpoints.down("900")]: {
-      padding: '10px 20px 20px 20px',
-    },
-  },
-  container: {
-    display: 'flex',
-    justifyItems: 'space-between',
-    [theme.breakpoints.down("900")]: {
-      flexFlow: 'wrap',
-      padding: '0',
-    },
-    box: {
-      display: 'flex', 
-      flexDirection: 'column', 
-      textAlign: 'center', 
-      // width: 'inherit'
-    },
-  paper: {
+	root: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
+		height: '100vh',
+		// paddingTop: '2vh',
+		// overflow: 'hidden',
+		// backgroundColor: '#8372ae0f',
+		borderRadius: '20px',
+		[theme.breakpoints.down('900')]: {
+			paddingTop: '4vh',
+		},
+	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+		padding: '10px 40px 20px 40px',
+		justifyContent: 'space-between',
+		width: '100%',
+		[theme.breakpoints.down('900')]: {
+			padding: '10px 20px 40px 20px',
+		},
+	},
+	container: {
+		display: 'flex',
+		justifyItems: 'space-between',
+		[theme.breakpoints.down('900')]: {
+			flexFlow: 'wrap',
+			padding: '0',
+		},
+	},
+	box: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		// width: 'inherit'
+	},
+	addButton: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		padding: '10px',
+	},
+	paper: {
 		margin: `${theme.spacing(2)}px auto`,
-    display: 'flex',
-    flexDirection: 'column'
-    },
-  title: {
-    textAlign: 'center',
-    fontFamily: 'Lato',
-  },
-  }
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	title: {
+		fontSize: '16px',
+		color: '#2b2733',
+		fontFamily: 'Lato',
+		fontWeight: '600',
+	},
 }));
 
 const Home = ({ token }) => {
@@ -124,7 +132,7 @@ const Home = ({ token }) => {
           <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
           <div>{getTodayDate()[2]}</div>
         </Box>
-        <Paper style={{borderRadius: '20px', padding: '8px'}} className={classes.paper}>
+        <Paper style={{borderRadius: '20px', padding: '8px'}}>
           <TaskForm
             open={open}
             handleClose={handleClose}
@@ -132,14 +140,14 @@ const Home = ({ token }) => {
             task={null}
             submitAction={submitNewTask}
             button={
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px'}}>
-            <span style={{fontSize: '16px', color: '#2b2733', fontFamily: 'Lato', fontWeight: '600'}}>Add a task</span>
-            <IconButton  
-              onClick={handleClickOpen}
-              style={{padding: '8px 0 4px 0'}}
-            >
-              <AddCircleOutlineIcon style={{ fontSize: 40 }}/>
-            </IconButton>
+            <div className={classes.addButton}>
+              <span className={classes.title}>Add a task</span>
+              <IconButton  
+                onClick={handleClickOpen}
+                style={{padding: '8px 0 4px 0'}}
+              >
+                <AddCircleOutlineIcon style={{ fontSize: 40 }}/>
+              </IconButton>
             </div>
             }
           />

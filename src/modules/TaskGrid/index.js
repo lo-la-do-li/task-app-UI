@@ -18,48 +18,53 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
 		overflow: 'hidden',
-    [theme.breakpoints.down("900")]: {
-      padding: '0',
-    },
+		[theme.breakpoints.down('900')]: {
+			padding: '0',
+		},
 	},
 	paper: {
 		maxWidth: 460,
 		margin: `${theme.spacing(1)}px auto`,
 		padding: theme.spacing(2),
-    borderRadius: '20px'
+		borderRadius: '20px',
 	},
-  title: {
-    height: '40px',
-    textAlign: 'center',
-    // color: '#021448a6',
-    color: '#2b2733',
-    fontFamily: 'Lato',
-    border: '1px solid white',
-    boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
-    background: 'white',
-    borderRadius: '20px'
-  },
-  message: {
-    color: '#2b2733',
-    textAlign: 'center'
-  },
+	title: {
+		height: '40px',
+		textAlign: 'center',
+		// color: '#021448a6',
+		color: '#2b2733',
+		fontFamily: 'Lato',
+		border: '1px solid white',
+		boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
+		background: 'white',
+		borderRadius: '20px',
+	},
+	message: {
+		color: '#2b2733',
+		textAlign: 'center',
+	},
 	dateCreated: {
-    fontFamily: 'Lato',
-    fontWeight: 600,
-    color: '#0214488a',
-    width: '60px',
+		fontFamily: 'Lato',
+		fontWeight: 600,
+		color: '#0214488a',
+		width: '60px',
 		borderRight: '1.5px solid #d9d5ed',
-    // borderRight: '1.5px solid #e6cfd5',
+		// borderRight: '1.5px solid #e6cfd5',
 		marginRight: '5px',
 	},
-  description: {
-    display: '-webkit-box',
-    boxOrient: 'vertical',
+	description: {
+		display: '-webkit-box',
+		boxOrient: 'vertical',
 
-    lineClamp: 3,
-    overflow: 'hidden'
-
-  }
+		lineClamp: 3,
+		overflow: 'hidden',
+	},
+	container: {
+		padding: 0,
+		[theme.breakpoints.down('900')]: {
+			paddingBottom: '40px',
+		},
+	},
 }));
 
 const GreenCheckbox = withStyles({
@@ -77,6 +82,9 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
   const [open, setOpen] = useState(false);
   const [taskEdit, setTaskEdit] = useState(null)
   
+  useEffect(() => {
+    console.log('number of tasks in state:', tasks.length)
+  }, [])
   const handleClickOpen = (task) => {
     setTaskEdit(task)
     setOpen(true);
@@ -113,9 +121,8 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
   }
 
 	return (
-		<Container maxWidth='lg'>
-      <Paginate title={title} />
-			{/* <h2 className={classes.title}>{title}</h2> */}
+		<Container maxWidth='lg' className={classes.container}>
+      <Paginate title={title} tasks={tasks}/>
 			{!tasks.length ? (
 				<h3 className={classes.message}>{emptyMessage}</h3>
 			) : (
