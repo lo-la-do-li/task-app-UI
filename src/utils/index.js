@@ -1,21 +1,19 @@
-export const getAccessToken = () => {
-	return localStorage.getItem('token');
-};
 
-export const getUser = () => {
-	return localStorage.getItem(JSON.parse('user'));
-};
-
-export const taskDate = (taskDate) => {
+export const getDate = (taskDate) => {
 	let month = new Date(taskDate).getUTCMonth();
 	let date = new Date(taskDate).getUTCDate();
-    let weekdays = new Array(
-        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-    );
+	let weekdays = new Array(
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday'
+	);
 
-    let day = new Date(taskDate).getDay();
- 
-    
+	let day = new Date(taskDate).getDay();
+
 	month =
 		month === 0
 			? 'Jan'
@@ -40,6 +38,8 @@ export const taskDate = (taskDate) => {
 			: month === 10
 			? 'Nov'
 			: 'Dec';
-    
-      return [month, date, weekdays[day]]
+
+	return [month, date, weekdays[day]];
 };
+
+

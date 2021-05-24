@@ -54,7 +54,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const ImageUpload = ({ checkAvatar, handleClose, handleDrawerClose, setAvatar }) => {
+const ImageUpload = ({ checkAvatar, handleClose }) => {
 	const classes = useStyles();
 	const [source, setSource] = useState('');
 	const [sourceFile, setSourceFile] = useState(null);
@@ -71,23 +71,15 @@ const ImageUpload = ({ checkAvatar, handleClose, handleDrawerClose, setAvatar })
 		}
 	};
 
-	// useEffect(() => {
-	// 	let updates = {};
-	// 	updates.image = sourceFile;
-	// 	source ? console.log('source file', updates) : console.log('no source', updates);
-	// }, [source]);
   const resetPhotoUpload = () => {
     setSourceFile(null);
 		setSource('');
 		setError('');
-		handleDrawerClose();
     return handleClose();
   }
   const submitNewAvatar = async () => {
     await userAPI.uploadAvatar(sourceFile).then(res => {
       if(res.status === 200) {
-      
-        console.log('image uploaded')
       resetPhotoUpload()
       } else {
         setError(res)
@@ -95,11 +87,6 @@ const ImageUpload = ({ checkAvatar, handleClose, handleDrawerClose, setAvatar })
       }
       return checkAvatar();
     })
-
-      // return userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
-      //   console.log(res.url) 
-      //   return setAvatar(res.url)
-      // })
   }
 
 	return (

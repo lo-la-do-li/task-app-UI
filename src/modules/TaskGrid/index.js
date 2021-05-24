@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import { green, grey } from '@material-ui/core/colors';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+
+// App Imports
+import Paginate from '../SortAndPaginate/Paginate'
 import TaskForm from '../../ui/modal/TaskForm';
-import { taskDate } from '../../utils';
+import { getDate } from '../../utils';
 import taskAPI from '../../api/task';
 
 const useStyles = makeStyles((theme) => ({
@@ -112,7 +114,8 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
 
 	return (
 		<Container maxWidth='lg'>
-      <h2 className={classes.title}>{title}</h2>
+      <Paginate title={title} />
+			{/* <h2 className={classes.title}>{title}</h2> */}
 			{!tasks.length ? (
 				<h3 className={classes.message}>{emptyMessage}</h3>
 			) : (
@@ -120,58 +123,63 @@ export default function TaskGrid({ tasks, updateTaskGrids, title, emptyMessage }
 					<div key={task._id} className={classes.root}>
 						<Paper className={classes.paper}>
 							<Grid container wrap='nowrap' spacing={2}>
-						
-									<Grid item className={classes.dateCreated}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginLeft: '-8px',
-                        textAlign: 'center',
-                      }}
-                    >
-                      <span style={{ fontSize: 18}}>
-                        {taskDate(task.createdAt)[0].toUpperCase()}
-                      </span>
-                      <span style={{ fontSize: 30}}>{taskDate(task.createdAt)[1]}</span>
-                    </div>
-									
-									</Grid>
-									<Grid item xs zeroMinWidth>
-										<Typography className={classes.description}>{task.description}</Typography>
-									</Grid>
-                  <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                  <Grid item id={task._id}>
-                    <TaskForm 
-                      open={open}
-                      handleClose={handleClose}
-                      create={false}
-                      task={taskEdit}
-                      submitAction={submitUpdate}
-                      button={(
-                        <IconButton  
-                          id={task._id} 
-                          onClick={() => handleClickOpen(task)}
-                        >
-                          <EditIcon style={{fill: '#021448a6'}}/>
-                        </IconButton>
-                    )}
-                    />
-                  </Grid>
-              
-									<Grid item style={{alignSelf: 'center'}}>
-												<GreenCheckbox
+								<Grid item className={classes.dateCreated}>
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'column',
+											marginLeft: '-8px',
+											textAlign: 'center',
+										}}
+									>
+										<span style={{ fontSize: 18 }}>
+											{getDate(task.createdAt)[0].toUpperCase()}
+										</span>
+										<span style={{ fontSize: 30 }}>
+											{getDate(task.createdAt)[1]}
+										</span>
+									</div>
+								</Grid>
+								<Grid item xs zeroMinWidth>
+									<Typography className={classes.description}>
+										{task.description}
+									</Typography>
+								</Grid>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'flex-end',
+									}}
+								>
+									<Grid item id={task._id}>
+										<TaskForm
+											open={open}
+											handleClose={handleClose}
+											create={false}
+											task={taskEdit}
+											submitAction={submitUpdate}
+											button={
+												<IconButton
 													id={task._id}
-													checked={task.completed}
-													onChange={handleChange}
-													name={task._id}
-												/>
-											
+													onClick={() => handleClickOpen(task)}
+												>
+													<EditIcon style={{ fill: '#021448a6' }} />
+												</IconButton>
+											}
+										/>
 									</Grid>
-                  </div>
-								
-							</Grid>
 
+									<Grid item style={{ alignSelf: 'center' }}>
+										<GreenCheckbox
+											id={task._id}
+											checked={task.completed}
+											onChange={handleChange}
+											name={task._id}
+										/>
+									</Grid>
+								</div>
+							</Grid>
 						</Paper>
 					</div>
 				))

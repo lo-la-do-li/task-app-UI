@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -18,7 +19,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
 import ImageUpload from './ImageUpload';
@@ -154,7 +154,6 @@ export default function NavDrawer({ token, setToken, children }) {
   
   
   const checkAvatar = async () => {
-    console.log("checkAvatar called")
     setAvatar('')
     let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
@@ -206,7 +205,6 @@ export default function NavDrawer({ token, setToken, children }) {
           return setUserState(userToState)
         }
 			});
-			// setTaskEdit(null);
 			
 	};
 
@@ -243,11 +241,12 @@ export default function NavDrawer({ token, setToken, children }) {
 						<MenuIcon />
 					</IconButton>
 					<Typography
-						style={{ fontFamily: 'Lato', fontSize: '24px', fontWeight: '600' }}
+						style={{ fontFamily: 'Lato', fontWeight: '600' }}
+						variant='subtitle1'
 						component='h1'
 						noWrap
 					>
-						Task App
+						{`Welcome, ${profile.name}!`}
 					</Typography>
 					<Button onClick={logout} color='inherit'>
 						Logout
@@ -284,13 +283,13 @@ export default function NavDrawer({ token, setToken, children }) {
 							alt='profile-pic'
 						/>
 						<ModalWrap
-							buttonOpen={<AddAPhotoIcon style={{ fill: '#021448a6' }} />}
+							buttonOpen={
+								<Fab color='primary'>
+									<AddAPhotoIcon style={{ fill: '#021448a6' }} />
+								</Fab>
+							}
 						>
-							<ImageUpload
-              setAvatar={(url) => setAvatar(url)}
-								checkAvatar={checkAvatar}
-								handleDrawerClose={handleDrawerClose}
-							/>
+							<ImageUpload checkAvatar={checkAvatar} />
 						</ModalWrap>
 					</div>
 					<Typography variant='subtitle1'>

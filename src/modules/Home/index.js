@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from "@material-ui/core";
 import taskAPI from '../../api/task';
-import { taskDate } from '../../utils';
+import { getDate } from '../../utils';
 import TaskGrid from '../TaskGrid';
 import AppContext from '../../common/context';
 import TaskForm from '../../ui/modal/TaskForm';
@@ -114,8 +114,9 @@ const Home = ({ token }) => {
 
   const getTodayDate = () => {
     let today = new Date();
-    return taskDate(today)
+    return getDate(today);
   }
+
 	return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -123,7 +124,7 @@ const Home = ({ token }) => {
           <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
           <div>{getTodayDate()[2]}</div>
         </Box>
-        <Paper style={{borderRadius: '20px', padding: '8px'}}className={classes.paper}>
+        <Paper style={{borderRadius: '20px', padding: '8px'}} className={classes.paper}>
           <TaskForm
             open={open}
             handleClose={handleClose}
