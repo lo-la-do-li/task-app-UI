@@ -28,15 +28,19 @@ const useStyles = makeStyles(() => ({
 		fontSize: 16,
 	},
 	button: {
-		background: 'transparent',
 		outline: 'none',
+		color: '#021448a6',
+		border: 'none',
+		background: '#fff',
 		willChange: 'transform',
-		margin: '2%',
+		marginTop: '10px',
 		cursor: 'pointer',
 		transition:
 			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
 		'&:hover': {
 			transform: 'translateY(-5%)',
+			color: '#fff',
+			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		},
 	},
 }));
@@ -45,7 +49,7 @@ const useStyles = makeStyles(() => ({
 export default function ModalWrap(props) {
 	const { buttonOpen, children } =
 		props;
-	// const classes = useStyles(props);
+	const classes = useStyles(props);
   const [open, setOpen] = useState(false)
   
   const handleClickOpen = () => {
@@ -60,8 +64,8 @@ export default function ModalWrap(props) {
 	return (
 		<div>
 			<Fab
-				// className={classes.button}
-				style={{ border: 'none', background: 'rgb(244 237 253)' }}
+				className={classes.button}
+				// style={{ border: 'none', background: 'rgb(244 237 253)' }}
 				onClick={handleClickOpen}
 			>
 				{buttonOpen}

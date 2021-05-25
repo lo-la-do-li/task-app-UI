@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 // import Fab from '@material-ui/core/Fab';
+import Avatar from '@material-ui/core/Avatar';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -35,7 +36,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
-    // backgroundColor: '#2b2733'
 	},
 	appBar: {
 		transition: theme.transitions.create(['margin', 'width'], {
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
-    backgroundImage: 'linear-gradient(to right, #eacdcd , #d7d6f0)',
+		backgroundImage: 'linear-gradient(to bottom right, #ebe5fd, #fdebeb)',
 	},
 	drawerHeader: {
 		display: 'flex',
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
 		...theme.mixins.toolbar,
 		justifyContent: 'flex-end',
 	},
-  contentSpacer: {
+	contentSpacer: {
 		display: 'flex',
 		alignItems: 'center',
 		padding: theme.spacing(0, 1),
@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing(3),
+		background: '#fffcfc',
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
@@ -99,19 +100,28 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-    backgroundImage: 'linear-gradient(to right, #d7d6f0, #eacdcd)',
-    color: '#2b2733'
+    // fontFamily: 'Source Sans Pro',
+		backgroundImage: 'linear-gradient(to bottom right, #ebe5fd, #fdebeb)',
+		color: '#2b2733',
 	},
-  profile: {
-    display: 'flex',
-    flexDirection: 'column', 
-    alignItems: 'center',
-    padding: '20px 2px 20px 2px'
-  },
-  profilePic: {
-    width: "200px",
-    borderRadius: "50%"
-  }
+	profile: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		padding: '20px 2px 20px 2px',
+	},
+	profilePic: {
+		width: '200px',
+		borderRadius: '50%',
+	},
+	avatarGreen: {
+		color: '#fff',
+		background: '#1eb0b0',
+	},
+	avatarRed: {
+		color: '#fff',
+		background: '#dc460d',
+	},
 }));
 
 export default function NavDrawer({ token, setToken, children }) {
@@ -241,14 +251,14 @@ export default function NavDrawer({ token, setToken, children }) {
 						<MenuIcon />
 					</IconButton>
 					<Typography
-						style={{ fontFamily: 'Lato', fontWeight: '600' }}
+						style={{ fontFamily: 'Source Sans Pro' }}
 						variant='subtitle1'
 						component='h1'
 						noWrap
 					>
 						{`Welcome, ${profile.name}!`}
 					</Typography>
-					<Button onClick={logout} color='inherit'>
+					<Button onClick={logout} color='inherit' style={{ fontFamily: 'Source Sans Pro' }}>
 						Logout
 					</Button>
 				</Toolbar>
@@ -283,7 +293,7 @@ export default function NavDrawer({ token, setToken, children }) {
 							alt='profile-pic'
 						/>
 						<ModalWrap
-							buttonOpen={<AddAPhotoIcon style={{ fill: '#43527b' }} />}
+							buttonOpen={<AddAPhotoIcon />}
 						>
 							<ImageUpload checkAvatar={checkAvatar} />
 						</ModalWrap>
@@ -308,7 +318,9 @@ export default function NavDrawer({ token, setToken, children }) {
 						button={
 							<ListItem button onClick={handleModalOpen}>
 								<ListItemIcon>
-									<EditIcon style={{ fill: '#021448a6' }} />
+									<Avatar className={classes.avatarGreen}>
+										<EditIcon />
+									</Avatar>
 								</ListItemIcon>
 								<ListItemText primary={'Edit User Info'} />
 							</ListItem>
@@ -317,7 +329,9 @@ export default function NavDrawer({ token, setToken, children }) {
 
 					<ListItem button>
 						<ListItemIcon>
-							<DeleteForeverIcon style={{ fill: '#021448a6' }} />
+							<Avatar className={classes.avatarRed}>
+								<DeleteForeverIcon />
+							</Avatar>
 						</ListItemIcon>
 						<ListItemText primary={'Delete Account'} />
 					</ListItem>

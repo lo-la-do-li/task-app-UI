@@ -20,15 +20,16 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: 460,
 		marginBottom: '20px',
 		border: '1px solid white',
-		boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
-		background: '#eae8ec',
-		// background: '#2b2733',
+		boxShadow: '1px 3px 12px 0px rgb(0 0 0 / 20%)',
 		borderRadius: '20px',
 	},
 	title: {
 		textAlign: 'center',
 		color: '#2b2733',
-		fontFamily: 'Lato',
+    // color: '#59565e',
+    fontSize: '20px',
+		fontFamily: 'Martel Sans',
+    // fontWeight: 600,
 		flexGrow: 1,
 	},
 }));
@@ -40,28 +41,34 @@ export default function PageAndSort({ title, tasks, handleSort, tasksPerPage, to
   
   useEffect(() => {
     getAllPages()
-    // return setNumber([allPages[0]])
-  }, [])
+  }, [number])
 
   const getAllPages = () => {
-    const pageNumbers = [];
+    let pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalTasks / tasksPerPage); i++) {
-			return pageNumbers.push(i);
+			pageNumbers.push(i);
 		}
     console.log(pageNumbers)
-    return setAllPages(pageNumbers)
-    
+    return pageNumbers
   }
 
   const handlePageUp = () => {
-    
+    let pages = getAllPages()
+    if (number !== pages.length) {
       setNumber(number +1)
+      return paginate(number+1);
+    } else {
+      return
+    }
   
-    return paginate(number+1, 'next');
   }
     const handlePageDown = () => {
-			setNumber(number -1);
-			return paginate(number-1, 'previous');
+      if (number > 1) {
+				setNumber(number - 1);
+				return paginate(number - 1);
+			} else {
+				return;
+			}
 		};
 
 	// alt fill color: #021448a6
@@ -69,25 +76,38 @@ export default function PageAndSort({ title, tasks, handleSort, tasksPerPage, to
 		<Container className={classes.pageNav}>
 			<>
 				<IconButton onClick={() => handleSort('asc', title)}>
-					<KeyboardArrowUpIcon style={{ fill: '#2b2733' }} />
+					<KeyboardArrowUpIcon style={{ fill: '#6a6874' }} />
 				</IconButton>
 				<ScheduleIcon />
 				<IconButton onClick={() => handleSort('desc', title)}>
-					<KeyboardArrowDownIcon style={{ fill: '#2b2733' }} />
+					<KeyboardArrowDownIcon style={{ fill: '#6a6874' }} />
 				</IconButton>
 			</>
 			<h3 className={classes.title}>{title}</h3>
 			{/* {tasks.length > 2 && ( */}
 			{/* {pageNumbers.map((number) => ( */}
-				<div key={number}>
-					<IconButton onClick={handlePageDown}>
-						<NavigateBeforeIcon style={{ fill: '#2b2733' }} />
+			<div key={number}>
+        {number === 1 ? (
+        <IconButton onClick={handlePageDown} disabled>
+					<NavigateBeforeIcon />
+				</IconButton>
+        ) 
+        : (
+				<IconButton onClick={handlePageDown}>
+					<NavigateBeforeIcon style={{ fill: '#6a6874' }} />
+				</IconButton>
+        )}
+				{number}
+				{number === getAllPages().length ? (
+					<IconButton onClick={handlePageUp} disabled>
+						<NavigateNextIcon />
 					</IconButton>
-					{number}
+				) : (
 					<IconButton onClick={handlePageUp}>
-						<NavigateNextIcon style={{ fill: '#2b2733' }} />
+						<NavigateNextIcon style={{ fill: '#6a6874' }} />
 					</IconButton>
-				</div>
+				)}
+			</div>
 			{/* ))} */}
 			{/* )} */}
 		</Container>

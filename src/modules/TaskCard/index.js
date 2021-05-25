@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // App Imports
 import TaskForm from '../../ui/modal/TaskForm';
@@ -22,45 +23,56 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	paper: {
-		maxWidth: 460,
-		margin: `${theme.spacing(1)}px auto`,
-		padding: theme.spacing(2),
-		borderRadius: '20px',
-	},
-	title: {
-		height: '40px',
-		textAlign: 'center',
-		// color: '#021448a6',
-		color: '#2b2733',
-		fontFamily: 'Lato',
+		// maxWidth: 460,
+		fontFamily: 'Source Sans Pro',
 		border: '1px solid white',
-		boxShadow: '-1px 2px 2px rgb(0 0 0 / 20%)',
-		background: 'white',
+		backgroundColor: '#fffcfc',
+		// margin: `${theme.spacing(1)}px auto`,
+    margin: '10px 3px 10px 3px',
+		padding: theme.spacing(2),
+    // padding: '16px, 8px, 16px, 8px',
 		borderRadius: '20px',
+		boxShadow: '-1px 2px 4px 1px rgb(0 0 0 / 20%)',
 	},
 	dateCreated: {
-		fontFamily: 'Lato',
-		fontWeight: 600,
-		color: '#0214488a',
+		color: '#888892',
 		width: '60px',
-		borderRight: '1.5px solid #d9d5ed',
-		// borderRight: '1.5px solid #e6cfd5',
+		borderRight: '1.75px solid #d9d5ed',
 		marginRight: '5px',
+	},
+	dateBox: {
+		display: 'flex',
+    justifyItems: 'space-between',
+		flexDirection: 'column',
+		marginLeft: '-8px',
+		textAlign: 'center',
+		fontSize: '18px',
 	},
 	description: {
 		display: '-webkit-box',
 		boxOrient: 'vertical',
-
+		color: '#2B2733',
+    // color: '#201f31ab',
+		fontSize: '18px',
+		fontFamily: 'Source Sans Pro',
 		lineClamp: 3,
 		overflow: 'hidden',
 	},
+	deleteBtn: {
+		padding: '8px 12px 0px 12px',
+		'&:hover': {
+			transform: 'translateY(-5%)',
+			// color: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+			background: 'transparent',
+		},
+	},
 }));
 
-const GreenCheckbox = withStyles({
+const CustomCheckBox = withStyles({
 	root: {
-		color: '#021448a6',
+		color: '#4d4ae8',
 		'&$checked': {
-			color: '#021448a6',
+			color: '#4d4ae8',
 		},
 	},
 	checked: {},
@@ -110,21 +122,23 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 		<div key={id} className={classes.root}>
 			<Paper className={classes.paper}>
 				<Grid container wrap='nowrap' spacing={2}>
+          <div style={{padding: '5px 0px 0px 0px'}}>
 					<Grid item className={classes.dateCreated}>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								marginLeft: '-8px',
-								textAlign: 'center',
-							}}
-						>
-							<span style={{ fontSize: 18 }}>
-								{getDate(createdAt)[0].toUpperCase()}
-							</span>
-							<span style={{ fontSize: 30 }}>{getDate(createdAt)[1]}</span>
+						<div className={classes.dateBox}>
+							<span>{getDate(createdAt)[0].toUpperCase()}</span>
+							<span style={{ fontSize: 20 }}>{getDate(createdAt)[1]}</span>
+							<Grid item style={{ alignSelf: 'center' }}>
+								<CustomCheckBox
+									id={id}
+									checked={completed}
+									onChange={handleChange}
+									name={id}
+								/>
+							</Grid>
+				
 						</div>
 					</Grid>
+          </div>
 					<Grid item xs zeroMinWidth>
 						<Typography className={classes.description}>
 							{description}
@@ -133,8 +147,8 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 					<div
 						style={{
 							display: 'flex',
+							justifyContent: 'space-between',
 							flexDirection: 'column',
-							alignItems: 'flex-end',
 						}}
 					>
 						<Grid item id={id}>
@@ -146,19 +160,25 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 								submitAction={submitUpdate}
 								button={
 									<IconButton id={id} onClick={() => handleClickOpen(task)}>
-										<EditIcon style={{ fill: '#021448a6' }} />
+										<EditIcon style={{ fill: '#888892' }} />
 									</IconButton>
 								}
 							/>
 						</Grid>
 
-						<Grid item style={{ alignSelf: 'center' }}>
-							<GreenCheckbox
+						<Grid item id={id}>
+							<IconButton
 								id={id}
-								checked={completed}
-								onChange={handleChange}
-								name={id}
-							/>
+								onClick={() => console.log('delete Task:', task)}
+								disableRipple
+							>
+								<DeleteIcon
+									// previous fill: #201f31ab
+									style={{
+										fill: '#888892',
+									}}
+								/>
+							</IconButton>
 						</Grid>
 					</div>
 				</Grid>

@@ -40,19 +40,13 @@ const GreenCheckbox = withStyles({
 export default function TaskGrid({ tasks, handleSort, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
-  const [tasksPerPage] = useState(3);
+  const [tasksPerPage] = useState(5);
   
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
   const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
 
-  const paginate = (pageNumber, count) => {
-    console.log(pageNumber, count)
-    // if (count = 'next') {
-    //   return setCurrentPage(pageNumber +1);
-    // } else {
-    //   return setCurrentPage(pageNumber -1);
-    // }
+  const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 

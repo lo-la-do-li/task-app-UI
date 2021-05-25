@@ -3,7 +3,9 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Fab from '@material-ui/core/Fab';
+// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core";
 import taskAPI from '../../api/task';
 import { getDate } from '../../utils';
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	header: {
 		display: 'flex',
-		alignItems: 'center',
+		// alignItems: 'center',
 		padding: '10px 40px 20px 40px',
 		justifyContent: 'space-between',
 		width: '100%',
@@ -60,8 +62,26 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		fontSize: '16px',
 		color: '#2b2733',
-		fontFamily: 'Lato',
-		fontWeight: '600',
+		// color: '#201f31ab',
+		fontFamily: 'Martel Sans',
+		fontWeight: 'bold',
+		fontSize: '16px',
+	},
+	fab: {
+		outline: 'none',
+		color: '#2b2733',
+		border: 'none',
+		background: 'rgb(244 237 253)',
+		willChange: 'transform',
+		marginTop: '10px',
+		cursor: 'pointer',
+		transition:
+			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		'&:hover': {
+			transform: 'translateY(-5%)',
+			color: '#fff',
+			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		},
 	},
 }));
 
@@ -135,12 +155,34 @@ const Home = ({ token }) => {
 	return (
 		<div className={classes.root}>
 			<div className={classes.header}>
-				<Box>
+				<Paper
+					style={{
+						borderRadius: '20px',
+						padding: '20px',
+						fontFamily: 'Source Sans Pro',
+						color: '#2b2733',
+					}}
+				>
 					<div
-						style={{ fontSize: '32px', fontFamily: 'Lato', fontWeight: '600' }}
-					>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
-					<div>{getTodayDate()[2]}</div>
-				</Box>
+						style={{
+							fontSize: '28px',
+							fontFamily: 'Martel Sans',
+							fontWeight: '600',
+						}}
+					>
+            {`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
+					<div 
+            style={{ 
+              color: '#888892', 
+              fontFamily: 'Source Sans Pro', 
+              fontWeight: 'bold', 
+              fontSize: '16px' 
+            }}
+            
+            >
+              {getTodayDate()[2]}
+          </div>
+				</Paper>
 
 				<Paper style={{ borderRadius: '20px', padding: '8px' }}>
 					<TaskForm
@@ -152,12 +194,9 @@ const Home = ({ token }) => {
 						button={
 							<div className={classes.addButton}>
 								<span className={classes.title}>Add a task</span>
-								<IconButton
-									onClick={handleClickOpen}
-									style={{ padding: '8px 0 4px 0' }}
-								>
-									<AddCircleOutlineIcon style={{ fontSize: 40 }} />
-								</IconButton>
+								<Fab onClick={handleClickOpen} className={classes.fab}>
+									<AddIcon />
+								</Fab>
 							</div>
 						}
 					/>
