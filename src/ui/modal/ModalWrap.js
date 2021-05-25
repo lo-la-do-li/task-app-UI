@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 export default function ModalWrap(props) {
 	const { buttonOpen, children } =
 		props;
-	const classes = useStyles(props);
+	// const classes = useStyles(props);
   const [open, setOpen] = useState(false)
   
   const handleClickOpen = () => {

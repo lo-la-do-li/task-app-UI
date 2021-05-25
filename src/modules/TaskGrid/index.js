@@ -39,32 +39,53 @@ const GreenCheckbox = withStyles({
 
 export default function TaskGrid({ tasks, handleSort, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
-  const [page, setPage] = useState(tasks.slice(0, 2))
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tasksPerPage] = useState(3);
+  
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
 
-    const taskCards = tasks.map((task) => {
-      return (
-        <TaskCard 
-          id={task._id}
-          key={task._id} 
-          task={task}
-          completed={task.completed}
-          description={task.description}
-          createdAt={task.createdAt}
-          updateTaskGrids={updateTaskGrids}
-        />
-      )
-    })
+  const paginate = (pageNumber, count) => {
+    console.log(pageNumber, count)
+    // if (count = 'next') {
+    //   return setCurrentPage(pageNumber +1);
+    // } else {
+    //   return setCurrentPage(pageNumber -1);
+    // }
+    setCurrentPage(pageNumber)
+  }
+
+  const taskCards = currentTasks.map((task) => {
+    return (
+      <TaskCard 
+        id={task._id}
+        key={task._id} 
+        task={task}
+        completed={task.completed}
+        description={task.description}
+        createdAt={task.createdAt}
+        updateTaskGrids={updateTaskGrids}
+      />
+    )
+  })
 
 	return (
 		<Container maxWidth='lg' className={classes.container}>
-      <PageAndSort title={title} tasks={tasks} handleSort={handleSort}/>
+			<PageAndSort
+				title={title}
+				tasks={tasks}
+				handleSort={handleSort}
+				tasksPerPage={tasksPerPage}
+				totalTasks={tasks.length}
+        paginate={paginate}
+			/>
 
 			{!tasks.length ? (
 				<h3 className={classes.message}>{emptyMessage}</h3>
 			) : (
-        <div>{taskCards}</div>
-			)
-      }
+				<div>{taskCards}</div>
+			)}
 		</Container>
 	);
 }

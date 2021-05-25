@@ -1,5 +1,5 @@
-import React, { useReducer, useState, useEffect } from 'react';
-import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import React, { useReducer } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import AppContext from '../../common/context';
 import { reducer, initialState } from '../../common/reducer';
 import Login from '../Login';
@@ -7,22 +7,11 @@ import SignUp from '../SignUp';
 import Home from '../Home';
 import NavDrawer from '../NavDrawer';
 import useToken from '../../common/useToken';
-// import userAPI from '../../api/user';
 import './App.css';
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { token, setToken } = useToken();
-
-	// useEffect(() => {
-		// checkToken();
-    // determineUser()
-	// }, []);
-
-  const setUserState = (user) => {
-		const action = { type: 'SET_USER', authUser: user };
-		dispatch(action);
-	};
 
 	return (
 		<AppContext.Provider value={[state, dispatch]}>
