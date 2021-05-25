@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-    // fontFamily: 'Source Sans Pro',
+		// fontFamily: 'Source Sans Pro',
 		backgroundImage: 'linear-gradient(to bottom right, #ebe5fd, #fdebeb)',
 		color: '#2b2733',
 	},
@@ -251,14 +251,18 @@ export default function NavDrawer({ token, setToken, children }) {
 						<MenuIcon />
 					</IconButton>
 					<Typography
-						style={{ fontFamily: 'Source Sans Pro' }}
+						style={{ fontFamily: 'Martel Sans' }}
 						variant='subtitle1'
 						component='h1'
 						noWrap
 					>
 						{`Welcome, ${profile.name}!`}
 					</Typography>
-					<Button onClick={logout} color='inherit' style={{ fontFamily: 'Source Sans Pro' }}>
+					<Button
+						onClick={logout}
+						color='inherit'
+						style={{ fontFamily: 'Lato' }}
+					>
 						Logout
 					</Button>
 				</Toolbar>
@@ -292,16 +296,21 @@ export default function NavDrawer({ token, setToken, children }) {
 							src={avatar}
 							alt='profile-pic'
 						/>
-						<ModalWrap
-							buttonOpen={<AddAPhotoIcon />}
-						>
+						<ModalWrap buttonOpen={<AddAPhotoIcon />}>
 							<ImageUpload checkAvatar={checkAvatar} />
 						</ModalWrap>
 					</div>
-					<Typography variant='subtitle1'>
+					<Typography
+						style={{ fontFamily: 'Martel Sans' }}
+						variant='subtitle1'
+					>
 						{profile.name.toUpperCase()}
 					</Typography>
-					<Typography variant='subtitle2' gutterBottom>
+					<Typography
+						style={{ fontFamily: 'Lato' }}
+						variant='subtitle1'
+						gutterBottom
+					>
 						{profile.email}
 					</Typography>
 				</Container>
@@ -322,7 +331,14 @@ export default function NavDrawer({ token, setToken, children }) {
 										<EditIcon />
 									</Avatar>
 								</ListItemIcon>
-								<ListItemText primary={'Edit User Info'} />
+								{/* <ListItemText primary={'Edit User Info'} /> */}
+								<Typography
+									style={{ fontFamily: 'Lato' }}
+									variant='button'
+									gutterBottom
+								>
+									Edit User Info
+								</Typography>
 							</ListItem>
 						}
 					/>
@@ -333,7 +349,14 @@ export default function NavDrawer({ token, setToken, children }) {
 								<DeleteForeverIcon />
 							</Avatar>
 						</ListItemIcon>
-						<ListItemText primary={'Delete Account'} />
+						{/* <ListItemText primary={'Delete Account'} /> */}
+						<Typography
+							style={{ fontFamily: 'Lato' }}
+							variant='button'
+							gutterBottom
+						>
+							Delete Account
+						</Typography>
 					</ListItem>
 				</List>
 			</Drawer>

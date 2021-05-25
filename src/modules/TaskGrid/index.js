@@ -27,17 +27,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const GreenCheckbox = withStyles({
-	root: {
-		color: '#021448a6',
-		'&$checked': {
-			color: '#021448a6',
-		},
-	},
-	checked: {},
-})((props) => <Checkbox color='default' {...props} />);
 
-export default function TaskGrid({ tasks, handleSort, updateTaskGrids, title, emptyMessage }) {
+export default function TaskGrid({ tasks, sort, handleSort, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage] = useState(5);
@@ -69,6 +60,7 @@ export default function TaskGrid({ tasks, handleSort, updateTaskGrids, title, em
 			<PageAndSort
 				title={title}
 				tasks={tasks}
+        sort={sort}
 				handleSort={handleSort}
 				tasksPerPage={tasksPerPage}
 				totalTasks={tasks.length}

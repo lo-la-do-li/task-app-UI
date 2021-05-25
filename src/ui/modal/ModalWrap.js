@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
 	},
 	button: {
 		outline: 'none',
-		color: '#021448a6',
+		color: '#2b2733',
 		border: 'none',
 		background: '#fff',
 		willChange: 'transform',

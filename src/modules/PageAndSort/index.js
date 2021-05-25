@@ -34,13 +34,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function PageAndSort({ title, tasks, handleSort, tasksPerPage, totalTasks, paginate }){
+export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPage, totalTasks, paginate }){
 	const classes = useStyles();
   const [allPages, setAllPages] = useState([])
   const [number, setNumber] = useState(1)
   
   useEffect(() => {
-    getAllPages()
+    setAllPages(getAllPages())
   }, [number])
 
   const getAllPages = () => {
@@ -71,32 +71,32 @@ export default function PageAndSort({ title, tasks, handleSort, tasksPerPage, to
 			}
 		};
 
-	// alt fill color: #021448a6
 	return (
 		<Container className={classes.pageNav}>
 			<>
-				<IconButton onClick={() => handleSort('asc', title)}>
-					<KeyboardArrowUpIcon style={{ fill: '#6a6874' }} />
-				</IconButton>
 				<ScheduleIcon />
-				<IconButton onClick={() => handleSort('desc', title)}>
-					<KeyboardArrowDownIcon style={{ fill: '#6a6874' }} />
-				</IconButton>
+				{sort === 'desc' ? (
+					<IconButton onClick={() => handleSort('asc', title)}>
+						<KeyboardArrowUpIcon style={{ fill: '#6a6874' }} />
+					</IconButton>
+				) : (
+					<IconButton onClick={() => handleSort('desc', title)}>
+						<KeyboardArrowDownIcon style={{ fill: '#6a6874' }} />
+					</IconButton>
+				)}
 			</>
 			<h3 className={classes.title}>{title}</h3>
-			{/* {tasks.length > 2 && ( */}
-			{/* {pageNumbers.map((number) => ( */}
+
 			<div key={number}>
-        {number === 1 ? (
-        <IconButton onClick={handlePageDown} disabled>
-					<NavigateBeforeIcon />
-				</IconButton>
-        ) 
-        : (
-				<IconButton onClick={handlePageDown}>
-					<NavigateBeforeIcon style={{ fill: '#6a6874' }} />
-				</IconButton>
-        )}
+				{number === 1 ? (
+					<IconButton onClick={handlePageDown} disabled>
+						<NavigateBeforeIcon />
+					</IconButton>
+				) : (
+					<IconButton onClick={handlePageDown}>
+						<NavigateBeforeIcon style={{ fill: '#6a6874' }} />
+					</IconButton>
+				)}
 				{number}
 				{number === getAllPages().length ? (
 					<IconButton onClick={handlePageUp} disabled>
@@ -108,8 +108,6 @@ export default function PageAndSort({ title, tasks, handleSort, tasksPerPage, to
 					</IconButton>
 				)}
 			</div>
-			{/* ))} */}
-			{/* )} */}
 		</Container>
 	);
 }
