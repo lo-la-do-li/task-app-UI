@@ -10,7 +10,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
+// import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -283,11 +283,7 @@ export default function NavDrawer({ token, setToken, children }) {
 							alt='profile-pic'
 						/>
 						<ModalWrap
-							buttonOpen={
-								<Fab color='primary'>
-									<AddAPhotoIcon style={{ fill: '#021448a6' }} />
-								</Fab>
-							}
+							buttonOpen={<AddAPhotoIcon style={{ fill: '#43527b' }} />}
 						>
 							<ImageUpload checkAvatar={checkAvatar} />
 						</ModalWrap>

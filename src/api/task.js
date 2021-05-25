@@ -1,8 +1,8 @@
 const taskAPI = {
-	getTasks: (query) => {
+	getTasks: (query, sort) => {
 		let url;
-		if (query) {
-			url = `http://localhost:3000/tasks${query}`;
+		if (query && sort) {
+			url = `http://localhost:3000/tasks${query}&sortBy=createdAt:${sort}`;
 		} else {
 			url = `http://localhost:3000/tasks`;
 		}

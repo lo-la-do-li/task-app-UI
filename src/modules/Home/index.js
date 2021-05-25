@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
 		height: '100vh',
-		// paddingTop: '2vh',
-		// overflow: 'hidden',
-		// backgroundColor: '#8372ae0f',
 		borderRadius: '20px',
 		[theme.breakpoints.down('900')]: {
 			paddingTop: '4vh',
@@ -71,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
   const [open, setOpen] = useState(false)
+  const [sort, setSort] = useState('asc')
   const classes = useStyles()
 
 	useEffect(() => {
@@ -88,14 +86,19 @@ const Home = ({ token }) => {
   };
 
 	const updateTaskGrids = () => {
-		getTasks('?completed=true', 'completed');
-		getTasks('?completed=false', 'toDo');
+		getTasks('?completed=true', sort, 'completed');
+		getTasks('?completed=false', sort, 'toDo');
 	};
 
-	const getTasks = async (query, type) => {
+  const handleSort = (direction) => {
+    setSort(direction)
+    return updateTaskGrids()
+  }
+
+	const getTasks = async (query, sort, type) => {
 		if (token) {
 			await taskAPI
-				.getTasks(query, token)
+				.getTasks(query, sort, token)
 				.then((data) => setTasksInState(type, data));
 		} else {
 			return setTasksInState([]);
@@ -126,40 +129,54 @@ const Home = ({ token }) => {
   }
 
 	return (
-    <div className={classes.root}>
-      <div className={classes.header}>
-        <Box >
-          <div style={{fontSize: '32px', fontFamily: 'Lato', fontWeight: '600'}}>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
-          <div>{getTodayDate()[2]}</div>
-        </Box>
-        <Paper style={{borderRadius: '20px', padding: '8px'}}>
-          <TaskForm
-            open={open}
-            handleClose={handleClose}
-            create={true}
-            task={null}
-            submitAction={submitNewTask}
-            button={
-            <div className={classes.addButton}>
-              <span className={classes.title}>Add a task</span>
-              <IconButton  
-                onClick={handleClickOpen}
-                style={{padding: '8px 0 4px 0'}}
-              >
-                <AddCircleOutlineIcon style={{ fontSize: 40 }}/>
-              </IconButton>
-            </div>
-            }
-          />
-      
-        </Paper>
-      </div>
+		<div className={classes.root}>
+			<div className={classes.header}>
+				<Box>
+					<div
+						style={{ fontSize: '32px', fontFamily: 'Lato', fontWeight: '600' }}
+					>{`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
+					<div>{getTodayDate()[2]}</div>
+				</Box>
 
-      <Container className={classes.container}>
-        <TaskGrid title={'TO DO'} emptyMessage={'You\'ve completed all your tasks!'} tasks={state.toDo} updateTaskGrids={updateTaskGrids} />
-        <TaskGrid title={'DONE'} emptyMessage={'You haven\'t completed any tasks yet'} tasks={state.completed} updateTaskGrids={updateTaskGrids} />
-      </Container>
-    </div>
+				<Paper style={{ borderRadius: '20px', padding: '8px' }}>
+					<TaskForm
+						open={open}
+						handleClose={handleClose}
+						create={true}
+						task={null}
+						submitAction={submitNewTask}
+						button={
+							<div className={classes.addButton}>
+								<span className={classes.title}>Add a task</span>
+								<IconButton
+									onClick={handleClickOpen}
+									style={{ padding: '8px 0 4px 0' }}
+								>
+									<AddCircleOutlineIcon style={{ fontSize: 40 }} />
+								</IconButton>
+							</div>
+						}
+					/>
+				</Paper>
+			</div>
+
+			<Container className={classes.container}>
+				<TaskGrid
+					title={'TO DO'}
+					tasks={state.toDo}
+					handleSort={handleSort}
+					updateTaskGrids={updateTaskGrids}
+					emptyMessage={"You've completed all your tasks!"}
+				/>
+				<TaskGrid
+					title={'DONE'}
+					tasks={state.completed}
+					handleSort={handleSort}
+					updateTaskGrids={updateTaskGrids}
+					emptyMessage={"You haven't completed any tasks yet"}
+				/>
+			</Container>
+		</div>
 	);
 };
 

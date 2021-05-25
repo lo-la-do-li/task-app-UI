@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
@@ -58,13 +59,13 @@ export default function ModalWrap(props) {
   const childrenWithProps = React.cloneElement(children, {handleClose: () => handleClose()})
 	return (
 		<div>
-			<button
-				className={classes.button}
-				style={{ border: 'none', background: 'transparent' }}
+			<Fab
+				// className={classes.button}
+				style={{ border: 'none', background: 'rgb(244 237 253)' }}
 				onClick={handleClickOpen}
 			>
 				{buttonOpen}
-			</button>
+			</Fab>
 			<Dialog
 				open={open}
 				TransitionComponent={Transition}
