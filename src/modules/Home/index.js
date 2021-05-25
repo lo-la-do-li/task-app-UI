@@ -68,14 +68,15 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
   const [open, setOpen] = useState(false)
-  const [sort, setSort] = useState('asc')
+  const [sortToDo, setSortToDo] = useState('asc')
+  const [sortDone, setSortDone] = useState('asc');
   const classes = useStyles()
 
 	useEffect(() => {
   // Sets all tasks in state => getTasks(undefined, 'tasks');
     getTodayDate()
     updateTaskGrids()
-	}, []);
+	}, [sortToDo, sortDone]);
 
    const handleClose = () => {
     setOpen(false);
@@ -86,13 +87,16 @@ const Home = ({ token }) => {
   };
 
 	const updateTaskGrids = () => {
-		getTasks('?completed=true', sort, 'completed');
-		getTasks('?completed=false', sort, 'toDo');
+    getTasks('?completed=true', sortDone, 'completed');
+		getTasks('?completed=false', sortToDo, 'toDo');
 	};
 
-  const handleSort = (direction) => {
-    setSort(direction)
-    return updateTaskGrids()
+  const handleSort = (direction, title) => {
+    if (title === 'DONE') {
+      return setSortDone(direction)
+    } else {
+      return setSortToDo(direction)
+    }
   }
 
 	const getTasks = async (query, sort, type) => {

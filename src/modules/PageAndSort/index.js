@@ -9,8 +9,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { makeStyles } from '@material-ui/core/styles';
 
-import taskAPI from '../../api/task';
-import { KeyboardArrowDown } from '@material-ui/icons';
+// import taskAPI from '../../api/task';
 
 const useStyles = makeStyles((theme) => ({
 	pageNav: {
@@ -33,17 +32,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Paginate({ title, tasks, updateTaskGrids, handleSort }){
+export default function Paginate({ title, tasks, handleSort }){
 const classes = useStyles()
 
 return (
 	<Container className={classes.pageNav}>
 		<>
-			<IconButton onClick={() => handleSort('asc')}>
+			<IconButton onClick={() => handleSort('asc', title)}>
 				<KeyboardArrowUpIcon style={{ fill: '#021448a6' }} />
 			</IconButton>
       <ScheduleIcon />
-			<IconButton onClick={() => handleSort('desc')}>
+			<IconButton onClick={() => handleSort('desc', title)}>
 				<KeyboardArrowDownIcon style={{ fill: '#021448a6' }} />
 			</IconButton>
 		</>
