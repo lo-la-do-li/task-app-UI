@@ -17,17 +17,17 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		height: '40px',
-		// maxWidth: 460,
 		marginBottom: '20px',
 		// border: '1px solid #2b2733',
 		boxShadow: '1px 3px 12px 0px rgb(0 0 0 / 20%)',
 		borderRadius: '20px',
-		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		// background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		background: '#2b2733',
 		color: '#fff',
 		// color: '#2b2733',
 		[theme.breakpoints.down('900')]: {
-			padding: '0px 8px',
+			padding: '8px 8px',
+			minWidth: 'max-content',
 		},
 	},
 	title: {
@@ -83,14 +83,14 @@ export default function PageAndSort({ title, sort, handleSort, tasksPerPage, tot
 				<ScheduleIcon />
 				{sort === 'desc' ? (
 					<IconButton
-						style={{ padding: '8px' }}
+						style={{ padding: '0px 8px 0px 4px' }}
 						onClick={() => handleSort('asc', title)}
 					>
 						<KeyboardArrowUpIcon style={{ fill: '#fff' }} />
 					</IconButton>
 				) : (
 					<IconButton
-						style={{ padding: '8px' }}
+						style={{ padding: '0px 8px 0px 4px' }}
 						onClick={() => handleSort('desc', title)}
 					>
 						<KeyboardArrowDownIcon style={{ fill: '#fff' }} />

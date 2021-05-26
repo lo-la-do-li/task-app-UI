@@ -28,6 +28,11 @@ const Login = ({ setToken }) => {
 		setPassword('');
 	};
 
+  const setUserState = (user) => {
+    const action = { type: 'SET_USER', authUser: user };
+    dispatch(action);
+  };
+
 	const submitCredentials = async (e) => {
 		e.preventDefault();
 
@@ -42,13 +47,14 @@ const Login = ({ setToken }) => {
 				let token = response.token;
 				let userId = response.user._id;
 				console.log(userToState);
-				// localStorage.setItem('token', token);
+				
 				localStorage.setItem('userId', userId);
 				localStorage.setItem('user', JSON.stringify(userToState));
 				setToken(token);
 				setErrorMessage('');
 				clearInputs();
-				history.push('/');
+        setUserState(userToState)
+				return history.push('/');
 			} else {
 				return setErrorMessage(response);
 			}

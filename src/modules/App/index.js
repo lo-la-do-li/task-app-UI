@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import AppContext from '../../common/context';
 import { reducer, initialState } from '../../common/reducer';
@@ -12,6 +12,14 @@ import './App.css';
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { token, setToken } = useToken();
+
+  useEffect(() => {
+    checkUserState()
+  }, [])
+  
+  const checkUserState = () => {
+    console.log(state.authUser)
+  }
 
 	return (
 		<AppContext.Provider value={[state, dispatch]}>

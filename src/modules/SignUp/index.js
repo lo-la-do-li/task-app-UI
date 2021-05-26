@@ -73,7 +73,8 @@ const SignUp = ({ setToken }) => {
 				// document.cookie = `auth_token=${response.token}`;
 				setErrorMessage('');
 				clearInputs();
-				history.push('/');
+        setUserState(userToState)
+				return history.push('/');
 			}
 		});
 	};

@@ -226,6 +226,7 @@ export default function NavDrawer({ token, setToken, children }) {
 				localStorage.removeItem('userId');
 				let token = localStorage.getItem('token');
 				setToken(token);
+        // setProfile(null);
 			}
 		});
 	};

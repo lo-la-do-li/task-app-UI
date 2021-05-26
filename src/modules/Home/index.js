@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
-		height: '100vh',
+		// height: '100vh',
+		// minWidth: '240px',
 		borderRadius: '20px',
 		[theme.breakpoints.down('900')]: {
-			paddingTop: '4vh',
-
+			// paddingTop: '4vh',
+			overflow: 'scroll',
 		},
 	},
 	header: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '10px 40px 20px 40px',
 		justifyContent: 'space-between',
 		width: '100%',
+		height: 'fit-content',
 		[theme.breakpoints.down('900')]: {
 			padding: '10px 20px 40px 20px',
 		},
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 	container: {
 		display: 'flex',
 		justifyItems: 'space-between',
+		minWidth: '240px',
 		[theme.breakpoints.down('900')]: {
 			flexFlow: 'wrap',
 			padding: '0',
@@ -71,10 +74,10 @@ const useStyles = makeStyles((theme) => ({
 	fab: {
 		outline: 'none',
 		color: '#2b2733',
-    color: '#fff',
+		color: '#fff',
 		border: 'none',
 		background: 'rgb(244 237 253)',
-    background: '#2b2733',
+		background: '#2b2733',
 		willChange: 'transform',
 		marginTop: '10px',
 		cursor: 'pointer',
@@ -92,7 +95,7 @@ const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
   const [open, setOpen] = useState(false)
   const [sortToDo, setSortToDo] = useState('asc')
-  const [sortDone, setSortDone] = useState('asc');
+  const [sortDone, setSortDone] = useState('desc');
   const classes = useStyles()
 
 	useEffect(() => {
@@ -163,6 +166,7 @@ const Home = ({ token }) => {
 						padding: '20px',
 						fontFamily: 'Source Sans Pro',
 						color: '#2b2733',
+						height: 'min-content',
 					}}
 				>
 					<div
@@ -185,8 +189,14 @@ const Home = ({ token }) => {
 						{getTodayDate()[2]}
 					</div>
 				</Paper>
-        
-				<Paper style={{ borderRadius: '20px', padding: '8px' }}>
+
+				<Paper
+					style={{
+						borderRadius: '20px',
+						padding: '8px',
+						height: 'min-content',
+					}}
+				>
 					<TaskForm
 						open={open}
 						handleClose={handleClose}
