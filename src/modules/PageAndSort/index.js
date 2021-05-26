@@ -103,7 +103,7 @@ export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPa
 					onClick={handlePageDown}
 					disabled
 				>
-					<NavigateBeforeIcon />
+					<NavigateBeforeIcon style={{ fill: '#888892' }} />
 				</IconButton>
 			) : (
 				<IconButton style={{ padding: '8px' }} onClick={handlePageDown}>
@@ -114,7 +114,7 @@ export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPa
 
 			{number === getAllPages().length ? (
 				<IconButton style={{ padding: '8px' }} onClick={handlePageUp} disabled>
-					<NavigateNextIcon />
+					<NavigateNextIcon style={{ fill: '#888892' }} />
 				</IconButton>
 			) : (
 				<IconButton style={{ padding: '8px' }} onClick={handlePageUp}>
