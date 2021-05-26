@@ -17,7 +17,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -250,18 +250,25 @@ export default function NavDrawer({ token, setToken, children }) {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography
+					<Avatar
+						src={avatar}
+						alt={profile.name}
+						className={clsx(open && classes.hide)}
+					/>
+
+					{/* <Typography
 						style={{ fontFamily: 'Martel Sans' }}
 						variant='subtitle1'
 						component='h1'
 						noWrap
-					>
-						{`Welcome, ${profile.name}!`}
-					</Typography>
+					> */}
+					{/* <Avatar src={avatar} alt={profile.name}></Avatar> */}
+					{/* {`Welcome, ${profile.name}!`} */}
+					{/* </Typography> */}
 					<Button
 						onClick={logout}
 						color='inherit'
-						style={{ fontFamily: 'Lato' }}
+						style={{ fontFamily: 'Martel Sans' }}
 					>
 						Logout
 					</Button>
@@ -290,7 +297,14 @@ export default function NavDrawer({ token, setToken, children }) {
 				<Divider />
 
 				<Container className={classes.profile} fixed>
-					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingBottom: '20px' }}>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'flex-end',
+							paddingBottom: '20px',
+						}}
+					>
 						<img
 							className={classes.profilePic}
 							src={avatar}
@@ -300,10 +314,7 @@ export default function NavDrawer({ token, setToken, children }) {
 							<ImageUpload checkAvatar={checkAvatar} />
 						</ModalWrap>
 					</div>
-					<Typography
-						style={{ fontFamily: 'Martel Sans' }}
-						variant='subtitle1'
-					>
+					<Typography style={{ fontFamily: 'Martel Sans' }} variant='subtitle1'>
 						{profile.name.toUpperCase()}
 					</Typography>
 					<Typography
@@ -327,13 +338,13 @@ export default function NavDrawer({ token, setToken, children }) {
 						button={
 							<ListItem button onClick={handleModalOpen}>
 								<ListItemIcon>
-									<Avatar className={classes.avatarGreen}>
-										<EditIcon />
-									</Avatar>
+									{/* <Avatar className={classes.avatarGreen}> */}
+									<EditIcon style={{ fill: '#2b2733' }} />
+									{/* </Avatar> */}
 								</ListItemIcon>
 								{/* <ListItemText primary={'Edit User Info'} /> */}
 								<Typography
-									style={{ fontFamily: 'Lato' }}
+									style={{ fontFamily: 'Martel Sans' }}
 									variant='button'
 									gutterBottom
 								>
@@ -345,13 +356,13 @@ export default function NavDrawer({ token, setToken, children }) {
 
 					<ListItem button>
 						<ListItemIcon>
-							<Avatar className={classes.avatarRed}>
-								<DeleteForeverIcon />
-							</Avatar>
+							{/* <Avatar className={classes.avatarRed}> */}
+							<DeleteForeverIcon style={{ fill: '#2b2733' }} />
+							{/* </Avatar> */}
 						</ListItemIcon>
 						{/* <ListItemText primary={'Delete Account'} /> */}
 						<Typography
-							style={{ fontFamily: 'Lato' }}
+							style={{ fontFamily: 'Martel Sans' }}
 							variant='button'
 							gutterBottom
 						>

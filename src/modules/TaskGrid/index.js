@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TaskGrid({ tasks, sort, handleSort, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
-  const [tasksPerPage] = useState(5);
+  const [tasksPerPage] = useState(3);
   
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;

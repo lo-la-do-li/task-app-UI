@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: '20px',
 		[theme.breakpoints.down('900')]: {
 			paddingTop: '4vh',
+
 		},
 	},
 	header: {
@@ -172,20 +173,20 @@ const Home = ({ token }) => {
 							fontWeight: '600',
 						}}
 					>
-            {`${getTodayDate()[0]} ${getTodayDate()[1]}`}</div>
-					<div 
-            style={{ 
-              color: '#888892', 
-              fontFamily: 'Source Sans Pro', 
-              fontWeight: 'bold', 
-              fontSize: '16px' 
-            }}
-            
-            >
-              {getTodayDate()[2]}
-          </div>
+						{`${getTodayDate()[0]} ${getTodayDate()[1]}`}
+					</div>
+					<div
+						style={{
+							color: '#201f31ab',
+							fontFamily: 'Source Sans Pro',
+							fontWeight: 'bold',
+							fontSize: '16px',
+						}}
+					>
+						{getTodayDate()[2]}
+					</div>
 				</Paper>
-
+        
 				<Paper style={{ borderRadius: '20px', padding: '8px' }}>
 					<TaskForm
 						open={open}
@@ -209,7 +210,7 @@ const Home = ({ token }) => {
 				<TaskGrid
 					title={'TO DO'}
 					tasks={state.toDo}
-          sort={sortToDo}
+					sort={sortToDo}
 					handleSort={handleSort}
 					updateTaskGrids={updateTaskGrids}
 					emptyMessage={"You've completed all your tasks!"}
@@ -217,7 +218,7 @@ const Home = ({ token }) => {
 				<TaskGrid
 					title={'DONE'}
 					tasks={state.completed}
-          sort={sortDone}
+					sort={sortDone}
 					handleSort={handleSort}
 					updateTaskGrids={updateTaskGrids}
 					emptyMessage={"You haven't completed any tasks yet"}

@@ -19,12 +19,13 @@ const useStyles = makeStyles((theme) => ({
 		height: '40px',
 		// maxWidth: 460,
 		marginBottom: '20px',
-		// border: '1px solid white',
+		// border: '1px solid #2b2733',
 		boxShadow: '1px 3px 12px 0px rgb(0 0 0 / 20%)',
 		borderRadius: '20px',
 		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
-    // background: '#2b2733',
-    color: '#fff'
+		background: '#2b2733',
+		color: '#fff',
+		// color: '#2b2733',
 	},
 	title: {
 		textAlign: 'center',
@@ -32,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
 		// color: '#59565e',
 		fontSize: '20px',
 		fontFamily: 'Martel Sans',
-    width: 'inherit',
-		// fontWeight: 600,
+		width: 'inherit',
 		flexGrow: 1,
 	},
 }));
@@ -76,43 +76,51 @@ export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPa
 		};
 
 	return (
-		<Container className={classes.pageNav}>
+		<Container maxWidth='xl' className={classes.pageNav}>
 			<>
 				<ScheduleIcon />
 				{sort === 'desc' ? (
-					<IconButton onClick={() => handleSort('asc', title)}>
+					<IconButton
+						style={{ padding: '8px' }}
+						onClick={() => handleSort('asc', title)}
+					>
 						<KeyboardArrowUpIcon style={{ fill: '#fff' }} />
 					</IconButton>
 				) : (
-					<IconButton onClick={() => handleSort('desc', title)}>
+					<IconButton
+						style={{ padding: '8px' }}
+						onClick={() => handleSort('desc', title)}
+					>
 						<KeyboardArrowDownIcon style={{ fill: '#fff' }} />
 					</IconButton>
 				)}
 			</>
 			<h3 className={classes.title}>{title}</h3>
 
-			<div style={{width: 'inherit'}}key={number}>
-				{number === 1 ? (
-					<IconButton onClick={handlePageDown} disabled>
-						<NavigateBeforeIcon />
-					</IconButton>
-				) : (
-					<IconButton onClick={handlePageDown}>
-						<NavigateBeforeIcon style={{ fill: '#fff' }} />
-					</IconButton>
-				)}
-				<span style={{ fontFamily: 'Martel Sans' }}>{number}</span>
+			{number === 1 ? (
+				<IconButton
+					style={{ padding: '8px' }}
+					onClick={handlePageDown}
+					disabled
+				>
+					<NavigateBeforeIcon />
+				</IconButton>
+			) : (
+				<IconButton style={{ padding: '8px' }} onClick={handlePageDown}>
+					<NavigateBeforeIcon style={{ fill: '#fff' }} />
+				</IconButton>
+			)}
+			<span style={{ fontFamily: 'Martel Sans' }}>{number}</span>
 
-				{number === getAllPages().length ? (
-					<IconButton onClick={handlePageUp} disabled>
-						<NavigateNextIcon />
-					</IconButton>
-				) : (
-					<IconButton onClick={handlePageUp}>
-						<NavigateNextIcon style={{ fill: '#fff' }} />
-					</IconButton>
-				)}
-			</div>
+			{number === getAllPages().length ? (
+				<IconButton style={{ padding: '8px' }} onClick={handlePageUp} disabled>
+					<NavigateNextIcon />
+				</IconButton>
+			) : (
+				<IconButton style={{ padding: '8px' }} onClick={handlePageUp}>
+					<NavigateNextIcon style={{ fill: '#fff' }} />
+				</IconButton>
+			)}
 		</Container>
 	);
 }
