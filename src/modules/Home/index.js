@@ -144,7 +144,6 @@ const Home = ({ token }) => {
       completed: false,
     }
     await taskAPI.createTask(newTask).then(res => {
-      // console.log(res)
       return updateTaskGrids()
     })
     setOpen(false)

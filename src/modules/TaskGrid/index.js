@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
-// import Paper from '@material-ui/core/Paper';
+import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-// import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
-// import IconButton from '@material-ui/core/IconButton';
-
+import { makeStyles } from '@material-ui/core/styles';
 
 // App Imports
 import PageAndSort from '../PageAndSort'
-import taskAPI from '../../api/task';
+// import taskAPI from '../../api/task';
 import TaskCard from '../TaskCard'
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 }));
-
 
 export default function TaskGrid({ tasks, sort, handleSort, updateTaskGrids, title, emptyMessage }) {
 	const classes = useStyles();
@@ -57,9 +51,9 @@ export default function TaskGrid({ tasks, sort, handleSort, updateTaskGrids, tit
 
 	return (
 		<Container maxWidth='lg' className={classes.container}>
-			<PageAndSort
+			
+      <PageAndSort
 				title={title}
-				tasks={tasks}
         sort={sort}
 				handleSort={handleSort}
 				tasksPerPage={tasksPerPage}

@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
 		background: '#2b2733',
 		color: '#fff',
 		// color: '#2b2733',
+		[theme.breakpoints.down('900')]: {
+			padding: '0px 8px',
+		},
 	},
 	title: {
 		textAlign: 'center',
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPage, totalTasks, paginate }){
+export default function PageAndSort({ title, sort, handleSort, tasksPerPage, totalTasks, paginate }){
 	const classes = useStyles();
   const [allPages, setAllPages] = useState([])
   const [number, setNumber] = useState(1)
@@ -52,7 +55,6 @@ export default function PageAndSort({ title, tasks, sort, handleSort, tasksPerPa
     for (let i = 1; i <= Math.ceil(totalTasks / tasksPerPage); i++) {
 			pageNumbers.push(i);
 		}
-    console.log(pageNumbers)
     return pageNumbers
   }
 
