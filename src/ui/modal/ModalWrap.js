@@ -31,17 +31,17 @@ const useStyles = makeStyles(() => ({
 		outline: 'none',
 		color: '#fff',
 		border: 'none',
-		background: '#2b2733',
-		willChange: 'transform',
+		background: 'transparent',
+		// willChange: 'transform',
 		marginTop: '10px',
 		cursor: 'pointer',
-		transition:
-			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
-		'&:hover': {
-			transform: 'translateY(-5%)',
-			color: '#fff',
-			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
-		},
+		// transition:
+		// 	'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		// '&:hover': {
+		// 	transform: 'translateY(-5%)',
+		// 	color: '#fff',
+		// 	background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		// },
 	},
 }));
 
@@ -63,13 +63,13 @@ export default function ModalWrap(props) {
   const childrenWithProps = React.cloneElement(children, {handleClose: () => handleClose()})
 	return (
 		<div>
-			<Fab
+			<span
 				className={classes.button}
-				// style={{ border: 'none', background: 'rgb(244 237 253)' }}
+				// style={{ border: 'none', background: 'transparent' }}
 				onClick={handleClickOpen}
 			>
 				{buttonOpen}
-			</Fab>
+			</span>
 			<Dialog
 				open={open}
 				TransitionComponent={Transition}

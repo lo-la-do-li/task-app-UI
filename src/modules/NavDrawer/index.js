@@ -10,7 +10,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-// import Fab from '@material-ui/core/Fab';
+import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -30,6 +30,7 @@ import userAPI from '../../api/user';
 import User from '../../utils/userClass';
 import UserForm from '../../ui/modal/UserForm';
 import ModalWrap from '../../ui/modal/ModalWrap';
+import avatarPlaceholder from '../../ui/images/profile_placeholder.jpg';
 
 const drawerWidth = 240;
 
@@ -110,17 +111,31 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		padding: '20px 2px 20px 2px',
 	},
-	profilePic: {
+	avatar: {
 		width: '200px',
 		borderRadius: '50%',
 	},
-	avatarGreen: {
-		color: '#fff',
-		// background: '#1eb0b0',
+	avatarPlaceholder: {
+		width: '200px',
+		height: 'auto',
+		borderRadius: '50%',
 	},
-	avatarRed: {
+	fab: {
+		outline: 'none',
 		color: '#fff',
-		// background: '#dc460d',
+		border: 'none',
+		background: '#2b2733',
+		willChange: 'transform',
+		marginTop: '10px',
+		cursor: 'pointer',
+    position: 'absolute',
+		transition:
+			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		'&:hover': {
+			transform: 'translateY(-5%)',
+			color: '#fff',
+			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		},
 	},
 }));
 
@@ -164,13 +179,11 @@ export default function NavDrawer({ token, setToken, children }) {
   
   
   const checkAvatar = async () => {
-    setAvatar('')
-    let placeholderImg = "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues="
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
-        if (res.url) {
-        return setAvatar(res.url)
+        if (res.error) {
+        return setAvatar(avatarPlaceholder)
       } else {
-        return setAvatar(placeholderImg)
+        return setAvatar(res.url)
       }
     })
   }
@@ -288,23 +301,41 @@ export default function NavDrawer({ token, setToken, children }) {
 				<Divider />
 
 				<Container className={classes.profile} fixed>
+          
 					<div
 						style={{
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'flex-end',
 							paddingBottom: '20px',
+              
 						}}
 					>
-						<img
-							className={classes.profilePic}
-							src={avatar}
-							alt='profile-pic'
-						/>
-						<ModalWrap buttonOpen={<AddAPhotoIcon />}>
-							<ImageUpload checkAvatar={checkAvatar} />
-						</ModalWrap>
+						{avatar.includes(profile.name) ? (
+							<img
+								className={classes.avatar}
+								src={avatar}
+								alt={`${profile.name} Avatar`}
+							/>
+						) : (
+							<img
+								className={classes.avatar}
+								src={avatar}
+								alt={`${profile.name} Avatar`}
+							/>
+						)}
+
+						<Fab className={classes.fab}>
+              <ModalWrap
+                buttonOpen={
+                    <AddAPhotoIcon />
+                }
+              >
+                <ImageUpload checkAvatar={checkAvatar} />
+              </ModalWrap>
+						</Fab>
 					</div>
+          
 					<Typography style={{ fontFamily: 'Martel Sans' }} variant='subtitle1'>
 						{profile.name.toUpperCase()}
 					</Typography>
@@ -315,6 +346,7 @@ export default function NavDrawer({ token, setToken, children }) {
 					>
 						{profile.email}
 					</Typography>
+          
 				</Container>
 
 				<Divider />
@@ -329,11 +361,9 @@ export default function NavDrawer({ token, setToken, children }) {
 						button={
 							<ListItem button onClick={handleModalOpen}>
 								<ListItemIcon>
-									{/* <Avatar className={classes.avatarGreen}> */}
 									<EditIcon style={{ fill: '#2b2733' }} />
-									{/* </Avatar> */}
 								</ListItemIcon>
-								{/* <ListItemText primary={'Edit User Info'} /> */}
+
 								<Typography
 									style={{ fontFamily: 'Martel Sans' }}
 									variant='button'
@@ -347,11 +377,9 @@ export default function NavDrawer({ token, setToken, children }) {
 
 					<ListItem button>
 						<ListItemIcon>
-							{/* <Avatar className={classes.avatarRed}> */}
 							<DeleteForeverIcon style={{ fill: '#2b2733' }} />
-							{/* </Avatar> */}
 						</ListItemIcon>
-						{/* <ListItemText primary={'Delete Account'} /> */}
+
 						<Typography
 							style={{ fontFamily: 'Martel Sans' }}
 							variant='button'

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
-import IconButton from '@material-ui/core/IconButton';
+import PhotoLibraryRoundedIcon from '@material-ui/icons/PhotoLibraryRounded';
+// import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-
+import Fab from '@material-ui/core/Fab';
 import userAPI from '../../api/user';
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
-		padding: '1em',
+		padding: '2em',
 		flexDirection: 'column',
 		alignItems: 'center',
 		height: '100%',
+		minWidth: '300px',
 		textAlign: 'center',
 	},
 	box: {
@@ -38,19 +40,50 @@ const useStyles = makeStyles(() => ({
 		paddingBottom: '10px',
 	},
 	input: {
-		// display: 'none',
+		display: 'none',
 	},
-	icon: {
-		margin: 'auto',
-		position: 'relative',
+	preview: {
 		width: '80%',
-		height: '80%',
 		paddingTop: '.7em',
+		position: 'relative',
 		'& img': {
-			width: '100%',
-			height: '100%',
+			// border: '1px solid black',
+			borderRadius: '50%',
+			width: '200px',
+			height: '200px',
 			objectFit: 'cover',
 		},
+	},
+	fab: {
+		outline: 'none',
+		color: '#fff',
+		border: 'none',
+		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		willChange: 'transform',
+		margin: '25px 0px',
+		cursor: 'pointer',
+		// position: 'relative',
+		transition:
+			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		'&:hover': {
+			transform: 'translateY(-5%)',
+			background: '#2b2733',
+			// color: '#fff',
+		},
+	},
+	button: {
+		// color: blue[900],
+		margin: 10,
+	},
+	extendedIcon: {
+		marginRight: theme.spacing(1),
+	},
+	title: {
+		fontFamily: 'Martel Sans',
+		color: '#2b2733',
+	},
+	text: {
+		fontFamily: 'Lato',
 	},
 }));
 
@@ -60,13 +93,19 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 	const [sourceFile, setSourceFile] = useState(null);
 	const [error, setError] = useState('');
 
+  // useEffect(() => {
+  //   resetPhotoUpload()
+  // }, [])
+
 	const handleCapture = (target) => {
+    // resetPhotoUpload()
 		if (target.files) {
 			if (target.files.length !== 0) {
 				const file = target.files[0];
 				const newUrl = URL.createObjectURL(file);
 				setSource(newUrl);
 				setSourceFile(file);
+        console.log(file)
 			}
 		}
 	};
@@ -77,10 +116,12 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 		setError('');
     return handleClose();
   }
+
   const submitNewAvatar = async () => {
     await userAPI.uploadAvatar(sourceFile).then(res => {
       if(res.status === 200) {
       resetPhotoUpload()
+      // handleClose()
       } else {
         setError(res)
         return console.log(res)
@@ -91,32 +132,56 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 
 	return (
 		<div className={classes.root}>
-			<h4>Take a new photo or upload one with your device</h4>
-			{source && (
-				<div className={classes.icon}>
-					<img src={source} alt={'snap'} className={classes.img} />
-				</div>
+			{!sourceFile && (
+				<Typography className={classes.title} variant='body1' gutterBottom>
+					Take a photo on your mobile device or upload one
+				</Typography>
 			)}
+			{sourceFile && (
+				<>
+					<div className={classes.preview}>
+						<img src={source} alt={'snap'} className={classes.img} />
+					</div>
 
-			<Typography variant='subtitle2' style={{ color: 'red', marginBottom: '1em' }} gutterBottom>
+					<Typography className={classes.text} variant='subtitle1' gutterBottom>
+						{sourceFile.name}
+					</Typography>
+				</>
+			)}
+			<Typography
+				variant='subtitle2'
+				style={{ color: 'red', marginBottom: '1em' }}
+				gutterBottom
+			>
 				{error}
 			</Typography>
-			<input
-				accept='image/*'
-				className={classes.input}
-				id='icon-button-file'
-				type='file'
-				capture='environment'
-				onChange={(e) => handleCapture(e.target)}
-			/>
+			<div >
+				<input
+					accept='image/*'
+					className={classes.input}
+					id='icon-button-file'
+					type='file'
+					capture='environment'
+					onChange={(e) => handleCapture(e.target)}
+				/>
+				<label htmlFor='icon-button-file'>
+			
+					<Fab className={classes.button} component='span' variant='extended'>
+						<PhotoLibraryRoundedIcon className={classes.extendedIcon} />
+						Select an image
+					</Fab>
 
-			<label htmlFor='icon-button-file'>
-				<IconButton onClick={submitNewAvatar}>
-					<span aria-label='upload user image'>
-						<AddPhotoAlternateIcon />
-					</span>
-				</IconButton>
-			</label>
+				</label>
+			</div>
+			{source && (
+				<label htmlFor='icon-button-file'>
+					<Fab className={classes.fab} onClick={submitNewAvatar}>
+						<span aria-label='upload user image'>
+							<AddPhotoAlternateIcon />
+						</span>
+					</Fab>
+				</label>
+			)}
 		</div>
 	);
 };

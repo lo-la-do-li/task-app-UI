@@ -120,8 +120,14 @@ const userAPI = {
         // 'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
 			},
 		})
-			.then((res) => res)
-			.catch((e) => console.log(e));
+			.then((res) => {
+        if(res.ok) {
+          return res
+        } else {
+          return res.json()
+        }
+      })
+			.catch((e) => console.log(e.message));
   }
 };
 
