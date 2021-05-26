@@ -25,14 +25,15 @@ export default function UserForm({profile, button, handleClose, open, submitActi
   const [password, setPassword] = useState('');
   
   useEffect(() => {
-    resetInputs()
-  }, [handleClose])
+    return resetInputs()
+  }, [open])
   
   const resetInputs = () => {
     setName(profile.name)
     setEmail(profile.email)
     setPassword('');
   }
+
   const handleChange = (e) => {
     if (e.target.name === 'name') {
       setName(e.target.value)

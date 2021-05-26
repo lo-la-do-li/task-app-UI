@@ -24,12 +24,19 @@ export default function TaskForm({task, button, handleClose, open, create, submi
 
   const [newDescription, setNewDescription] = useState('');
   
+
   useEffect(() => {
     if (task) {
-    setNewDescription(task.description)
+    return setNewDescription(task.description)
+    } else {
+    return resetInputs();
     }
-  }, [task])
-  
+  }, [task, open])
+
+	const resetInputs = () => {
+			setNewDescription('');
+		};
+
   const handleChange = (e) => {
     setNewDescription(e.target.value)
   }

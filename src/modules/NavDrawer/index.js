@@ -197,7 +197,6 @@ export default function NavDrawer({ token, setToken, children }) {
       }
 
 			await userAPI.updateUserInfo(updates).then((res) => {
-        console.log(res)
         if (res.errors) {
           let message;
           if (res.errors.password) {
@@ -256,15 +255,6 @@ export default function NavDrawer({ token, setToken, children }) {
 						className={clsx(open && classes.hide)}
 					/>
 
-					{/* <Typography
-						style={{ fontFamily: 'Martel Sans' }}
-						variant='subtitle1'
-						component='h1'
-						noWrap
-					> */}
-					{/* <Avatar src={avatar} alt={profile.name}></Avatar> */}
-					{/* {`Welcome, ${profile.name}!`} */}
-					{/* </Typography> */}
 					<Button
 						onClick={logout}
 						color='inherit'
