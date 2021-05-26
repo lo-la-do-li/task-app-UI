@@ -59,6 +59,18 @@ const taskAPI = {
 			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
+	deleteTask: async (id) => {
+		await fetch(`http://localhost:3000/tasks/${id}`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('token')}`,
+			},
+		})
+			.then((res) => res.json())
+			.catch((e) => console.log(e));
+	},
 };
 
 export default taskAPI;

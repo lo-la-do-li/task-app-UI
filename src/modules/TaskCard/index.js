@@ -119,6 +119,16 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 			setOpen(false);
 		};
 
+    const removeTask = async (id) => {
+      await taskAPI.deleteTask(id).then(res => {
+        if (res) {
+          console.log(res)
+        }
+        console.log('Task removed')
+        return updateTaskGrids();
+      })
+    }
+
 	return (
 		<div key={id} className={classes.root}>
 			<Paper className={classes.paper}>
@@ -170,7 +180,7 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 						<Grid item id={id}>
 							<IconButton
 								id={id}
-								onClick={() => console.log('delete Task:', task)}
+								onClick={() => removeTask(id)}
 								disableRipple
 							>
 								<DeleteIcon

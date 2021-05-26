@@ -63,7 +63,11 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 					</DialogContentText>
 
 					<TextField
-						className={classes.text}
+						InputProps={{
+							classes: {
+								input: classes.text,
+							},
+						}}
 						autoFocus
 						margin='dense'
 						label='Name'
@@ -74,6 +78,11 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						fullWidth
 					/>
 					<TextField
+						InputProps={{
+							classes: {
+								input: classes.text,
+							},
+						}}
 						autoFocus
 						margin='dense'
 						label='Email'
@@ -84,7 +93,11 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						fullWidth
 					/>
 					<TextField
-						className={classes.text}
+						InputProps={{
+							classes: {
+								input: classes.text,
+							},
+						}}
 						autoFocus
 						margin='dense'
 						label='Password: Leave blank to keep current password'
