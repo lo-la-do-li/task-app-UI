@@ -29,9 +29,9 @@ const useStyles = makeStyles(() => ({
 	},
 	button: {
 		outline: 'none',
-		color: '#2b2733',
+		color: '#fff',
 		border: 'none',
-		background: '#fff',
+		background: '#2b2733',
 		willChange: 'transform',
 		marginTop: '10px',
 		cursor: 'pointer',

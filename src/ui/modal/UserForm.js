@@ -6,9 +6,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(() => ({
+	title: {
+		fontFamily: 'Martel Sans',
+		color: '#2b2733',
+	},
+	text: {
+		fontFamily: 'Lato',
+	},
+}));
 export default function UserForm({profile, button, handleClose, open, submitAction, errorMessage}) {
-  
+  const classes = useStyles()
+
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
   const [password, setPassword] = useState('');
@@ -43,15 +54,16 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 				aria-labelledby='form-dialog-title'
 			>
 				<DialogTitle id='edit-profile-form'>
-					Update User Information
+					<span className={classes.title}>Update User Information</span>
 				</DialogTitle>
 
-				<DialogContent>
-					<DialogContentText>
+				<DialogContent className={classes.text}>
+					<DialogContentText className={classes.text}>
 						Edit any or all values below and select "Update"
 					</DialogContentText>
 
 					<TextField
+						className={classes.text}
 						autoFocus
 						margin='dense'
 						label='Name'
@@ -72,6 +84,7 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						fullWidth
 					/>
 					<TextField
+						className={classes.text}
 						autoFocus
 						margin='dense'
 						label='Password: Leave blank to keep current password'
@@ -81,18 +94,25 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 						onChange={handleChange}
 						fullWidth
 					/>
-				
-        <DialogContentText style={{color: 'red'}}>{errorMessage}</DialogContentText>
+
+					<DialogContentText className={classes.text} style={{ color: 'red' }}>
+						{errorMessage}
+					</DialogContentText>
 				</DialogContent>
 
 				<DialogActions>
-					<Button onClick={handleClose} color='primary'>
+					<Button
+						className={classes.text}
+						onClick={handleClose}
+						color='primary'
+					>
 						Cancel
 					</Button>
 
 					<Button
 						onClick={(e) => submitAction(e, name, email, password)}
 						color='primary'
+						className={classes.text}
 					>
 						Update
 					</Button>

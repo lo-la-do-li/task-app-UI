@@ -116,11 +116,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	avatarGreen: {
 		color: '#fff',
-		background: '#1eb0b0',
+		// background: '#1eb0b0',
 	},
 	avatarRed: {
 		color: '#fff',
-		background: '#dc460d',
+		// background: '#dc460d',
 	},
 }));
 
@@ -290,7 +290,7 @@ export default function NavDrawer({ token, setToken, children }) {
 				<Divider />
 
 				<Container className={classes.profile} fixed>
-					<div style={{ paddingBottom: '20px' }}>
+					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', paddingBottom: '20px' }}>
 						<img
 							className={classes.profilePic}
 							src={avatar}
