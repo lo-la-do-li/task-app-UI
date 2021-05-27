@@ -5,8 +5,8 @@ let url =
 
 const userAPI = {
 	testAPIConnection: () => {
-    console.log('url', url)
-    console.log('environment', process.env.NODE_ENV)
+    console.log('url:', url)
+    console.log('environment:', process.env.NODE_ENV)
 
 		return fetch(`${url}/`)
 			.then((res) => res.json())
@@ -120,22 +120,25 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
   getUserAvatar: (id) => {
-    return fetch(`${url}/users/${id}/avatar`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
-			},
-		})
-			.then((res) => {
-        if(res.ok) {
-          return res
-        } else {
-          return res.json()
-        }
-      })
-			.catch((e) => console.log(e));
+    return (
+			fetch(`${url}/users/${id}/avatar`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// 'Access-Control-Allow-Origin': '*',
+					// 'Access-Control-Allow-Method': 'POST, GET, OPTIONS'
+				},
+			})
+				// .then(res => console.log(res.json()))
+				.then((res) => {
+					if (res.ok) {
+						return res;
+					} else {
+						return res.json();
+					}
+				})
+				.catch((e) => console.log(e))
+		);
   }
 };
 
