@@ -159,7 +159,7 @@ const Home = ({ token }) => {
 
 	return (
 		<div className={classes.root}>
-			<div className={classes.header}>
+			<Container className={classes.header}>
 				<Paper
 					style={{
 						borderRadius: '20px',
@@ -167,6 +167,7 @@ const Home = ({ token }) => {
 						fontFamily: 'Source Sans Pro',
 						color: '#2b2733',
 						height: 'min-content',
+						flexGrow: 1,
 					}}
 				>
 					<div
@@ -205,7 +206,7 @@ const Home = ({ token }) => {
 						submitAction={submitNewTask}
 						button={
 							<div className={classes.addButton}>
-								<span className={classes.title}>Add a task</span>
+								{/* <span className={classes.title}>Add a task</span> */}
 								<Fab onClick={handleClickOpen} className={classes.fab}>
 									<AddIcon />
 								</Fab>
@@ -213,7 +214,7 @@ const Home = ({ token }) => {
 						}
 					/>
 				</Paper>
-			</div>
+			</Container>
 
 			<Container className={classes.container}>
 				<TaskGrid

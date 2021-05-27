@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '40px',
 		marginBottom: '20px',
 		// border: '1px solid #2b2733',
-		boxShadow: '1px 3px 12px 0px rgb(0 0 0 / 20%)',
+		// boxShadow: '1px 3px 12px 0px rgb(0 0 0 / 20%)',
 		borderRadius: '20px',
 		// background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		background: '#2b2733',
