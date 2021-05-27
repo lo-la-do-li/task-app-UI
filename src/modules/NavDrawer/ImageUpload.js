@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	button: {
-		// color: blue[900],
 		margin: 10,
 	},
 	extendedIcon: {
@@ -93,19 +92,17 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 	const [sourceFile, setSourceFile] = useState(null);
 	const [error, setError] = useState('');
 
-  // useEffect(() => {
-  //   resetPhotoUpload()
-  // }, [])
+  useEffect(() => {
+    resetPhotoUpload()
+  }, [handleClose])
 
 	const handleCapture = (target) => {
-    // resetPhotoUpload()
 		if (target.files) {
 			if (target.files.length !== 0) {
 				const file = target.files[0];
 				const newUrl = URL.createObjectURL(file);
 				setSource(newUrl);
 				setSourceFile(file);
-        console.log(file)
 			}
 		}
 	};
@@ -114,14 +111,13 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
     setSourceFile(null);
 		setSource('');
 		setError('');
-    return handleClose();
   }
 
   const submitNewAvatar = async () => {
     await userAPI.uploadAvatar(sourceFile).then(res => {
       if(res.status === 200) {
       resetPhotoUpload()
-      // handleClose()
+      handleClose()
       } else {
         setError(res)
         return console.log(res)
@@ -155,7 +151,7 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 			>
 				{error}
 			</Typography>
-			<div >
+			<div>
 				<input
 					accept='image/*'
 					className={classes.input}
@@ -173,7 +169,7 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 
 				</label>
 			</div>
-			{source && (
+			{sourceFile && (
 				<label htmlFor='icon-button-file'>
 					<Fab className={classes.fab} onClick={submitNewAvatar}>
 						<span aria-label='upload user image'>

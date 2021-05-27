@@ -179,6 +179,7 @@ export default function NavDrawer({ token, setToken, children }) {
   
   
   const checkAvatar = async () => {
+    setAvatar('')
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
         if (res.error) {
         return setAvatar(avatarPlaceholder)
