@@ -1,12 +1,17 @@
-const taskAPI = {
+let url =
+	process.env.NODE_ENV === 'development'
+		? process.env.REACT_APP_SERVER_URL_LOC
+		: process.env.REACT_APP_SERVER_URL_PROD;
+
+    const taskAPI = {
 	getTasks: (query, sort) => {
-		let url;
+		let reqURL;
 		if (query && sort) {
-			url = `http://localhost:3000/tasks${query}&sortBy=createdAt:${sort}`;
+			reqURL = `${url}/tasks${query}&sortBy=createdAt:${sort}`;
 		} else {
-			url = `http://localhost:3000/tasks`;
+			reqURL = `${url}`;
 		}
-		return fetch(url, {
+		return fetch(reqURL, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -19,7 +24,7 @@ const taskAPI = {
 			.catch((e) => console.log(e));
 	},
 	getTaskById: async (id) => {
-		await fetch(`http://localhost:3000/tasks/${id}`, {
+		await fetch(`${url}/tasks/${id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -32,7 +37,7 @@ const taskAPI = {
 			.catch((e) => console.log(e));
 	},
 	createTask: async (taskBody) => {
-		await fetch('http://localhost:3000/tasks', {
+		await fetch(`${url}/tasks`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -46,7 +51,7 @@ const taskAPI = {
 			.catch((e) => console.log(e));
 	},
 	updateTask: (taskId, updates) => {
-		return fetch(`http://localhost:3000/tasks/${taskId}`, {
+		return fetch(`${url}/tasks/${taskId}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -60,7 +65,7 @@ const taskAPI = {
 			.catch((e) => console.log(e));
 	},
 	deleteTask: async (id) => {
-		await fetch(`http://localhost:3000/tasks/${id}`, {
+		await fetch(`${url}/tasks/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

@@ -183,10 +183,10 @@ export default function NavDrawer({ token, setToken, children }) {
     setAvatar('')
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
         console.log(res)
-        if (res.error) {
-        return setAvatar(avatarPlaceholder)
-      } else {
-        return setAvatar(res.url)
+        if (res.status === 404) {
+          return setAvatar(avatarPlaceholder);
+        } else {
+          return setAvatar(res.url)
       }
     })
   }
