@@ -7,7 +7,6 @@ import SignUp from '../SignUp';
 import Home from '../Home';
 import NavDrawer from '../NavDrawer';
 import useToken from '../../common/useToken';
-import './App.css';
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);

@@ -1,10 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
-// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core";
 import taskAPI from '../../api/task';
@@ -76,15 +73,14 @@ const useStyles = makeStyles((theme) => ({
 		color: '#2b2733',
 		color: '#fff',
 		border: 'none',
-		background: 'rgb(244 237 253)',
+		// background: 'rgb(244 237 253)',
 		background: '#2b2733',
+		margin: '5px 0px 5px 0px',
 		willChange: 'transform',
-		marginTop: '10px',
 		cursor: 'pointer',
-		transition:
-			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		transition: 'transform ease .3s',
 		'&:hover': {
-			transform: 'translateY(-5%)',
+			transform: 'translateY(-1%)',
 			color: '#fff',
 			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		},

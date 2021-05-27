@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import userAPI from '../../api/user';
 import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
@@ -12,10 +12,6 @@ const Login = ({ setToken }) => {
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const history = useHistory();
-
-	const testConnection = async () => {
-		await userAPI.testAPIConnection().then((response) => console.log(response));
-	};
 
 	const handleChange = (event) => {
 		event.target.name === 'email'
@@ -46,7 +42,6 @@ const Login = ({ setToken }) => {
 				let userToState = new User(response.user);
 				let token = response.token;
 				let userId = response.user._id;
-				console.log(userToState);
 				
 				localStorage.setItem('userId', userId);
 				localStorage.setItem('user', JSON.stringify(userToState));
