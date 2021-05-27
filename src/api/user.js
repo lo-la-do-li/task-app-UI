@@ -1,12 +1,20 @@
+let url =
+	process.env.NODE_ENV === 'development'
+		? process.env.REACT_APP_SERVER_URL_LOC
+		: process.env.REACT_APP_SERVER_URL_PROD
+
 const userAPI = {
 	testAPIConnection: () => {
-		return fetch('http://localhost:3000/')
+    console.log('url', url)
+    console.log('environment', process.env.NODE_ENV)
+
+		return fetch(`${url}/`)
 			.then((res) => res.json())
 			.then((data) => console.log(data))
 			.catch((e) => console.log(e));
 	},
 	createNewUser: (newUserData) => {
-		return fetch('http://localhost:3000/users', {
+		return fetch(`${url}/users`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -18,7 +26,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	loginUser: (credentials) => {
-		return fetch('http://localhost:3000/users/login', {
+		return fetch(`${url}/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -30,7 +38,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	readProfile: () => {
-		return fetch('http://localhost:3000/users/me', {
+		return fetch(`${url}/users/me`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -43,7 +51,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	logoutSession: (accessToken) => {
-		return fetch('http://localhost:3000/users/logout', {
+		return fetch(`${url}/users/logout`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -55,7 +63,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	logoutAllSessions: (accessToken) => {
-		return fetch('http://localhost:3000/users/logoutAll', {
+		return fetch(`${url}/users/logoutAll`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -67,7 +75,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	updateUserInfo: (updates) => {
-		return fetch('http://localhost:3000/users/me', {
+		return fetch(`${url}/users/me`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -80,7 +88,7 @@ const userAPI = {
 			.catch((e) => e.json());
 	},
 	deleteUser: () => {
-		return fetch('http://localhost:3000/users/me', {
+		return fetch(`${url}/users/me`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -95,7 +103,7 @@ const userAPI = {
     
     let data = new FormData();
 		data.append('avatar', file);
-		return fetch('http://localhost:3000/users/me/avatar', {
+		return fetch(`${url}/users/me/avatar`, {
 			method: 'POST',
 			body: data,
 			headers: {
@@ -112,7 +120,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
   getUserAvatar: (id) => {
-    return fetch(`http://localhost:3000/users/${id}/avatar`, {
+    return fetch(`${url}/users/${id}/avatar`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -127,7 +135,7 @@ const userAPI = {
           return res.json()
         }
       })
-			.catch((e) => console.log(e.message));
+			.catch((e) => console.log(e));
   }
 };
 

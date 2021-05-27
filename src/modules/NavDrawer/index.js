@@ -151,6 +151,7 @@ export default function NavDrawer({ token, setToken, children }) {
 
   useEffect(() => {
     checkAvatar()
+    userAPI.testAPIConnection()
   }, [])
     
   useEffect(() => {
@@ -181,6 +182,7 @@ export default function NavDrawer({ token, setToken, children }) {
   const checkAvatar = async () => {
     setAvatar('')
       await userAPI.getUserAvatar(localStorage.getItem('userId')).then(res => {
+        console.log(res)
         if (res.error) {
         return setAvatar(avatarPlaceholder)
       } else {
