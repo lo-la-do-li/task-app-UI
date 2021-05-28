@@ -70,10 +70,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	fab: {
 		outline: 'none',
-		color: '#2b2733',
 		color: '#fff',
 		border: 'none',
-		// background: 'rgb(244 237 253)',
 		background: '#2b2733',
 		margin: '5px 0px 5px 0px',
 		willChange: 'transform',

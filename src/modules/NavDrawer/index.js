@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(3),
+		padding: theme.spacing(2),
 		background: '#fffcfc',
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: -drawerWidth,
 	},
 	contentShift: {
+		padding: theme.spacing(1),
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen,
@@ -101,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		// fontFamily: 'Source Sans Pro',
 		backgroundImage: 'linear-gradient(to bottom right, #ebe5fd, #fdebeb)',
 		color: '#2b2733',
 	},
@@ -112,6 +112,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '20px 2px 20px 2px',
 	},
 	avatar: {
+    marginTop: '40px',
 		width: '200px',
 		borderRadius: '50%',
 	},
@@ -125,14 +126,14 @@ const useStyles = makeStyles((theme) => ({
 		color: '#fff',
 		border: 'none',
 		background: '#2b2733',
-		willChange: 'transform',
-		marginTop: '10px',
+		margin: '0px 10px 5px 0px',
+    alignSelf: 'flex-end',
+		position: 'absolute',
 		cursor: 'pointer',
-    position: 'absolute',
-		transition:
-			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
+		willChange: 'transform',
+		transition: 'transform ease .3s',
 		'&:hover': {
-			transform: 'translateY(-5%)',
+			transform: 'translateY(-1%)',
 			color: '#fff',
 			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		},
@@ -235,11 +236,21 @@ export default function NavDrawer({ token, setToken, children }) {
 				localStorage.removeItem('token');
 				localStorage.removeItem('userId');
 				let token = localStorage.getItem('token');
-				setToken(token);
-        // setProfile(null);
+				return setToken(token);
 			}
 		});
 	};
+
+  const deleteAccount = async () => {
+  
+    await userAPI.deleteUser().then(res => {
+        localStorage.removeItem('user');
+				localStorage.removeItem('token');
+				localStorage.removeItem('userId');
+				let token = localStorage.getItem('token');
+				return setToken(token);
+    })
+  }
 
 	return (
 		<div className={classes.root}>
@@ -299,6 +310,15 @@ export default function NavDrawer({ token, setToken, children }) {
 
 				<Container className={classes.profile} fixed>
           
+              <Fab className={classes.fab}>
+                <ModalWrap
+                  buttonOpen={
+                      <AddAPhotoIcon />
+                  }
+                >
+                  <ImageUpload checkAvatar={checkAvatar} />
+                </ModalWrap>
+              </Fab>
 					<div
 						style={{
 							display: 'flex',
@@ -322,15 +342,6 @@ export default function NavDrawer({ token, setToken, children }) {
 							/>
 						)}
 
-						<Fab className={classes.fab}>
-              <ModalWrap
-                buttonOpen={
-                    <AddAPhotoIcon />
-                }
-              >
-                <ImageUpload checkAvatar={checkAvatar} />
-              </ModalWrap>
-						</Fab>
 					</div>
           
 					<Typography style={{ fontFamily: 'Martel Sans' }} variant='subtitle1'>
@@ -372,7 +383,7 @@ export default function NavDrawer({ token, setToken, children }) {
 						}
 					/>
 
-					<ListItem button>
+					<ListItem button onClick={deleteAccount}>
 						<ListItemIcon>
 							<DeleteForeverIcon style={{ fill: '#2b2733' }} />
 						</ListItemIcon>
