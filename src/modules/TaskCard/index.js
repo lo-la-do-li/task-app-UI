@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 // import Container from '@material-ui/core/Container';
 import { makeStyles, withStyles } from '@material-ui/core/styles';

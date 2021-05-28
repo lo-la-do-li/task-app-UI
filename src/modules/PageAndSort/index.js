@@ -25,16 +25,15 @@ const useStyles = makeStyles((theme) => ({
 		background: '#2b2733',
 		color: '#fff',
 		// color: '#2b2733',
-		[theme.breakpoints.down('900')]: {
-			padding: '8px 8px',
+		[theme.breakpoints.down('600')]: {
+			// padding: '8px 8px',
+      padding: '0px 16px 0px 16px',
 			minWidth: 'max-content',
 		},
 	},
 	title: {
 		textAlign: 'center',
-		// color: '#2b2733',
-		// color: '#59565e',
-		fontSize: '20px',
+		fontSize: '16px',
 		fontFamily: 'Martel Sans',
 		width: 'inherit',
 		flexGrow: 1,
@@ -83,7 +82,7 @@ export default function PageAndSort({ title, sort, handleSort, tasksPerPage, tot
 				<ScheduleIcon />
 				{sort === 'desc' ? (
 					<IconButton
-						style={{ padding: '0px 8px 0px 4px' }}
+						style={{ padding: '0px 4px 0px 8px' }}
 						onClick={() => handleSort('asc', title)}
 					>
 						<KeyboardArrowUpIcon style={{ fill: '#fff' }} />
@@ -101,25 +100,35 @@ export default function PageAndSort({ title, sort, handleSort, tasksPerPage, tot
 
 			{number === 1 ? (
 				<IconButton
-					style={{ padding: '8px' }}
+					style={{ padding: '0px 4px 0px 4px' }}
 					onClick={handlePageDown}
 					disabled
 				>
 					<NavigateBeforeIcon style={{ fill: '#888892' }} />
 				</IconButton>
 			) : (
-				<IconButton style={{ padding: '8px' }} onClick={handlePageDown}>
+				<IconButton
+					style={{ padding: '0px 4px 0px 4px' }}
+					onClick={handlePageDown}
+				>
 					<NavigateBeforeIcon style={{ fill: '#fff' }} />
 				</IconButton>
 			)}
 			<span style={{ fontFamily: 'Martel Sans' }}>{number}</span>
 
 			{number === getAllPages().length ? (
-				<IconButton style={{ padding: '8px' }} onClick={handlePageUp} disabled>
+				<IconButton
+					style={{ padding: '0px 0px 0px 4px' }}
+					onClick={handlePageUp}
+					disabled
+				>
 					<NavigateNextIcon style={{ fill: '#888892' }} />
 				</IconButton>
 			) : (
-				<IconButton style={{ padding: '8px' }} onClick={handlePageUp}>
+				<IconButton
+					style={{ padding: '0px 0px 0px 4px' }}
+					onClick={handlePageUp}
+				>
 					<NavigateNextIcon style={{ fill: '#fff' }} />
 				</IconButton>
 			)}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 // App Imports
@@ -8,12 +9,21 @@ import PageAndSort from '../PageAndSort'
 import TaskCard from '../TaskCard'
 
 const useStyles = makeStyles((theme) => ({
-
+	emptyTasks: {
+		// maxWidth: 460,
+		fontFamily: 'Source Sans Pro',
+		// border: '1px solid white',
+		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+		// margin: `${theme.spacing(1)}px auto`,
+		margin: '10px 3px 10px 3px',
+		padding: theme.spacing(2),
+		// padding: '16px, 8px, 16px, 8px',
+		borderRadius: '20px',
+	},
 	message: {
-		color: '#2b2733',
+		color: '#fff',
 		textAlign: 'center',
 	},
-
 	container: {
 		padding: '20px 30px',
 		[theme.breakpoints.down('900')]: {
@@ -51,18 +61,19 @@ export default function TaskGrid({ tasks, sort, handleSort, updateTaskGrids, tit
 
 	return (
 		<Container maxWidth='lg' className={classes.container}>
-			
-      <PageAndSort
+			<PageAndSort
 				title={title}
-        sort={sort}
+				sort={sort}
 				handleSort={handleSort}
 				tasksPerPage={tasksPerPage}
 				totalTasks={tasks.length}
-        paginate={paginate}
+				paginate={paginate}
 			/>
 
 			{!tasks.length ? (
-				<h3 className={classes.message}>{emptyMessage}</h3>
+				<Paper className={classes.emptyTasks}>
+					<h3 className={classes.message}>{emptyMessage}</h3>
+				</Paper>
 			) : (
 				<div>{taskCards}</div>
 			)}

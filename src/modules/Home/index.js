@@ -217,7 +217,7 @@ const Home = ({ token }) => {
 					sort={sortToDo}
 					handleSort={handleSort}
 					updateTaskGrids={updateTaskGrids}
-					emptyMessage={"You've completed all your tasks!"}
+					emptyMessage={"Add tasks by clicking the + button"}
 				/>
 				<TaskGrid
 					title={'DONE'}
