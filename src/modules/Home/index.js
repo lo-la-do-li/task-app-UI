@@ -55,15 +55,27 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		padding: '10px',
 	},
-	paper: {
-		margin: `${theme.spacing(2)}px auto`,
-		display: 'flex',
-		flexDirection: 'column',
-	},
-	title: {
-		fontSize: '16px',
+	dateBox: {
+		// margin: `${theme.spacing(2)}px auto`,
+		// display: 'flex',
+		// flexDirection: 'column',
+		borderRadius: '20px',
+		padding: '20px',
+		fontFamily: 'Source Sans Pro',
 		color: '#2b2733',
-		// color: '#201f31ab',
+		height: 'min-content',
+		flexGrow: 1,
+		[theme.breakpoints.down('600')]: {
+			padding: '20px 15px',
+		},
+	},
+	date: {
+		fontSize: '28px',
+		fontFamily: 'Martel Sans',
+		fontWeight: '600',
+	},
+	weekday: {
+		color: '#201f31ab',
 		fontFamily: 'Martel Sans',
 		fontWeight: 'bold',
 		fontSize: '16px',
@@ -155,31 +167,15 @@ const Home = ({ token }) => {
 		<div className={classes.root}>
 			<Container className={classes.header}>
 				<Paper
-					style={{
-						borderRadius: '20px',
-						padding: '20px',
-						fontFamily: 'Source Sans Pro',
-						color: '#2b2733',
-						height: 'min-content',
-						flexGrow: 1,
-					}}
+				className={classes.dateBox}
 				>
 					<div
-						style={{
-							fontSize: '28px',
-							fontFamily: 'Martel Sans',
-							fontWeight: '600',
-						}}
+						className={classes.date}
 					>
 						{`${getTodayDate()[0]} ${getTodayDate()[1]}`}
 					</div>
 					<div
-						style={{
-							color: '#201f31ab',
-							fontFamily: 'Source Sans Pro',
-							fontWeight: 'bold',
-							fontSize: '16px',
-						}}
+						className={classes.weekday}
 					>
 						{getTodayDate()[2]}
 					</div>
@@ -217,7 +213,7 @@ const Home = ({ token }) => {
 					sort={sortToDo}
 					handleSort={handleSort}
 					updateTaskGrids={updateTaskGrids}
-					emptyMessage={"Add tasks by clicking the + button"}
+					emptyMessage={"Add tasks using the + button"}
 				/>
 				<TaskGrid
 					title={'DONE'}

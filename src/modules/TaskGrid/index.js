@@ -12,17 +12,22 @@ const useStyles = makeStyles((theme) => ({
 	emptyTasks: {
 		// maxWidth: 460,
 		fontFamily: 'Source Sans Pro',
+
 		// border: '1px solid white',
 		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 		// margin: `${theme.spacing(1)}px auto`,
-		margin: '10px 3px 10px 3px',
+		margin: '30px 3px 10px 3px',
 		padding: theme.spacing(2),
-		// padding: '16px, 8px, 16px, 8px',
+    height: '118px',
+    padding: '16px',
+		// marginTop: '16px',
 		borderRadius: '20px',
 	},
 	message: {
 		color: '#fff',
 		textAlign: 'center',
+		fontFamily: 'Martel Sans',
+    fontSize: '14px'
 	},
 	container: {
 		padding: '20px 30px',
