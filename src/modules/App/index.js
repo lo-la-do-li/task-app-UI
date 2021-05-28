@@ -17,7 +17,7 @@ const App = () => {
   }, [])
   
   const checkUserState = () => {
-    console.log(state.authUser)
+    console.log('Task App User:', state.authUser.name)
   }
 
 	return (

@@ -105,6 +105,10 @@ const useStyles = makeStyles((theme) => ({
 		backgroundImage: 'linear-gradient(to bottom right, #ebe5fd, #fdebeb)',
 		color: '#2b2733',
 	},
+	toolbarShift: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
 	profile: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -112,9 +116,10 @@ const useStyles = makeStyles((theme) => ({
 		padding: '20px 2px 20px 2px',
 	},
 	avatar: {
-    marginTop: '40px',
+		marginTop: '60px',
 		width: '200px',
 		borderRadius: '50%',
+		boxShadow: '-1px 10px 30px 0px rgb(0 0 0 / 40%)',
 	},
 	avatarPlaceholder: {
 		width: '200px',
@@ -127,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
 		border: 'none',
 		background: '#2b2733',
 		margin: '0px 10px 5px 0px',
-    alignSelf: 'flex-end',
+		alignSelf: 'flex-end',
 		position: 'absolute',
 		cursor: 'pointer',
 		willChange: 'transform',
@@ -261,7 +266,11 @@ export default function NavDrawer({ token, setToken, children }) {
 					[classes.appBarShift]: open,
 				})}
 			>
-				<Toolbar className={classes.toolbar}>
+				<Toolbar
+					className={clsx(classes.toolbar, {
+						[classes.toolbarShift]: open,
+					})}
+				>
 					<IconButton
 						color='inherit'
 						aria-label='open drawer'

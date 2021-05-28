@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
 	text: {
 		fontFamily: 'Lato',
 	},
+	actionButton: {
+		fontFamily: 'Martel Sans',
+	},
 }));
 
 export default function TaskForm({task, button, handleClose, open, create, submitAction}) {
@@ -85,7 +88,7 @@ export default function TaskForm({task, button, handleClose, open, create, submi
 				</DialogContent>
 				<DialogActions>
 					<Button
-						className={classes.text}
+						className={classes.actionButton}
 						onClick={handleClose}
 						color='primary'
 					>
@@ -93,7 +96,7 @@ export default function TaskForm({task, button, handleClose, open, create, submi
 					</Button>
 					{!create ? (
 						<Button
-							className={classes.text}
+							className={classes.actionButton}
 							onClick={(e) => submitAction(e, newDescription, task._id)}
 							color='primary'
 						>
@@ -101,7 +104,7 @@ export default function TaskForm({task, button, handleClose, open, create, submi
 						</Button>
 					) : (
 						<Button
-							className={classes.text}
+							className={classes.actionButton}
 							onClick={(e) => submitAction(e, newDescription)}
 							color='primary'
 						>

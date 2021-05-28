@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 		color: '#232323',
 	},
 	actionButton: {
-		fontFamily: 'Lato',
+		fontFamily: 'Martel Sans',
 	},
 }));
 

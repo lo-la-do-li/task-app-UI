@@ -16,6 +16,9 @@ const useStyles = makeStyles(() => ({
 	text: {
 		fontFamily: 'Lato',
 	},
+  actionButton: {
+    fontFamily: 'Martel Sans'
+  }
 }));
 export default function UserForm({profile, button, handleClose, open, submitAction, errorMessage}) {
   const classes = useStyles()
@@ -116,7 +119,7 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 
 				<DialogActions>
 					<Button
-						className={classes.text}
+						className={classes.actionButton}
 						onClick={handleClose}
 						color='primary'
 					>
@@ -124,9 +127,9 @@ export default function UserForm({profile, button, handleClose, open, submitActi
 					</Button>
 
 					<Button
+						className={classes.actionButton}
 						onClick={(e) => submitAction(e, name, email, password)}
 						color='primary'
-						className={classes.text}
 					>
 						Update
 					</Button>
