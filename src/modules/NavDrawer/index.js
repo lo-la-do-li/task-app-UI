@@ -31,7 +31,7 @@ import User from '../../utils/userClass';
 import UserForm from '../../ui/modal/UserForm';
 import ModalWrap from '../../ui/modal/ModalWrap';
 import avatarPlaceholder from '../../ui/images/profile_placeholder.jpg';
-
+import Confirm from '../../ui/modal/Confirm'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -309,23 +309,17 @@ export default function NavDrawer({ token, setToken, children }) {
 				<Divider />
 
 				<Container className={classes.profile} fixed>
-          
-              <Fab className={classes.fab}>
-                <ModalWrap
-                  buttonOpen={
-                      <AddAPhotoIcon />
-                  }
-                >
-                  <ImageUpload checkAvatar={checkAvatar} />
-                </ModalWrap>
-              </Fab>
+					<Fab className={classes.fab}>
+						<ModalWrap buttonOpen={<AddAPhotoIcon />}>
+							<ImageUpload checkAvatar={checkAvatar} />
+						</ModalWrap>
+					</Fab>
 					<div
 						style={{
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'flex-end',
 							paddingBottom: '20px',
-              
 						}}
 					>
 						{avatar.includes(profile.name) ? (
@@ -341,9 +335,8 @@ export default function NavDrawer({ token, setToken, children }) {
 								alt={`${profile.name} Avatar`}
 							/>
 						)}
-
 					</div>
-          
+
 					<Typography style={{ fontFamily: 'Martel Sans' }} variant='subtitle1'>
 						{profile.name.toUpperCase()}
 					</Typography>
@@ -354,7 +347,6 @@ export default function NavDrawer({ token, setToken, children }) {
 					>
 						{profile.email}
 					</Typography>
-          
 				</Container>
 
 				<Divider />
@@ -383,19 +375,27 @@ export default function NavDrawer({ token, setToken, children }) {
 						}
 					/>
 
-					<ListItem button onClick={deleteAccount}>
-						<ListItemIcon>
-							<DeleteForeverIcon style={{ fill: '#2b2733' }} />
-						</ListItemIcon>
+					<Confirm
+						confirmMessage={
+							'Are you sure you want to delete your TaskApp account?'
+						}
+						confirmAction={deleteAccount}
+						buttonOpen={
+							<ListItem button>
+								<ListItemIcon>
+									<DeleteForeverIcon style={{ fill: '#2b2733' }} />
+								</ListItemIcon>
 
-						<Typography
-							style={{ fontFamily: 'Martel Sans' }}
-							variant='button'
-							gutterBottom
-						>
-							Delete Account
-						</Typography>
-					</ListItem>
+								<Typography
+									style={{ fontFamily: 'Martel Sans', color: '#2b2733' }}
+									variant='button'
+									gutterBottom
+								>
+									Delete Account
+								</Typography>
+							</ListItem>
+						}
+					></Confirm>
 				</List>
 			</Drawer>
 
