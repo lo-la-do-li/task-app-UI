@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '0px 1px 3px 0px rgb(0 0 0 / 40%)',
 	},
 	dateCreated: {
-		// color: '#888892',
 		color: '#888892',
 		width: '60px',
 		borderRight: '1.75px solid #d9d5ed',

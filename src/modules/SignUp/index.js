@@ -5,6 +5,7 @@ import userAPI from '../../api/user';
 import AccessError from '../../ui/AccessError';
 import User from '../../utils/userClass';
 import '../Login/Login.css';
+import logo from '../../ui/images/icons-512.png';
 
 const SignUp = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);
@@ -81,6 +82,11 @@ const SignUp = ({ setToken }) => {
 	return (
 		<div className='login-section'>
 			<div className='form-section'>
+				<div className='title'>
+					<span>Lola's Task App</span>
+					<img src={logo} alt='Task-App-logo' />
+				</div>
+          <p className='subtitle'>Create a New Account</p>
 				<form className='form'>
 					<input
 						type='text'
@@ -114,7 +120,7 @@ const SignUp = ({ setToken }) => {
 				<div className='login'>
 					<p className='helper-text'>Already have an account?</p>
 					<button className='login-btn'>
-						<Link to='/'>Login</Link>
+						<Link to='/login'>Login</Link>
 					</button>
 				</div>
 			</div>

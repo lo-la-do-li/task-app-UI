@@ -5,6 +5,7 @@ import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
 import './Login.css';
 import User from '../../utils/userClass';
+import logo from '../../ui/images/icons-512.png'
 
 const Login = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);
@@ -58,6 +59,10 @@ const Login = ({ setToken }) => {
 	return (
 		<div className='login-section'>
 			<div className='form-section'>
+				<div className='title'>
+          <span>Lola's Task App</span>
+          <img src={logo} alt='Task-App-logo' />
+        </div>
 				<form className='form'>
 					<input
 						type='text'
@@ -80,7 +85,7 @@ const Login = ({ setToken }) => {
 						type='submit'
 						onClick={submitCredentials}
 					>
-						Log In
+						LOG IN
 					</button>
 					{errorMessage !== '' && <AccessError message={errorMessage} />}
 				</form>

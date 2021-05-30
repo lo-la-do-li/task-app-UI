@@ -17,7 +17,12 @@ const App = () => {
   }, [])
   
   const checkUserState = () => {
-    console.log('Task App User:', state.authUser.name)
+    if (state.authUser !== null) {
+
+      console.log('Task App User:', state.authUser.name)
+    } else {
+      console.log('No user in state')
+    }
   }
 
 	return (
