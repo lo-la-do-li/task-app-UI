@@ -30,13 +30,12 @@ const useStyles = makeStyles((theme) => ({
 		// margin: `${theme.spacing(1)}px auto`,
 		margin: '10px 3px 10px 3px',
 		padding: theme.spacing(2),
-		// padding: '16px, 8px, 16px, 8px',
 		borderRadius: '20px',
-		boxShadow: '-1px 2px 4px 1px rgb(0 0 0 / 20%)',
+		boxShadow: '0px 1px 3px 0px rgb(0 0 0 / 40%)',
 	},
 	dateCreated: {
 		// color: '#888892',
-		color: '#201f31ab',
+		color: '#888892',
 		width: '60px',
 		borderRight: '1.75px solid #d9d5ed',
 		marginRight: '5px',
@@ -70,9 +69,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomCheckBox = withStyles({
 	root: {
-		color: '#36d0bc',
+		color: '#4d4ae8',
 		'&$checked': {
-			//#4d4ae8
 			color: '#36d0bc',
 		},
 	},
