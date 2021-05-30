@@ -75,7 +75,8 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: '600',
 	},
 	weekday: {
-		color: '#201f31ab',
+		color: '#888892',
+		//#888892
 		fontFamily: 'Martel Sans',
 		fontWeight: 'bold',
 		fontSize: '16px',

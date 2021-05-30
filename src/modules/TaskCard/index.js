@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 		padding: '8px 12px 0px 12px',
 		'&:hover': {
 			transform: 'translateY(-5%)',
-			// color: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 			background: 'transparent',
 		},
 	},
