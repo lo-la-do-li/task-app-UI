@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		margin: 10,
+		fontFamily: 'Martel Sans',
+	},
+	actionButton: {
+		fontFamily: 'Martel Sans',
 	},
 	extendedIcon: {
 		marginRight: theme.spacing(1),
@@ -97,6 +101,7 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
   }, [handleClose])
 
 	const handleCapture = (target) => {
+    resetPhotoUpload()
 		if (target.files) {
 			if (target.files.length !== 0) {
 				const file = target.files[0];
