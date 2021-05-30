@@ -39,6 +39,7 @@ const Login = ({ setToken }) => {
 		};
 
 		await userAPI.loginUser(credentials).then((response) => {
+      console.log(response)
 			if (response.user) {
 				let userToState = new User(response.user);
 				let token = response.token;
