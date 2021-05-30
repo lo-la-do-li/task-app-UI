@@ -83,6 +83,7 @@
 .form button:hover {
   transform: scale(1.025);
   background-image: linear-gradient(to bottom right, #4d4ae8, #8375d3);
+  box-shadow: -2px 4px 20px 0px #2b2733;
 }
 
 .error-message {

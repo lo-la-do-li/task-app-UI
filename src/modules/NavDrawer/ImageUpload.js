@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 		color: '#fff',
 		border: 'none',
 		background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
+    background: '#2b2733',
 		willChange: 'transform',
 		margin: '25px 0px',
 		cursor: 'pointer',
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 			'transform ease .3s, border ease 2s, background ease .3s, color ease .3s',
 		'&:hover': {
 			transform: 'translateY(-5%)',
-			background: '#2b2733',
+			background: 'linear-gradient(to bottom right, #4d4ae8, #8375d3)',
 			// color: '#fff',
 		},
 	},
