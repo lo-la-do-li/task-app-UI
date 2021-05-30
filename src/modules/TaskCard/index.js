@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomCheckBox = withStyles({
 	root: {
-		color: '#4d4ae8',
+    // #4d4ae8
+		color: '#36d0bc',
 		'&$checked': {
 			color: '#36d0bc',
 		},
