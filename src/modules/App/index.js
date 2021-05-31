@@ -18,7 +18,8 @@ const App = () => {
   }, [])
   
   const checkUserState = async () => {
-    await userAPI.testAPIConnection().then(res => console.log(res))
+    let connection = userAPI.testAPIConnection()
+    console.log(connection)
     if (state.authUser !== null) {
 
       console.log('Task App User:', state.authUser.name)
