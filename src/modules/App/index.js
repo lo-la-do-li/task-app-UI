@@ -7,6 +7,7 @@ import SignUp from '../SignUp';
 import Home from '../Home';
 import NavDrawer from '../NavDrawer';
 import useToken from '../../common/useToken';
+import userAPI from '../../api/user'
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -16,7 +17,8 @@ const App = () => {
     checkUserState()
   }, [])
   
-  const checkUserState = () => {
+  const checkUserState = async () => {
+    await userAPI.testAPIConnection().then(res => console.log(res))
     if (state.authUser !== null) {
 
       console.log('Task App User:', state.authUser.name)
