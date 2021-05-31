@@ -28,7 +28,7 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-        'Accept': '*/*'
+        // 'Accept': '*/*'
 			},
 			body: JSON.stringify(credentials),
 		})

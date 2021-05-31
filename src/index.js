@@ -6,8 +6,9 @@ import * as serviceWorker from './serviceWorkerRegistration';
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 console.log(process.env.NODE_ENV)
+// basename={process.env.PUBLIC_URL}
 ReactDOM.render(
-	<BrowserRouter basename={process.env.PUBLIC_URL}>
+	<BrowserRouter basename='/'>
 		<App />
 	</BrowserRouter>,
 	document.getElementById('root')
