@@ -19,7 +19,7 @@ const App = () => {
   
   const checkUserState = () => {
     userAPI.testAPIConnection()
-    
+    console.log(process.env.REACT_APP_SERVER_URL_PROD)
     if (state.authUser !== null) {
 
       console.log('Task App User:', state.authUser.name)
