@@ -7,7 +7,7 @@ const userAPI = {
 	testAPIConnection: () => {
     console.log('test connection url:', url)
 
-		return fetch(`${url}/`)
+		return fetch(`https://lola-task-manager.herokuapp.com/`)
 			.then((res) => res.json())
 			.then((data) => console.log(data))
 			.catch((e) => console.log(e));
