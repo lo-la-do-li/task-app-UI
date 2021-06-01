@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 console.log(process.env.NODE_ENV)
 // basename={process.env.PUBLIC_URL}
 ReactDOM.render(
-	<BrowserRouter basename='/'>
+	<BrowserRouter basename={process.env.PUBLIC_URL}>
 		<App />
 	</BrowserRouter>,
 	document.getElementById('root')

@@ -16,6 +16,7 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
 			},
 			body: JSON.stringify(newUserData),
 		})
@@ -28,7 +29,7 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-        // 'Accept': '*/*'
+        'Access-Control-Allow-Origin': '*'
 			},
 			body: JSON.stringify(credentials),
 		})
