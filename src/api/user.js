@@ -15,20 +15,23 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*',
+				// 'Access-Control-Allow-Origin': '*',
 			},
 			body: JSON.stringify(newUserData),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+        console.log('create new user res:', res)
+        return res.json()
+      })
 			.then((data) => {
-        console.log(data) 
+        console.log('new user data:', data) 
         return data
       })
 			.catch((e) => console.log(e));
 	},
 	loginUser: (credentials) => {
     
-		return fetch(`https://lola-task-manager.herokuapp.com/users/login`, {
+		return fetch("https://lola-task-manager.herokuapp.com/users/login", {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -36,15 +39,18 @@ const userAPI = {
 			},
 			body: JSON.stringify(credentials),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+        console.log('login user response:', res)
+        return res.json()
+      })
 			.then((data) => {
-				console.log(data);
+				console.log('logged in user data:', data);
 				return data;
 			})
 			.catch((e) => console.log(e));
 	},
 	readProfile: () => {
-		return fetch(`https://lola-task-manager.herokuapp.com/users/me`, {
+		return fetch("https://lola-task-manager.herokuapp.com/users/me", {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
