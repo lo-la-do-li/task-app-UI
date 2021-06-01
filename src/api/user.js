@@ -1,12 +1,10 @@
-const url =
-	process.env.NODE_ENV === 'development'
-		? process.env.REACT_APP_SERVER_URL_LOC
-		: process.env.REACT_APP_SERVER_URL_PROD
+// const url =
+// 	process.env.NODE_ENV === 'development'
+// 		? process.env.REACT_APP_SERVER_URL_LOC
+// 		: process.env.REACT_APP_SERVER_URL_PROD
 
 const userAPI = {
 	testAPIConnection: () => {
-    console.log('test connection url:', url)
-
 		return fetch("https://lola-task-manager.herokuapp.com/")
 			.then((res) => res.json())
 			.then((data) => console.log(data))
@@ -17,30 +15,36 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				// 'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Origin': '*',
 			},
 			body: JSON.stringify(newUserData),
 		})
 			.then((res) => res.json())
-			.then((data) => data)
+			.then((data) => {
+        console.log(data) 
+        return data
+      })
 			.catch((e) => console.log(e));
 	},
 	loginUser: (credentials) => {
-    console.log('url in login:', url)
-		return fetch(`${url}/users/login`, {
+    
+		return fetch(`https://lola-task-manager.herokuapp.com/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*'
+				// 'Access-Control-Allow-Origin': '*'
 			},
 			body: JSON.stringify(credentials),
 		})
 			.then((res) => res.json())
-			.then((data) => data)
+			.then((data) => {
+				console.log(data);
+				return data;
+			})
 			.catch((e) => console.log(e));
 	},
 	readProfile: () => {
-		return fetch(`${url}/users/me`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/me`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -53,7 +57,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	logoutSession: (accessToken) => {
-		return fetch(`${url}/users/logout`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/logout`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -65,7 +69,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	logoutAllSessions: (accessToken) => {
-		return fetch(`${url}/users/logoutAll`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/logoutAll`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -77,7 +81,7 @@ const userAPI = {
 			.catch((e) => console.log(e));
 	},
 	updateUserInfo: (updates) => {
-		return fetch(`${url}/users/me`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/me`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -90,7 +94,7 @@ const userAPI = {
 			.catch((e) => e.json());
 	},
 	deleteUser: () => {
-		return fetch(`${url}/users/me`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/me`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -105,7 +109,7 @@ const userAPI = {
     
     let data = new FormData();
 		data.append('avatar', file);
-		return fetch(`${url}/users/me/avatar`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/users/me/avatar`, {
 			method: 'POST',
 			body: data,
 			headers: {
@@ -113,25 +117,26 @@ const userAPI = {
 			},
 		})
 			.then((res) => {
-        if (res.ok) {
-          return res
-        } else {
-          return res.json()
-        }
-      })
+				if (res.ok) {
+					return res;
+				} else {
+					return res.json();
+				}
+			})
 			.catch((e) => console.log(e));
 	},
   getUserAvatar: (id) => {
-    return (
-			fetch(`${url}/users/${id}/avatar`, {
+    return fetch(
+			`https://lola-task-manager.herokuapp.com/users/${id}/avatar`,
+			{
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-			})
-				.then(res => res)
-				.catch((e) => console.log(e))
-		);
+			}
+		)
+			.then((res) => res)
+			.catch((e) => console.log(e));
   }
 };
 

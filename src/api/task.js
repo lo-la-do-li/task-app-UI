@@ -1,15 +1,15 @@
-let url =
-	process.env.NODE_ENV === 'development'
-		? process.env.REACT_APP_SERVER_URL_LOC
-		: process.env.REACT_APP_SERVER_URL_PROD;
+// let url =
+// 	process.env.NODE_ENV === 'development'
+// 		? process.env.REACT_APP_SERVER_URL_LOC
+// 		: process.env.REACT_APP_SERVER_URL_PROD;
 
     const taskAPI = {
 	getTasks: (query, sort) => {
 		let reqURL;
 		if (query && sort) {
-			reqURL = `${url}/tasks${query}&sortBy=createdAt:${sort}`;
+			reqURL = `https://lola-task-manager.herokuapp.com/tasks${query}&sortBy=createdAt:${sort}`;
 		} else {
-			reqURL = `${url}`;
+			reqURL = `https://lola-task-manager.herokuapp.com`;
 		}
 		return fetch(reqURL, {
 			method: 'GET',
@@ -24,7 +24,7 @@ let url =
 			.catch((e) => console.log(e));
 	},
 	getTaskById: async (id) => {
-		await fetch(`${url}/tasks/${id}`, {
+		await fetch(`https://lola-task-manager.herokuapp.com/tasks/${id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ let url =
 			.catch((e) => console.log(e));
 	},
 	createTask: async (taskBody) => {
-		await fetch(`${url}/tasks`, {
+		await fetch(`https://lola-task-manager.herokuapp.com/tasks`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ let url =
 			.catch((e) => console.log(e));
 	},
 	updateTask: (taskId, updates) => {
-		return fetch(`${url}/tasks/${taskId}`, {
+		return fetch(`https://lola-task-manager.herokuapp.com/tasks/${taskId}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ let url =
 			.catch((e) => console.log(e));
 	},
 	deleteTask: async (id) => {
-		await fetch(`${url}/tasks/${id}`, {
+		await fetch(`https://lola-task-manager.herokuapp.com/tasks/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
