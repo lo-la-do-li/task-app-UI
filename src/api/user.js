@@ -1,10 +1,11 @@
-// const url =
-// 	process.env.NODE_ENV === 'development'
-// 		? process.env.REACT_APP_SERVER_URL_LOC
-// 		: process.env.REACT_APP_SERVER_URL_PROD
+const url =
+	process.env.NODE_ENV === 'development'
+		? process.env.REACT_APP_SERVER_URL_LOC
+		: process.env.REACT_APP_SERVER_URL_PROD
 
 const userAPI = {
 	testAPIConnection: () => {
+    console.log(url)
 		return fetch("https://lola-task-manager.herokuapp.com/")
 			.then((res) => res.json())
 			.then((data) => console.log(data))

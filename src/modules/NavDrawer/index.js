@@ -22,12 +22,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button';
-import ImageUpload from './ImageUpload';
 
 // App imports 
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 import User from '../../utils/userClass';
+import ImageUpload from '../ImageUpload';
 import UserForm from '../../ui/modal/UserForm';
 import ModalWrap from '../../ui/modal/ModalWrap';
 import avatarPlaceholder from '../../ui/images/profile_placeholder.jpg';

@@ -118,6 +118,7 @@
 .signup-btn,
 .login-btn {
   font-family: 'Lato';
+  font-size: 15px;
   text-decoration: underline;
   background: none;
   border: none;
@@ -132,18 +133,20 @@
 .signup-btn:hover,
 .login-btn:hover {
   cursor: pointer;
-  transform: scale(1.2);
+  transform: scale(1.1);
   text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
   .form-section {
-    margin-top: -50%
+    margin-top: -60%
   }
 }
 
-@media(hover: hover) and (pointer: fine) {
+@media(hover: hover) {
     .form button:hover {
-        background: yellow;
+      transform: scale(1.025);
+      background-image: linear-gradient(to bottom right, #4d4ae8, #8375d3);
+      box-shadow: -2px 4px 20px 0px #2b2733;
     }
 }
