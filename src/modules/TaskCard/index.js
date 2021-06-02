@@ -119,10 +119,7 @@ const TaskCard = ({ id, task, completed, description, createdAt, updateTaskGrids
 
     const removeTask = async (id) => {
       await taskAPI.deleteTask(id).then(res => {
-        if (res) {
-          console.log(res)
-        }
-        console.log('Task removed')
+        console.log(res)
         return updateTaskGrids();
       })
     }

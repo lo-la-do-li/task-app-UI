@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './modules/App/index.js';
 import * as serviceWorker from './serviceWorkerRegistration';
-// import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-console.log(process.env.NODE_ENV)
-console.log(process.env.REACT_APP_SERVER_URL_PROD);
+
 ReactDOM.render(
 	<BrowserRouter basename={process.env.PUBLIC_URL}>
 		<App />
@@ -22,4 +21,4 @@ serviceWorker.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
+reportWebVitals();

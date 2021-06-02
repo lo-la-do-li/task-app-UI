@@ -34,7 +34,6 @@ const SignUp = ({ setToken }) => {
 	};
 
 	const setUserState = (user) => {
-		console.log('called');
 		const action = { type: 'SET_USER', authUser: user };
 		dispatch(action);
 	};

@@ -39,7 +39,7 @@ const Login = ({ setToken }) => {
 		};
 
 		await userAPI.loginUser(credentials).then((response) => {
-      console.log(response)
+      
 			if (response.user) {
 				let userToState = new User(response.user);
 				let token = response.token;
@@ -53,6 +53,7 @@ const Login = ({ setToken }) => {
         setUserState(userToState)
 				return history.push('/');
 			} else {
+        console.log(response)
 				return setErrorMessage(response);
 			}
 		});

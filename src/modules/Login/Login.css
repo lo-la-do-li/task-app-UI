@@ -58,8 +58,12 @@
 }
 
 .form input:focus {
+  box-sizing: border-box;
   box-shadow: 0px 0px 5px 0px #2b2733;
   background: white;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-appearance: none;
 }
 
 .form input::placeholder {
@@ -129,4 +133,10 @@
   cursor: pointer;
   transform: scale(1.2);
   text-decoration: underline;
+}
+
+@media(hover: hover) and (pointer: fine) {
+    .form button:hover {
+        background: yellow;
+    }
 }

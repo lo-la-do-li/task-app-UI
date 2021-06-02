@@ -15,18 +15,11 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				// 'Access-Control-Allow-Origin': '*',
 			},
 			body: JSON.stringify(newUserData),
 		})
-			.then((res) => {
-        console.log('create new user res:', res)
-        return res.json()
-      })
-			.then((data) => {
-        console.log('new user data:', data) 
-        return data
-      })
+			.then((res) => res.json())
+			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
 	loginUser: (credentials) => {
@@ -35,18 +28,11 @@ const userAPI = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				// 'Access-Control-Allow-Origin': '*'
 			},
 			body: JSON.stringify(credentials),
 		})
-			.then((res) => {
-        console.log('login user response:', res)
-        return res.json()
-      })
-			.then((data) => {
-				console.log('logged in user data:', data);
-				return data;
-			})
+			.then((res) => res.json())
+			.then((data) => data)
 			.catch((e) => console.log(e));
 	},
 	readProfile: () => {
