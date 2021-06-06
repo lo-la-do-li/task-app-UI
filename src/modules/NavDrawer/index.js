@@ -17,7 +17,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
 import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
