@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -147,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavDrawer({ token, setToken, children }) {
 	const classes = useStyles();
 	const theme = useTheme();
+  const history = useHistory();
   const [state, dispatch] = useContext(AppContext);
 	const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false)
@@ -158,9 +160,9 @@ export default function NavDrawer({ token, setToken, children }) {
     checkAvatar()
   }, [])
 
-    useEffect(() => {
-      setProfile(state.authUser)
-		}, [state.authUser]);
+  useEffect(() => {
+    setProfile(state.authUser)
+  }, [state.authUser]);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -239,8 +241,7 @@ export default function NavDrawer({ token, setToken, children }) {
 				localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				localStorage.removeItem('userId');
-				let token = localStorage.getItem('token');
-				return setToken(token);
+        return history.push('/login');
 			}
 		});
 	};
@@ -251,12 +252,12 @@ export default function NavDrawer({ token, setToken, children }) {
         localStorage.removeItem('user');
 				localStorage.removeItem('token');
 				localStorage.removeItem('userId');
-				let token = localStorage.getItem('token');
-				return setToken(token);
+				return history.push('/login');
     })
   }
 
 	return (
+    
 		<div className={classes.root}>
 			<CssBaseline />
 			<AppBar

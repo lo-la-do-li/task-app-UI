@@ -7,7 +7,7 @@ import SignUp from '../SignUp';
 import Home from '../Home';
 import NavDrawer from '../NavDrawer';
 import useToken from '../../common/useToken';
-import userAPI from '../../api/user'
+import userAPI from '../../api/user';
 
 const App = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -30,13 +30,13 @@ const App = () => {
 		<AppContext.Provider value={[state, dispatch]}>
 			<Switch>
 				<Route exact path='/'>
-					{!token && <Redirect to='/login' />}
-					{token && (
-						<>
-							<NavDrawer token={token} setToken={setToken}>
-								<Home token={token} />
-							</NavDrawer>
-						</>
+					{!token ? (<Redirect to='/login' />) 
+			  : (
+          <>
+            <NavDrawer token={token} setToken={setToken}>
+              <Home token={token} />
+            </NavDrawer>
+          </>
 					)}
 				</Route>
 
