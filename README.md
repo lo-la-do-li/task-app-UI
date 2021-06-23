@@ -43,7 +43,7 @@ Task App allows users to create an account, log in, and add/remove/update/delete
 
 #### Mobile Login:
 
-![Mobile Login]()
+<img width="200" alt="Screen Shot 2021-06-23 at 9 54 50 AM" src="https://user-images.githubusercontent.com/68264128/123179412-9656c400-d446-11eb-8614-51965f5e533b.png">
 
 #### Add and Complete Tasks:
 
@@ -51,11 +51,15 @@ Task App allows users to create an account, log in, and add/remove/update/delete
 
 #### User Profile Expanded:
 
-![User Profile Expanded]()
+<img width="600" alt="Screen Shot 2021-06-23 at 10 10 49 AM" src="https://user-images.githubusercontent.com/68264128/123179646-0e24ee80-d447-11eb-94ff-2e183d2c4a75.png">
+
+#### Edit User Profile
+
+<img width="600" alt="Screen Shot 2021-06-23 at 10 11 19 AM" src="https://user-images.githubusercontent.com/68264128/123179757-44626e00-d447-11eb-8aae-c9cca29c0892.png">
 
 #### Mobile Responsive (mobile view):
 
-![Mobile Responsive](https://user-images.githubusercontent.com/68264128/106074195-a3a29900-60c8-11eb-8e4b-8bd9cab75fa0.png)
+![Mobile Responsive]()
 
 
 <details>
