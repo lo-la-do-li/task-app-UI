@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core';
-import Fab from '@material-ui/core/Fab';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;

@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorkerRegistration';
 // import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-console.log('hello')
 ReactDOM.render(
 	<BrowserRouter basename='/'>
 		<App />

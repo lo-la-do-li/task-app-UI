@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../../common/context';
 import userAPI from '../../api/user';
 import AccessError from '../../ui/AccessError';
 import User from '../../utils/userClass';
 import '../Login/Login.css';
-import logo from '../../ui/images/icons-512.png';
+import logo from '../../ui/images/checkbox.png';
 
 const SignUp = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);

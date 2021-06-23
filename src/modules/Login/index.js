@@ -5,7 +5,7 @@ import AppContext from '../../common/context';
 import AccessError from '../../ui/AccessError';
 import './Login.css';
 import User from '../../utils/userClass';
-import logo from '../../ui/images/icons-512.png'
+import logo from '../../ui/images/checkbox.png'
 
 const Login = ({ setToken }) => {
 	const [state, dispatch] = useContext(AppContext);
