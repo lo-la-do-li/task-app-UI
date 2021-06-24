@@ -9,23 +9,20 @@ import { getDate } from '../../utils';
 import TaskGrid from '../TaskGrid';
 import AppContext from '../../common/context';
 import TaskForm from '../../ui/modal/TaskForm';
+import Ellipses from '../../ui/loading/Ellipses';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
-		// height: '100vh',
-		// minWidth: '240px',
 		borderRadius: '20px',
 		[theme.breakpoints.down('900')]: {
-			// paddingTop: '4vh',
 			overflow: 'scroll',
 		},
 	},
 	header: {
 		display: 'flex',
-		// alignItems: 'center',
 		padding: '10px 40px 20px 40px',
 		justifyContent: 'space-between',
 		width: '100%',
@@ -47,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		textAlign: 'center',
-		// width: 'inherit'
 	},
 	addButton: {
 		display: 'flex',
@@ -56,9 +52,6 @@ const useStyles = makeStyles((theme) => ({
 		padding: '10px',
 	},
 	dateBox: {
-		// margin: `${theme.spacing(2)}px auto`,
-		// display: 'flex',
-		// flexDirection: 'column',
 		borderRadius: '20px',
 		padding: '20px',
 		fontFamily: 'Source Sans Pro',
@@ -76,7 +69,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	weekday: {
 		color: '#888892',
-		//#888892
 		fontFamily: 'Martel Sans',
 		fontWeight: 'bold',
 		fontSize: '16px',
@@ -100,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = ({ token }) => {
 	const [state, dispatch] = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false)
   const [sortToDo, setSortToDo] = useState('asc')
   const [sortDone, setSortDone] = useState('desc');
@@ -133,13 +126,15 @@ const Home = ({ token }) => {
   }
 
 	const getTasks = async (query, sort, type) => {
-		if (token) {
+    setIsLoading(true);
+    if (token) {
 			await taskAPI
 				.getTasks(query, sort, token)
 				.then((data) => setTasksInState(type, data));
 		} else {
 			return setTasksInState([]);
 		}
+    setIsLoading(false);
 	};
 
 	const setTasksInState = (type, tasks) => {
@@ -164,22 +159,15 @@ const Home = ({ token }) => {
     return getDate(today);
   }
 
+  
 	return (
 		<div className={classes.root}>
 			<Container className={classes.header}>
-				<Paper
-				className={classes.dateBox}
-				>
-					<div
-						className={classes.date}
-					>
+				<Paper className={classes.dateBox}>
+					<div className={classes.date}>
 						{`${getTodayDate()[0]} ${getTodayDate()[1]}`}
 					</div>
-					<div
-						className={classes.weekday}
-					>
-						{getTodayDate()[2]}
-					</div>
+					<div className={classes.weekday}>{getTodayDate()[2]}</div>
 				</Paper>
 
 				<Paper
@@ -197,7 +185,6 @@ const Home = ({ token }) => {
 						submitAction={submitNewTask}
 						button={
 							<div className={classes.addButton}>
-								{/* <span className={classes.title}>Add a task</span> */}
 								<Fab onClick={handleClickOpen} className={classes.fab}>
 									<AddIcon />
 								</Fab>
@@ -207,24 +194,32 @@ const Home = ({ token }) => {
 				</Paper>
 			</Container>
 
-			<Container className={classes.container}>
-				<TaskGrid
-					title={'TO DO'}
-					tasks={state.toDo}
-					sort={sortToDo}
-					handleSort={handleSort}
-					updateTaskGrids={updateTaskGrids}
-					emptyMessage={"Add tasks using the + button"}
-				/>
-				<TaskGrid
-					title={'DONE'}
-					tasks={state.completed}
-					sort={sortDone}
-					handleSort={handleSort}
-					updateTaskGrids={updateTaskGrids}
-					emptyMessage={"You haven't completed any tasks yet"}
-				/>
-			</Container>
+			{isLoading ? (
+				<Container style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+					<span className={classes.date}>Loading your tasks</span>
+
+					<Ellipses type='balls' color='#000000' />
+				</Container>
+			) : (
+				<Container className={classes.container}>
+					<TaskGrid
+						title={'TO DO'}
+						tasks={state.toDo}
+						sort={sortToDo}
+						handleSort={handleSort}
+						updateTaskGrids={updateTaskGrids}
+						emptyMessage={'Add tasks using the + button'}
+					/>
+					<TaskGrid
+						title={'DONE'}
+						tasks={state.completed}
+						sort={sortDone}
+						handleSort={handleSort}
+						updateTaskGrids={updateTaskGrids}
+						emptyMessage={"You haven't completed any tasks yet"}
+					/>
+				</Container>
+			)}
 		</div>
 	);
 };
