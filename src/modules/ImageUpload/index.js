@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 		paddingTop: '.7em',
 		position: 'relative',
 		'& img': {
-			// border: '1px solid black',
 			borderRadius: '50%',
 			width: '200px',
 			height: '200px',
@@ -163,14 +162,14 @@ const ImageUpload = ({ checkAvatar, handleClose }) => {
 					className={classes.input}
 					id='icon-button-file'
 					type='file'
-					capture='environment'
+					capture='camera'
 					onChange={(e) => handleCapture(e.target)}
 				/>
 				<label htmlFor='icon-button-file'>
 			
 					<Fab className={classes.button} component='span' variant='extended'>
 						<PhotoLibraryRoundedIcon className={classes.extendedIcon} />
-						Select an image
+						Select/Capture
 					</Fab>
 
 				</label>
