@@ -55,12 +55,11 @@ Task App allows users to create an account, log in, and add/remove/update/delete
 
 #### Edit User Profile
 
-<img width="600" alt="Screen Shot 2021-06-23 at 10 11 19 AM" src="https://user-images.githubusercontent.com/68264128/123179757-44626e00-d447-11eb-8aae-c9cca29c0892.png">
+<img width="600" alt="Screen Shot 2021-06-24 at 3 06 37 PM" src="https://user-images.githubusercontent.com/68264128/123332549-df1d8400-d4fd-11eb-8d66-1cd4d49859c6.png">
 
 #### Mobile Responsive (mobile view):
 
-![Mobile Responsive]()
-
+<img width="200" alt="Screen Shot 2021-06-23 at 9 54 50 AM" src="https://user-images.githubusercontent.com/68264128/123333029-7be02180-d4fe-11eb-8637-fd43bc7535e6.png">
 
 <details>
   <summary>Setup</summary>
@@ -87,7 +86,7 @@ With more time, I would like to:
 
 ## Contributor
 
-<img src="https://media-exp1.licdn.com/dms/image/C4E03AQG9jZTOd0oUCQ/profile-displayphoto-shrink_800_800/0/1606070086923?e=1616025600&v=beta&t=WldtPrGc57mSEiAJkFaYGVq9Ksc0uqBmFLFR11fQUs4" alt="Lola Dolinsky"
+<img src="https://user-images.githubusercontent.com/68264128/123333644-3cfe9b80-d4ff-11eb-8e59-ffd88f8669c8.jpeg" alt="Lola Dolinsky"
  width="150" height="auto" />
 
 - [Lola Dolinsky](https://github.com/lo-la-do-li)
