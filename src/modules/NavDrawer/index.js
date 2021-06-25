@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
 		color: '#fff',
 		border: 'none',
 		background: '#2b2733',
-		margin: '0px 10px 5px 0px',
+		margin: '0px 20px 5px 0px',
 		alignSelf: 'flex-end',
 		position: 'absolute',
 		cursor: 'pointer',
